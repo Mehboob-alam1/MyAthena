@@ -12,14 +12,18 @@ import Resonance from "./pages/Resonance";
 import ActionableSteps from "./pages/ActionableSteps";
 import Onboarding from "./pages/Onboarding";
 import SessionDetail from "./pages/SessionDetail";
+import { Redirect } from "wouter";
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path="/pillars" component={Pillars} />
-      <Route path={"/onboarding"} component={Onboarding} />
-      <Route path={"/oracle"} component={Oracle} />
+       <Route path="/onboarding" component={Onboarding} />
+      {/* Redirects for old routes to maintain backward compatibility */}
+      <Route path="/journal">{() => <Redirect to="/resonance" />}</Route>
+      <Route path="/forge">{() => <Redirect to="/crucible" />}</Route>
+      <Route path="/oracle" component={Oracle} />
       <Route path={"/crucible"} component={Crucible} />
       <Route path={"/crucible/:id"} component={SessionDetail} />
       <Route path={"/resonance"} component={Resonance} />

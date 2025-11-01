@@ -257,3 +257,12 @@
 - [x] Ensure all pages use golden/white fonts matching landing page - Crucible complete
 - [x] Add interactive AI features to all three pillars
 - [x] Test all Four Pillars navigation and functionality
+
+## Fix Old Route Redirects (Backward Compatibility)
+
+- [x] Add redirect from /journal to /resonance in App.tsx
+- [x] Add redirect from /forge to /crucible in App.tsx
+- [x] Add redirect from /onboarding to /actionable-steps in App.tsx (not needed - /onboarding still exists)
+- [x] Test /journal route returns 200 and redirects properly
+- [x] Test /forge route returns 200 and redirects properly
+- [x] Test /onboarding route returns 200 and redirects properly (not needed - route still exists)
