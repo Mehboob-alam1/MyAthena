@@ -5,6 +5,7 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import Pillars from "./pages/Pillars";
 import Oracle from "./pages/Oracle";
 import Forge from "./pages/Forge";
 import Journal from "./pages/Journal";
@@ -15,6 +16,7 @@ function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path="/pillars" component={Pillars} />
       <Route path={"/onboarding"} component={Onboarding} />
       <Route path={"/oracle"} component={Oracle} />
       <Route path={"/forge"} component={Forge} />
