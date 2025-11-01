@@ -184,3 +184,26 @@
 - [x] Ensure light theme colors are rendering properly
 - [x] Force light mode by removing dark theme styles
 - [x] Test page in browser to verify white background displays
+
+
+## API Error Fix
+- [ ] Fix tRPC endpoint returning HTML instead of JSON
+- [ ] Verify API routes are properly configured
+- [ ] Test all tRPC queries to ensure they return valid JSON
+
+
+## Four Pillars Redesign - Major Update
+- [x] Scrape Psychology Today articles for practical wisdom and case studies
+- [x] Scrape Reddit r/psychology, r/Stoicism, r/Jung, r/NLP for real-world scenarios
+- [x] Research and document actionable frameworks from scraped content
+- [x] Build enhanced wisdom knowledge database with practical scenarios
+- [x] Rename "The Forge" to "Precision Guidance" 
+- [x] Design new pillar: "A System That Gets You" (empathetic understanding)
+- [x] Design new pillar: "Actionable Steps" (behavioral change framework)
+- [x] Update landing page copy to new tagline about Stoicism, Jung, neuroscience, quantum consciousness
+- [x] Redesign landing page with dark background and vibrant accent colors
+- [x] Implement Four Pillars card layout (matching ClarityAI.life style)
+- [ ] Build Actionable Steps component with step-by-step guidance
+- [ ] Integrate Actionable Steps with Oracle conversations
+- [ ] Create RAG system for wisdom database retrieval
+- [ ] Test Four Pillars user flow end-to-end
