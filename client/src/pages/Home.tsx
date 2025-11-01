@@ -15,36 +15,34 @@ import {
   Shield,
   Lightbulb,
   Target,
+  MessageCircle,
 } from "lucide-react";
 import { Link } from "wouter";
 
 export default function Home() {
   const { user, loading, isAuthenticated } = useAuth();
 
-  const modalities = [
+  const pillars = [
     {
-      icon: Brain,
+      icon: MessageCircle,
       title: "The Oracle",
       description: "AI-powered coaching synthesizing wisdom from Stoics, Jung, Dispenza, and modern neuroscience",
-      gradient: "from-amber-400 via-amber-500 to-orange-500",
       link: "/oracle",
-      iconBg: "bg-gradient-to-br from-amber-400 to-orange-500",
+      color: "#f59e0b", // amber-500
     },
     {
       icon: Sparkles,
       title: "The Forge",
       description: "Guided sessions from Gateway Experience, Sedona Method, NLP, and hypnotherapy masters",
-      gradient: "from-purple-400 via-purple-500 to-pink-500",
       link: "/forge",
-      iconBg: "bg-gradient-to-br from-purple-500 to-pink-500",
+      color: "#a855f7", // purple-500
     },
     {
       icon: BookOpen,
       title: "The Journal",
       description: "AI-powered reflection prompts for shadow work, emotional release, and integration",
-      gradient: "from-blue-400 via-blue-500 to-cyan-500",
       link: "/journal",
-      iconBg: "bg-gradient-to-br from-blue-500 to-cyan-500",
+      color: "#3b82f6", // blue-500
     },
   ];
 
@@ -62,68 +60,99 @@ export default function Home() {
       name: "Sarah M.",
       role: "Entrepreneur",
       content: "MyAthena helped me integrate 20 years of personal development into daily practice. The Oracle's wisdom is profound.",
-      rating: 5,
       avatar: "S",
     },
     {
       name: "Michael R.",
       role: "Therapist",
       content: "As a professional, I'm impressed by the depth of psychological frameworks. The Forge sessions are transformative.",
-      rating: 5,
       avatar: "M",
     },
     {
       name: "Elena K.",
       role: "Life Coach",
       content: "The combination of Stoicism, NLP, and quantum physics creates a unique approach I haven't found elsewhere.",
-      rating: 5,
       avatar: "E",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-amber-50/30 to-white">
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(to bottom, #ffffff 0%, #fef3c7 50%, #ffffff 100%)',
+    }}>
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 shadow-sm">
-        <div className="container">
-          <div className="flex items-center justify-between h-16">
+      <nav style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(12px)',
+        borderBottom: '1px solid rgba(229, 231, 235, 0.5)',
+        boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+      }}>
+        <div className="container" style={{maxWidth: '1280px', margin: '0 auto', padding: '0 1rem'}}>
+          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px'}}>
             <Link href="/">
-              <div className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 text-white" />
+              <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', transition: 'opacity 0.2s'}}
+                   onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
+                   onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '8px',
+                  background: 'linear-gradient(135deg, #f59e0b, #ea580c)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  <Sparkles style={{width: '20px', height: '20px', color: 'white'}} />
                 </div>
-                <span className="text-xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                <span style={{
+                  fontSize: '1.25rem',
+                  fontWeight: 'bold',
+                  background: 'linear-gradient(to right, #d97706, #ea580c)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}>
                   MyAthena.life
                 </span>
               </div>
             </Link>
 
-            <div className="flex items-center gap-3">
+            <div style={{display: 'flex', alignItems: 'center', gap: '0.75rem'}}>
               {isAuthenticated ? (
                 <>
-                  <Link href="/oracle">
-                    <div><Button variant="ghost" size="sm" className="text-gray-700 hover:text-amber-600">Oracle</Button></div>
-                  </Link>
-                  <Link href="/forge">
-                    <div><Button variant="ghost" size="sm" className="text-gray-700 hover:text-amber-600">Forge</Button></div>
-                  </Link>
-                  <Link href="/journal">
-                    <div><Button variant="ghost" size="sm" className="text-gray-700 hover:text-amber-600">Journal</Button></div>
-                  </Link>
-                  <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 border border-amber-200">
-                    <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-                    <span className="text-sm font-medium text-amber-900">{user?.name || "User"}</span>
+                  <Link href="/oracle"><div><Button variant="ghost" size="sm">Oracle</Button></div></Link>
+                  <Link href="/forge"><div><Button variant="ghost" size="sm">Forge</Button></div></Link>
+                  <Link href="/journal"><div><Button variant="ghost" size="sm">Journal</Button></div></Link>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: '0.5rem 1rem',
+                    borderRadius: '9999px',
+                    backgroundColor: '#fef3c7',
+                    border: '1px solid #fde68a',
+                  }}>
+                    <div style={{width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#f59e0b', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'}} />
+                    <span style={{fontSize: '0.875rem', fontWeight: '500', color: '#78350f'}}>{user?.name || "User"}</span>
                   </div>
                 </>
               ) : (
                 <>
-                  <Link href="/forge">
-                    <div><Button variant="ghost" size="sm" className="text-gray-700 hover:text-amber-600">Explore</Button></div>
-                  </Link>
+                  <Link href="/forge"><div><Button variant="ghost" size="sm">Explore</Button></div></Link>
                   <a href={getLoginUrl()}>
-                    <Button size="sm" className="bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 shadow-lg shadow-amber-500/30 border-0">
+                    <Button size="sm" style={{
+                      background: 'linear-gradient(to right, #f59e0b, #ea580c)',
+                      color: 'white',
+                      border: 'none',
+                      boxShadow: '0 10px 15px -3px rgba(245, 158, 11, 0.3)',
+                    }}>
                       Get Started
-                      <ArrowRight className="w-4 h-4 ml-2" />
+                      <ArrowRight style={{width: '16px', height: '16px', marginLeft: '0.5rem'}} />
                     </Button>
                   </a>
                 </>
@@ -134,74 +163,119 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-200/30 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-200/30 rounded-full blur-3xl" />
-        </div>
-        
-        <div className="container relative">
-          <div className="max-w-4xl mx-auto text-center">
+      <section style={{position: 'relative', paddingTop: '8rem', paddingBottom: '6rem', overflow: 'hidden'}}>
+        <div className="container" style={{maxWidth: '1024px', margin: '0 auto', padding: '0 1rem', position: 'relative'}}>
+          <div style={{maxWidth: '56rem', margin: '0 auto', textAlign: 'center'}}>
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-amber-200 shadow-sm mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-              <Sparkles className="w-4 h-4 text-amber-500" />
-              <span className="text-sm font-semibold text-gray-700">The Ultimate AI Life Coach</span>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              padding: '0.5rem 1rem',
+              borderRadius: '9999px',
+              backgroundColor: 'white',
+              border: '1px solid #fde68a',
+              boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+              marginBottom: '2rem',
+            }}>
+              <Sparkles style={{width: '16px', height: '16px', color: '#f59e0b'}} />
+              <span style={{fontSize: '0.875rem', fontWeight: '600', color: '#374151'}}>The Ultimate AI Life Coach</span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-gray-900 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
+            <h1 style={{
+              fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+              fontWeight: 'bold',
+              marginBottom: '1.5rem',
+              lineHeight: '1.1',
+              color: '#111827',
+            }}>
               Transform Your Life with
-              <span className="block mt-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 bg-clip-text text-transparent">
+              <span style={{
+                display: 'block',
+                marginTop: '0.75rem',
+                background: 'linear-gradient(to right, #f59e0b, #ea580c, #f59e0b)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}>
                 Ancient Wisdom & Modern AI
               </span>
             </h1>
 
             {/* Subheadline */}
-            <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+            <p style={{
+              fontSize: 'clamp(1.125rem, 2vw, 1.5rem)',
+              color: '#6b7280',
+              marginBottom: '2.5rem',
+              maxWidth: '48rem',
+              margin: '0 auto 2.5rem',
+              lineHeight: '1.6',
+            }}>
               Synthesizing 30+ years of expertise from Stoicism, Jungian psychology, NLP, hypnotherapy, 
               neuroscience, and quantum consciousness into your personal transformation journey.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginBottom: '3rem'}}>
               {isAuthenticated ? (
                 <Link href="/oracle">
-                  <Button size="lg" className="bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 shadow-xl shadow-amber-500/30 text-lg h-14 px-8 border-0">
-                    <Brain className="w-5 h-5 mr-2" />
+                  <Button size="lg" style={{
+                    background: 'linear-gradient(to right, #f59e0b, #ea580c)',
+                    color: 'white',
+                    fontSize: '1.125rem',
+                    height: '3.5rem',
+                    padding: '0 2rem',
+                    border: 'none',
+                    boxShadow: '0 20px 25px -5px rgba(245, 158, 11, 0.3)',
+                  }}>
+                    <Brain style={{width: '20px', height: '20px', marginRight: '0.5rem'}} />
                     Talk to The Oracle
                   </Button>
                 </Link>
               ) : (
                 <a href={getLoginUrl()}>
-                  <Button size="lg" className="bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 shadow-xl shadow-amber-500/30 text-lg h-14 px-8 border-0">
-                    <Sparkles className="w-5 h-5 mr-2" />
+                  <Button size="lg" style={{
+                    background: 'linear-gradient(to right, #f59e0b, #ea580c)',
+                    color: 'white',
+                    fontSize: '1.125rem',
+                    height: '3.5rem',
+                    padding: '0 2rem',
+                    border: 'none',
+                    boxShadow: '0 20px 25px -5px rgba(245, 158, 11, 0.3)',
+                  }}>
+                    <Sparkles style={{width: '20px', height: '20px', marginRight: '0.5rem'}} />
                     Begin Your Journey
                   </Button>
                 </a>
               )}
               
               <Link href="/forge">
-                <Button size="lg" variant="outline" className="text-lg h-14 px-8 border-2 border-gray-300 hover:border-amber-500 hover:bg-amber-50 text-gray-700">
-                  <BookOpen className="w-5 h-5 mr-2" />
+                <Button size="lg" variant="outline" style={{
+                  fontSize: '1.125rem',
+                  height: '3.5rem',
+                  padding: '0 2rem',
+                  border: '2px solid #d1d5db',
+                  backgroundColor: 'white',
+                }}>
+                  <BookOpen style={{width: '20px', height: '20px', marginRight: '0.5rem'}} />
                   Explore Sessions
                 </Button>
               </Link>
             </div>
 
             {/* Trust Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-gray-600 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-amber-500" />
-                <span className="font-medium">Free to start</span>
+            <div style={{display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '2rem', fontSize: '0.875rem', color: '#6b7280'}}>
+              <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                <CheckCircle2 style={{width: '20px', height: '20px', color: '#f59e0b'}} />
+                <span style={{fontWeight: '500'}}>Free to start</span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-amber-500" />
-                <span className="font-medium">No credit card required</span>
+              <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                <CheckCircle2 style={{width: '20px', height: '20px', color: '#f59e0b'}} />
+                <span style={{fontWeight: '500'}}>No credit card required</span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-amber-500" />
-                <span className="font-medium">Cancel anytime</span>
+              <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                <CheckCircle2 style={{width: '20px', height: '20px', color: '#f59e0b'}} />
+                <span style={{fontWeight: '500'}}>Cancel anytime</span>
               </div>
             </div>
           </div>
@@ -209,40 +283,63 @@ export default function Home() {
       </section>
 
       {/* Three Pillars */}
-      <section className="py-24 bg-white">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+      <section style={{padding: '6rem 0', backgroundColor: 'white'}}>
+        <div className="container" style={{maxWidth: '1280px', margin: '0 auto', padding: '0 1rem'}}>
+          <div style={{textAlign: 'center', marginBottom: '4rem'}}>
+            <h2 style={{fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 'bold', marginBottom: '1rem', color: '#111827'}}>
               Three Pillars of Transformation
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p style={{fontSize: '1.25rem', color: '#6b7280', maxWidth: '42rem', margin: '0 auto'}}>
               A comprehensive system designed to facilitate profound, lasting change across all dimensions of your being
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {modalities.map((modality, index) => {
-              const Icon = modality.icon;
+          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '1152px', margin: '0 auto'}}>
+            {pillars.map((pillar, index) => {
+              const Icon = pillar.icon;
               return (
-                <Link key={index} href={modality.link}>
-                  <div className="group cursor-pointer h-full">
-                    <div className="relative p-8 rounded-2xl bg-white border-2 border-gray-200 hover:border-amber-300 hover:shadow-2xl hover:shadow-amber-500/10 hover:-translate-y-2 transition-all duration-300 h-full">
-                      {/* Icon */}
-                      <div className={`w-16 h-16 rounded-xl ${modality.iconBg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
-                        <Icon className="w-8 h-8 text-white" />
-                      </div>
-                      
-                      {/* Content */}
-                      <h3 className="text-2xl font-bold mb-3 text-gray-900">{modality.title}</h3>
-                      <p className="text-gray-600 leading-relaxed mb-6">
-                        {modality.description}
-                      </p>
-                      
-                      {/* CTA */}
-                      <div className="flex items-center text-amber-600 font-semibold group-hover:gap-3 gap-2 transition-all">
-                        <span>Explore</span>
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </div>
+                <Link key={index} href={pillar.link}>
+                  <div style={{
+                    padding: '2rem',
+                    borderRadius: '1rem',
+                    backgroundColor: 'white',
+                    border: '2px solid #e5e7eb',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s',
+                    height: '100%',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = '#fbbf24';
+                    e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(245, 158, 11, 0.1)';
+                    e.currentTarget.style.transform = 'translateY(-8px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = '#e5e7eb';
+                    e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}>
+                    <div style={{
+                      width: '64px',
+                      height: '64px',
+                      borderRadius: '12px',
+                      background: `linear-gradient(135deg, ${pillar.color}, ${pillar.color}dd)`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: '1.5rem',
+                      boxShadow: `0 10px 15px -3px ${pillar.color}40`,
+                    }}>
+                      <Icon style={{width: '32px', height: '32px', color: 'white'}} />
+                    </div>
+                    
+                    <h3 style={{fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.75rem', color: '#111827'}}>{pillar.title}</h3>
+                    <p style={{color: '#6b7280', lineHeight: '1.6', marginBottom: '1.5rem'}}>
+                      {pillar.description}
+                    </p>
+                    
+                    <div style={{display: 'flex', alignItems: 'center', color: '#f59e0b', fontWeight: '600', gap: '0.5rem'}}>
+                      <span>Explore</span>
+                      <ArrowRight style={{width: '16px', height: '16px'}} />
                     </div>
                   </div>
                 </Link>
@@ -253,29 +350,54 @@ export default function Home() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-24 bg-gradient-to-b from-amber-50/50 to-white">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+      <section style={{padding: '6rem 0', background: 'linear-gradient(to bottom, #fffbeb, white)'}}>
+        <div className="container" style={{maxWidth: '1280px', margin: '0 auto', padding: '0 1rem'}}>
+          <div style={{textAlign: 'center', marginBottom: '4rem'}}>
+            <h2 style={{fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 'bold', marginBottom: '1rem', color: '#111827'}}>
               Why MyAthena.life?
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p style={{fontSize: '1.25rem', color: '#6b7280', maxWidth: '42rem', margin: '0 auto'}}>
               The most comprehensive AI life coaching platform, integrating wisdom from ancient philosophers to modern neuroscientists
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', maxWidth: '80rem', margin: '0 auto'}}>
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <div 
-                  key={index} 
-                  className="flex items-start gap-4 p-6 rounded-xl bg-white border border-gray-200 hover:border-amber-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-5 h-5 text-white" />
+                <div key={index} style={{
+                  display: 'flex',
+                  alignItems: 'start',
+                  gap: '1rem',
+                  padding: '1.5rem',
+                  borderRadius: '12px',
+                  backgroundColor: 'white',
+                  border: '1px solid #e5e7eb',
+                  transition: 'all 0.3s',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#fbbf24';
+                  e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '#e5e7eb';
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}>
+                  <div style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '8px',
+                    background: 'linear-gradient(135deg, #fbbf24, #f59e0b)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                  }}>
+                    <Icon style={{width: '20px', height: '20px', color: 'white'}} />
                   </div>
-                  <span className="text-gray-700 font-medium leading-relaxed">{feature.text}</span>
+                  <span style={{color: '#374151', fontWeight: '500', lineHeight: '1.6'}}>{feature.text}</span>
                 </div>
               );
             })}
@@ -284,43 +406,65 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 bg-white">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+      <section style={{padding: '6rem 0', backgroundColor: 'white'}}>
+        <div className="container" style={{maxWidth: '1280px', margin: '0 auto', padding: '0 1rem'}}>
+          <div style={{textAlign: 'center', marginBottom: '4rem'}}>
+            <h2 style={{fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 'bold', marginBottom: '1rem', color: '#111827'}}>
               Trusted by Transformation Seekers
             </h2>
-            <p className="text-xl text-gray-600">
+            <p style={{fontSize: '1.25rem', color: '#6b7280'}}>
               Join thousands discovering their highest potential
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '1152px', margin: '0 auto'}}>
             {testimonials.map((testimonial, index) => (
-              <div 
-                key={index} 
-                className="p-8 rounded-2xl bg-white border-2 border-gray-200 hover:border-amber-300 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-              >
-                {/* Stars */}
-                <div className="flex gap-1 mb-6">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
+              <div key={index} style={{
+                padding: '2rem',
+                borderRadius: '1rem',
+                backgroundColor: 'white',
+                border: '2px solid #e5e7eb',
+                transition: 'all 0.3s',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#fbbf24';
+                e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1)';
+                e.currentTarget.style.transform = 'translateY(-4px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = '#e5e7eb';
+                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}>
+                <div style={{display: 'flex', gap: '0.25rem', marginBottom: '1.5rem'}}>
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} style={{width: '20px', height: '20px', fill: '#fbbf24', color: '#fbbf24'}} />
                   ))}
                 </div>
                 
-                {/* Quote */}
-                <p className="text-gray-700 mb-6 leading-relaxed text-lg">
+                <p style={{color: '#374151', marginBottom: '1.5rem', lineHeight: '1.6', fontSize: '1.125rem'}}>
                   "{testimonial.content}"
                 </p>
                 
-                {/* Author */}
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                <div style={{display: 'flex', alignItems: 'center', gap: '0.75rem'}}>
+                  <div style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #fbbf24, #f59e0b)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontWeight: 'bold',
+                    fontSize: '1.125rem',
+                    boxShadow: '0 10px 15px -3px rgba(245, 158, 11, 0.3)',
+                  }}>
                     {testimonial.avatar}
                   </div>
                   <div>
-                    <div className="font-bold text-gray-900">{testimonial.name}</div>
-                    <div className="text-sm text-gray-600">{testimonial.role}</div>
+                    <div style={{fontWeight: 'bold', color: '#111827'}}>{testimonial.name}</div>
+                    <div style={{fontSize: '0.875rem', color: '#6b7280'}}>{testimonial.role}</div>
                   </div>
                 </div>
               </div>
@@ -330,31 +474,43 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 relative overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-amber-50">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-amber-300/30 rounded-full blur-3xl" />
-        </div>
-        
-        <div className="container relative">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+      <section style={{padding: '6rem 0', position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, #fffbeb, #fef3c7, #fffbeb)'}}>
+        <div className="container" style={{maxWidth: '768px', margin: '0 auto', padding: '0 1rem', position: 'relative'}}>
+          <div style={{maxWidth: '48rem', margin: '0 auto', textAlign: 'center'}}>
+            <h2 style={{fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 'bold', marginBottom: '1.5rem', color: '#111827'}}>
               Ready to Transform Your Life?
             </h2>
-            <p className="text-xl text-gray-600 mb-10">
+            <p style={{fontSize: '1.25rem', color: '#6b7280', marginBottom: '2.5rem'}}>
               Start your journey today with 5 free AI coaching sessions. No credit card required.
             </p>
             
             {isAuthenticated ? (
               <Link href="/oracle">
-                <Button size="lg" className="bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 shadow-xl shadow-amber-500/30 text-lg h-14 px-8 border-0">
-                  <Brain className="w-5 h-5 mr-2" />
+                <Button size="lg" style={{
+                  background: 'linear-gradient(to right, #f59e0b, #ea580c)',
+                  color: 'white',
+                  fontSize: '1.125rem',
+                  height: '3.5rem',
+                  padding: '0 2rem',
+                  border: 'none',
+                  boxShadow: '0 20px 25px -5px rgba(245, 158, 11, 0.3)',
+                }}>
+                  <Brain style={{width: '20px', height: '20px', marginRight: '0.5rem'}} />
                   Start Coaching Now
                 </Button>
               </Link>
             ) : (
               <a href={getLoginUrl()}>
-                <Button size="lg" className="bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 shadow-xl shadow-amber-500/30 text-lg h-14 px-8 border-0">
-                  <Sparkles className="w-5 h-5 mr-2" />
+                <Button size="lg" style={{
+                  background: 'linear-gradient(to right, #f59e0b, #ea580c)',
+                  color: 'white',
+                  fontSize: '1.125rem',
+                  height: '3.5rem',
+                  padding: '0 2rem',
+                  border: 'none',
+                  boxShadow: '0 20px 25px -5px rgba(245, 158, 11, 0.3)',
+                }}>
+                  <Sparkles style={{width: '20px', height: '20px', marginRight: '0.5rem'}} />
                   Begin Free Trial
                 </Button>
               </a>
@@ -364,26 +520,40 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-white border-t border-gray-200">
-        <div className="container">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-white" />
+      <footer style={{padding: '3rem 0', backgroundColor: 'white', borderTop: '1px solid #e5e7eb'}}>
+        <div className="container" style={{maxWidth: '1280px', margin: '0 auto', padding: '0 1rem'}}>
+          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', gap: '1.5rem'}}>
+            <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+              <div style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '8px',
+                background: 'linear-gradient(135deg, #f59e0b, #ea580c)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <Sparkles style={{width: '20px', height: '20px', color: 'white'}} />
               </div>
-              <span className="font-bold text-lg bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+              <span style={{
+                fontWeight: 'bold',
+                fontSize: '1.125rem',
+                background: 'linear-gradient(to right, #d97706, #ea580c)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}>
                 MyAthena.life
               </span>
             </div>
             
-            <div className="text-sm text-gray-600">
+            <div style={{fontSize: '0.875rem', color: '#6b7280'}}>
               © 2025 MyAthena.life. Empowering transformation through wisdom and AI.
             </div>
             
-            <div className="flex items-center gap-6 text-sm text-gray-600">
-              <a href="#" className="hover:text-amber-600 transition-colors font-medium">Privacy</a>
-              <a href="#" className="hover:text-amber-600 transition-colors font-medium">Terms</a>
-              <a href="#" className="hover:text-amber-600 transition-colors font-medium">Contact</a>
+            <div style={{display: 'flex', alignItems: 'center', gap: '1.5rem', fontSize: '0.875rem', color: '#6b7280'}}>
+              <a href="#" style={{fontWeight: '500', transition: 'color 0.2s'}} onMouseEnter={(e) => e.currentTarget.style.color = '#f59e0b'} onMouseLeave={(e) => e.currentTarget.style.color = '#6b7280'}>Privacy</a>
+              <a href="#" style={{fontWeight: '500', transition: 'color 0.2s'}} onMouseEnter={(e) => e.currentTarget.style.color = '#f59e0b'} onMouseLeave={(e) => e.currentTarget.style.color = '#6b7280'}>Terms</a>
+              <a href="#" style={{fontWeight: '500', transition: 'color 0.2s'}} onMouseEnter={(e) => e.currentTarget.style.color = '#f59e0b'} onMouseLeave={(e) => e.currentTarget.style.color = '#6b7280'}>Contact</a>
             </div>
           </div>
         </div>

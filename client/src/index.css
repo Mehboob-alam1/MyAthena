@@ -119,6 +119,15 @@
     outline-color: hsl(var(--ring) / 0.5);
   }
   
+  html {
+    background-color: white;
+  }
+  
+  body {
+    background-color: white;
+    color: #1a1a1a;
+  }
+  
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
