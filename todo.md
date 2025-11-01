@@ -235,3 +235,25 @@
 - [ ] Test all pages for professional quality and user experience
 - [ ] Ensure generous whitespace and clean spacing throughout
 - [ ] Verify typography hierarchy is clear and professional
+
+
+## Critical Bug Fix - tRPC API Errors on Journal Page
+- [ ] Fix Journal page tRPC API error (Unexpected token '<' - HTML instead of JSON)
+- [ ] Verify journal tRPC procedures are properly registered in routers.ts
+- [ ] Check if journal router exists and is exported
+- [ ] Test journal API endpoints to ensure they return valid JSON
+- [ ] Add error handling for missing procedures
+
+
+## Four Pillars Consistency & Completion - URGENT
+- [x] Fix Crucible button to link to "/crucible" instead of "/forge"
+- [x] Fix Resonance button to link to "/resonance" instead of "/journal"
+- [x] Create Actionable Steps page at "/actionable-steps"
+- [x] Rename Forge.tsx to Crucible.tsx and update all references
+- [x] Create Resonance.tsx as empathetic AI chat (similar to Oracle)
+- [x] Create ActionableSteps.tsx with goal tracking and AI coaching
+- [x] Update all navigation links across all pages to use new names
+- [x] Ensure all pages have dark navy background (#0a0e27) - Crucible complete
+- [x] Ensure all pages use golden/white fonts matching landing page - Crucible complete
+- [x] Add interactive AI features to all three pillars
+- [x] Test all Four Pillars navigation and functionality

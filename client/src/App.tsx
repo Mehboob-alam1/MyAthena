@@ -7,8 +7,9 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Pillars from "./pages/Pillars";
 import Oracle from "./pages/Oracle";
-import Forge from "./pages/Forge";
-import Journal from "./pages/Journal";
+import Crucible from "./pages/Crucible";
+import Resonance from "./pages/Resonance";
+import ActionableSteps from "./pages/ActionableSteps";
 import Onboarding from "./pages/Onboarding";
 import SessionDetail from "./pages/SessionDetail";
 
@@ -19,9 +20,10 @@ function Router() {
       <Route path="/pillars" component={Pillars} />
       <Route path={"/onboarding"} component={Onboarding} />
       <Route path={"/oracle"} component={Oracle} />
-      <Route path={"/forge"} component={Forge} />
-      <Route path={"/forge/:id"} component={SessionDetail} />
-      <Route path={"/journal"} component={Journal} />
+      <Route path={"/crucible"} component={Crucible} />
+      <Route path={"/crucible/:id"} component={SessionDetail} />
+      <Route path={"/resonance"} component={Resonance} />
+      <Route path={"/actionable-steps"} component={ActionableSteps} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

@@ -234,7 +234,7 @@ export default function Pillars() {
               </div>
             </div>
 
-            <Link href="/forge">
+            <Link href="/crucible">
               <Button style={{
                 background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
                 color: '#ffffff',
@@ -346,7 +346,7 @@ export default function Pillars() {
               </div>
             </div>
 
-            <Link href="/journal">
+            <Link href="/resonance">
               <Button style={{
                 background: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)',
                 color: '#ffffff',
@@ -426,7 +426,7 @@ export default function Pillars() {
               </div>
             </div>
 
-            <Link href="/onboarding">
+            <Link href="/actionable-steps">
               <Button style={{
                 background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                 color: '#ffffff',
