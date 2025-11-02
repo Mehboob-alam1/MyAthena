@@ -167,8 +167,8 @@ export default function Home() {
           }}>
             {[
               { icon: Brain, title: 'Ancient Wisdom', desc: 'Synthesized insights from Stoics, Jung, and modern experts' },
-              { icon: Heart, title: 'Empathetic Understanding', desc: 'Feel truly seen and heard by AI that connects with your core' },
-              { icon: TrendingUp, title: 'Actionable Steps', desc: 'Move from insight to real, positive change in your life' }
+              { icon: Heart, title: 'Empathetic Understanding', desc: 'See yourself clearly, understand deeply, transform completely' },
+              { icon: TrendingUp, title: 'The Ascent', desc: 'Your personalized climb to greatness with AI-powered guidance' }
             ].map((item, idx) => (
               <div key={idx} style={{
                 background: '#1a1f3a',
@@ -227,8 +227,8 @@ export default function Home() {
             {[
               { icon: Brain, title: 'The Oracle', desc: 'Conversational AI wisdom from history\'s greatest minds', color: '#8b5cf6' },
               { icon: Flame, title: 'The Crucible', desc: 'Guided sessions to forge your highest self', color: '#f59e0b' },
-              { icon: Heart, title: 'Resonance', desc: 'Feel understood at the core of your challenge', color: '#ec4899' },
-              { icon: TrendingUp, title: 'Actionable Steps', desc: 'Small, manageable steps for real change', color: '#10b981' }
+              { icon: Heart, title: 'The Mirror', desc: 'Feel understood at the core of your challenge', color: '#ec4899' },
+              { icon: TrendingUp, title: 'The Ascent', desc: 'Small, manageable steps for real change', color: '#10b981' }
             ].map((pillar, idx) => (
               <div key={idx} style={{
                 background: '#1a1f3a',

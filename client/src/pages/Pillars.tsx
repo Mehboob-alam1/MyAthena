@@ -301,14 +301,14 @@ export default function Pillars() {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
             }}>
-              Resonance
-            </h2>
-            <h3 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '24px', color: '#ffffff' }}>
-              A System That Gets You
-            </h3>
-            <p style={{ fontSize: '20px', lineHeight: 1.6, color: '#a0aec0', marginBottom: '32px' }}>
-              Feel truly seen and heard. Resonance is our AI's ability to connect with the core of your challenge, ensuring you feel honored, understood, and validated. This pillar represents the empathetic foundation that makes all other transformations possible.
-            </p>
+            The Mirror
+          </h2>
+          <h3 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '24px', color: '#ffffff' }}>
+            See Yourself Clearly
+          </h3>
+          <p style={{ fontSize: '20px', lineHeight: 1.6, color: '#a0aec0', marginBottom: '32px' }}>
+            Deep listening that reveals patterns you couldn't see alone. The Mirror reflects your true self with empathy and insight, helping you understand recurring themes in your life. Through AI-powered pattern recognition and self-reflection prompts, discover the wisdom that already lives within you.
+          </p>
             
             <div style={{ marginBottom: '32px' }}>
               <div style={{ display: 'flex', alignItems: 'start', gap: '12px', marginBottom: '16px' }}>
@@ -346,7 +346,7 @@ export default function Pillars() {
               </div>
             </div>
 
-            <Link href="/resonance">
+            <Link href="/mirror">
               <Button style={{
                 background: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)',
                 color: '#ffffff',
@@ -361,14 +361,14 @@ export default function Pillars() {
                 gap: '8px',
                 boxShadow: '0 4px 16px rgba(236, 72, 153, 0.4)'
               }}>
-                Experience Resonance <ArrowRight size={20} />
+                Discover The Mirror <ArrowRight size={20} />
               </Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Pillar 4: Actionable Steps */}
+      {/* Pillar 4: The Ascent */}
       <section style={{ padding: '96px 48px', background: '#0f1229' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
           <div>
@@ -381,13 +381,13 @@ export default function Pillars() {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
             }}>
-              Actionable Steps
+              The Ascent
             </h2>
             <h3 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '24px', color: '#ffffff' }}>
-              From Insight to Action
+              Your Personalized Climb to Greatness
             </h3>
             <p style={{ fontSize: '20px', lineHeight: 1.6, color: '#a0aec0', marginBottom: '32px' }}>
-              Move from insight to real, positive change in your life. Actionable Steps helps you identify small, manageable actions you can take today to create lasting transformation. Based on proven behavior change psychology and goal-setting frameworks.
+              Transform insight into action with AI-powered goal tracking and personalized action plans. The Ascent guides your climb with daily micro-exercises, progress visualization, and an always-available AI coach to help you get unstuck. Every great journey begins with a single step.
             </p>
             
             <div style={{ marginBottom: '32px' }}>
@@ -426,7 +426,7 @@ export default function Pillars() {
               </div>
             </div>
 
-            <Link href="/actionable-steps">
+            <Link href="/ascent">
               <Button style={{
                 background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                 color: '#ffffff',
@@ -441,7 +441,7 @@ export default function Pillars() {
                 gap: '8px',
                 boxShadow: '0 4px 16px rgba(16, 185, 129, 0.4)'
               }}>
-                Start Taking Action <ArrowRight size={20} />
+                Begin The Ascent <ArrowRight size={20} />
               </Button>
             </Link>
           </div>

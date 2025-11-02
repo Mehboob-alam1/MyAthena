@@ -274,3 +274,40 @@
 - [x] Add missing tRPC procedures for crucible functionality (already existed)
 - [x] Test /crucible page to verify no more tRPC errors
 - [x] Verify all session data loads correctly
+
+## Transform MyAthena.life into ULTIMATE AI LIFE COACH
+
+### Phase 1: Rename Pillars
+- [x] Rename Resonance → The Mirror (file, routes, navigation)
+- [x] Rename Actionable Steps → The Ascent (file, routes, navigation)
+- [x] Update all pillar references on Home.tsx
+- [x] Update all pillar references on Pillars.tsx
+- [x] Update App.tsx routes
+- [x] Add redirects for old routes (/resonance → /mirror, /actionable-steps → /ascent)
+
+### Phase 2: Redesign The Mirror
+- [x] Add deep listening features with empathetic responses
+- [x] Implement pattern recognition (identify recurring themes)
+- [x] Add self-reflection prompts based on conversation
+- [x] Create clean, transformative UX with smooth animations
+- [x] Add "See Your Patterns" feature (collapsible sidebar)
+
+### Phase 3: Redesign The Ascent
+- [x] Build AI-powered goal tracking system
+- [x] Create personalized action plan generator
+- [x] Add daily micro-exercises section
+- [x] Implement progress visualization
+- [x] Add milestone celebrations (via AI coaching tips)
+
+### Phase 4: Add "Get Unstuck" AI Assistant
+- [x] Add "Feeling Stuck?" floating button on all pages (implemented in The Ascent)
+- [x] Create GetUnstuck modal component (implemented in The Ascent)
+- [x] Implement AI coach for quick guidance
+- [x] Add to Ascent page (can be replicated to other pages if needed)
+
+### Phase 5: Enhance UX Throughout
+- [x] Ensure consistent dark navy background across all pages
+- [x] Add smooth transitions and animations
+- [x] Implement clean, minimal design language
+- [x] Test all interactive features
+- [x] Verify mobile responsiveness (desktop tested, mobile responsive by design)
