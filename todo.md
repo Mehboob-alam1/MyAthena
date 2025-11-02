@@ -266,3 +266,11 @@
 - [x] Test /journal route returns 200 and redirects properly
 - [x] Test /forge route returns 200 and redirects properly
 - [x] Test /onboarding route returns 200 and redirects properly (not needed - route still exists)
+
+## Fix tRPC Errors on Crucible Page
+
+- [x] Investigate Crucible.tsx to identify which tRPC queries are being called
+- [x] Check server/routers.ts to see if crucible endpoints exist
+- [x] Add missing tRPC procedures for crucible functionality (already existed)
+- [x] Test /crucible page to verify no more tRPC errors
+- [x] Verify all session data loads correctly
