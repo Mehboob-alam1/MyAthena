@@ -311,3 +311,65 @@
 - [x] Implement clean, minimal design language
 - [x] Test all interactive features
 - [x] Verify mobile responsiveness (desktop tested, mobile responsive by design)
+
+## Add Insights Feature to The Mirror
+
+### Phase 1: Database Schema
+- [ ] Create `mirrorInsights` table in drizzle/schema.ts
+- [ ] Add fields: id, userId, content, category, timestamp, createdAt
+- [ ] Run `pnpm db:push` to create table
+
+### Phase 2: Backend API
+- [ ] Add `getMirrorInsights` query in server/db.ts
+- [ ] Add `saveMirrorInsight` mutation in server/db.ts
+- [ ] Add `deleteMirrorInsight` mutation in server/db.ts
+- [ ] Create `mirror` router in server/routers.ts with CRUD procedures
+
+### Phase 3: Frontend UI
+- [ ] Add "Save Insight" button in Mirror.tsx chat interface
+- [ ] Create category selector (Personal Growth, Relationships, Career, Health, Emotions)
+- [ ] Build Saved Insights Library component
+- [ ] Add search and filter functionality
+- [ ] Implement delete insight functionality
+
+### Phase 4: Testing
+- [ ] Test saving insights from conversation
+- [ ] Test viewing saved insights by category
+- [ ] Test deleting insights
+- [ ] Verify all data persists correctly
+
+## Prepare Project for GitHub Export
+
+### Phase 1: Create README.md
+- [x] Write project overview and mission
+- [x] Document Four Pillars features
+- [x] Add setup instructions for developers
+- [x] Include tech stack information
+- [x] Add screenshots/demo links (can be added later)
+
+### Phase 2: Create .gitignore
+- [x] Exclude node_modules
+- [x] Exclude .env files
+- [x] Exclude build artifacts
+- [x] Exclude IDE-specific files
+
+### Phase 3: Create CONTRIBUTING.md
+- [x] Write collaboration guidelines
+- [x] Document code style and conventions
+- [x] Explain pull request process
+- [x] Add commit message guidelines
+
+### Phase 4: Create .env.example
+- [x] List all required environment variables
+- [x] Add descriptions for each variable
+- [x] Provide example values (non-sensitive)
+
+### Phase 5: Create Documentation
+- [x] Write deployment guide
+- [x] Document database setup
+- [x] Explain Manus-specific features
+
+### Phase 6: Final Steps
+- [x] Test all documentation
+- [x] Save checkpoint (in progress)
+- [x] Provide GitHub export instructions
