@@ -373,3 +373,35 @@
 - [x] Test all documentation
 - [x] Save checkpoint (in progress)
 - [x] Provide GitHub export instructions
+
+## Redesign The Ascent - Full Interactivity
+
+### Phase 1: New Goal Modal
+- [x] Create NewGoalModal component with multi-step wizard
+- [x] Add AI-powered goal clarification questions
+- [x] Implement category selection (Wellness, Career, Relationships, etc.)
+- [x] Add milestone breakdown feature
+- [x] Create first action step generator
+- [ ] Save goal to database via tRPC
+
+### Phase 2: Enhanced Get Unstuck Feature
+- [x] Redesign GetUnstuck modal for multi-turn conversation
+- [x] Integrate Oracle knowledge base (Stoicism, Jung, NLP, Hypnotherapy)
+- [x] Add clarifying questions from AI
+- [x] Implement action plan generation
+- [x] Add follow-up suggestions
+- [x] Create conversation history
+
+### Phase 3: Backend API
+- [ ] Add `goals.create` tRPC mutation
+- [ ] Add `coaching.getUnstuck` tRPC mutation with Oracle knowledge
+- [ ] Add `coaching.clarifyGoal` tRPC mutation
+- [ ] Create goals table in database schema
+- [ ] Add database helpers for goal CRUD
+
+### Phase 4: Testing
+- [ ] Test New Goal creation flow end-to-end
+- [ ] Test Get Unstuck conversation flow
+- [ ] Verify Oracle knowledge integration
+- [ ] Test goal saving and retrieval
+- [ ] Verify all interactive features work
