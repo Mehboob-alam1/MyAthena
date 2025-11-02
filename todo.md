@@ -405,3 +405,74 @@
 - [ ] Verify Oracle knowledge integration
 - [ ] Test goal saving and retrieval
 - [ ] Verify all interactive features work
+
+## Transform The Crucible into Premium Masterclass Library
+
+### Phase 1: Research Content
+- [ ] Research Joe Dispenza's brain-heart coherence teachings
+- [ ] Research Tony Robbins' state change mastery content
+- [ ] Research Carl Jung's shadow work integration process
+- [ ] Research quantum consciousness and reality creation
+- [ ] Research Bruce Lipton's epigenetic transformation
+- [ ] Save research findings to files
+
+### Phase 2: Create Masterclass Content
+- [ ] Keep existing Stoic Dichotomy of Control (15 min)
+- [ ] Write Brain-Heart Coherence masterclass (20 min) - Joe Dispenza
+- [ ] Write Master Your Inner State masterclass (30 min) - Tony Robbins
+- [ ] Write Shadow Integration Process masterclass (25 min) - Carl Jung
+- [ ] Write Quantum Consciousness masterclass (30 min)
+- [ ] Write Epigenetic Transformation masterclass (20 min) - Bruce Lipton
+
+### Phase 3: Update Database
+- [ ] Update guidedSessions table schema if needed
+- [ ] Create seed data for 6 masterclasses
+- [ ] Run database migration
+- [ ] Verify all masterclasses load correctly
+
+### Phase 4: Redesign Crucible Page
+- [ ] Redesign as premium masterclass library
+- [ ] Add "Worth $10,000+ in seminars" messaging
+- [ ] Create instructor cards with photos and credentials
+- [ ] Add category filters (Stoicism, Neuroscience, Psychology, etc.)
+- [ ] Implement progress tracking for each masterclass
+- [ ] Create professional, clean layout
+- [ ] Add masterclass detail pages with full content
+
+### Phase 5: Testing
+- [ ] Test all 6 masterclasses load correctly
+- [ ] Test progress tracking
+- [ ] Test navigation between masterclasses
+- [ ] Verify professional design quality
+- [ ] Save checkpoint
+
+## Transform The Crucible into Premium Masterclass Library - COMPLETE ✅
+
+### Phase 1: Research Masterclasses
+- [x] Research Joe Dispenza's Brain-Heart Coherence teachings
+- [x] Research Tony Robbins' State Mastery techniques
+- [x] Research Carl Jung's Shadow Integration
+- [x] Research Quantum Consciousness
+- [x] Research Bruce Lipton's Epigenetics
+
+### Phase 2: Database & Content
+- [x] Update database schema for 6 masterclasses with new categories
+- [x] Add instructor field to guidedSessions table
+- [x] Insert all 6 masterclasses into database
+
+### Phase 3: Redesign Crucible Page
+- [x] Redesign Crucible page as premium masterclass library
+- [x] Add hero section with "Worth $10,000+" messaging
+- [x] Add category badges with emojis (🏛️ 🧠 🚀 🔮 ⚛️ 🧬)
+- [x] Add instructor names to cards
+- [x] Create "What You'll Gain" value proposition section
+- [x] Add gradient card designs with hover effects
+- [x] Test all 6 masterclasses display correctly
+
+**6 Masterclasses Created:**
+1. The Stoic Dichotomy of Control (15 min) - Epictetus & Marcus Aurelius
+2. Brain-Heart Coherence (20 min) - Dr. Joe Dispenza
+3. Master Your Inner State (30 min) - Tony Robbins
+4. The Shadow Integration Process (25 min) - Carl Jung
+5. Quantum Consciousness & Reality Creation (30 min) - Quantum Physics Pioneers
+6. Epigenetic Transformation (20 min) - Dr. Bruce Lipton

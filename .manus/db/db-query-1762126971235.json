@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO guidedSessions (title, description, category, instructor, contentType, contentText, durationMinutes, createdAt, updatedAt)\nVALUES (\n  'The Stoic Dichotomy of Control',\n  'Master the foundational Stoic practice of distinguishing between what you can control and what you cannot. This ancient wisdom is the key to reducing anxiety and finding inner peace.',\n  'stoic',\n  'Epictetus & Marcus Aurelius',\n  'text',\n  'Full masterclass content available in the app',\n  15,\n  NOW(),\n  NOW()\n)",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2UaYXxqnWP7h8Zw.root --database AAm9i3vH3AgpuSuS3syfSb --execute INSERT INTO guidedSessions (title, description, category, instructor, contentType, contentText, durationMinutes, createdAt, updatedAt)\nVALUES (\n  'The Stoic Dichotomy of Control',\n  'Master the foundational Stoic practice of distinguishing between what you can control and what you cannot. This ancient wisdom is the key to reducing anxiety and finding inner peace.',\n  'stoic',\n  'Epictetus & Marcus Aurelius',\n  'text',\n  'Full masterclass content available in the app',\n  15,\n  NOW(),\n  NOW()\n)",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1531
+}

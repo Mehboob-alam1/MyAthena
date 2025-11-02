@@ -1,0 +1,2 @@
+ALTER TABLE `guidedSessions` MODIFY COLUMN `category` enum('stoic','neuroscience','psychology','quantum_physics','epigenetics','personal_development') NOT NULL;--> statement-breakpoint
+ALTER TABLE `guidedSessions` ADD `instructor` varchar(255);

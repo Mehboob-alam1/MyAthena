@@ -15,6 +15,13 @@
       "when": 1762001301212,
       "tag": "0001_amusing_violations",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1762126654928,
+      "tag": "0002_gray_mathemanic",
+      "breakpoints": true
     }
   ]
 }

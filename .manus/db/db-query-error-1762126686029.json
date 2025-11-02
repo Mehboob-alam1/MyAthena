@@ -1,0 +1,8 @@
+{
+  "query": "UPDATE guidedSessions SET category = 'personal_development' WHERE category = 'goal_setting'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2UaYXxqnWP7h8Zw.root --database AAm9i3vH3AgpuSuS3syfSb --execute UPDATE guidedSessions SET category = 'personal_development' WHERE category = 'goal_setting'",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1265 (01000) at line 1: Data truncated for column '%s' at row %d"
+  ]
+}
