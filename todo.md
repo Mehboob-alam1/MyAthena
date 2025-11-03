@@ -476,3 +476,80 @@
 4. The Shadow Integration Process (25 min) - Carl Jung
 5. Quantum Consciousness & Reality Creation (30 min) - Quantum Physics Pioneers
 6. Epigenetic Transformation (20 min) - Dr. Bruce Lipton
+
+## Redesign The Crucible - Sequential Transformation Journey
+
+### Phase 1: Database Schema
+- [ ] Delete old 6 masterclass sessions from database
+- [ ] Create new schema for 4 Crucible sessions with sequential order
+- [ ] Add fields: sessionNumber, isLocked, completionStatus
+- [ ] Add crucibleProgress table to track user journey
+- [ ] Run `pnpm db:push` to update schema
+
+### Phase 2: Crucible Landing Page
+- [ ] Design hero section with "Where the old you dissolves" tagline
+- [ ] Add 4 session cards with lock/unlock states
+- [ ] Show progress indicator (0/4 sessions complete)
+- [ ] Add "Enter The Crucible" CTA button
+- [ ] Design professional, clean, smooth UI
+
+### Phase 3: Session 1 - The Fire of Awareness
+- [ ] Create session page with Athena's dialogue
+- [ ] Add breathing exercise component (4-4-6 pattern)
+- [ ] Implement "Flame of Awareness" guided meditation
+- [ ] Add journal prompts section
+- [ ] Create AI conversation for belief identification
+- [ ] Add "Complete Session" button
+
+### Phase 4: Session 2 - The Art of Release
+- [ ] Create session page with release dialogue
+- [ ] Implement "River Meditation" visualization
+- [ ] Add Sedona Method-inspired release practice
+- [ ] Create emotional release AI guidance
+- [ ] Add journal prompts for forgiveness
+- [ ] Add optional "Athena Journal" prompt
+
+### Phase 5: Session 3 - The Reprogramming
+- [ ] Create session page with Future Self dialogue
+- [ ] Implement "Future Self Activation" visualization
+- [ ] Add AI-generated "Future Self Blueprint"
+- [ ] Create downloadable affirmation script
+- [ ] Add journal prompts for identity design
+- [ ] Implement neural reprogramming guidance
+
+### Phase 6: Session 4 - The Embodiment
+- [ ] Create session page with embodiment dialogue
+- [ ] Implement "Daily Alignment Ritual" component
+- [ ] Add "Embodiment Tracker" for daily wins
+- [ ] Create AI accountability check-ins
+- [ ] Add journal prompts for integration
+- [ ] Design completion celebration
+
+### Phase 7: Progress & Sequential Access
+- [ ] Implement session locking (can't skip ahead)
+- [ ] Add progress tracking across all 4 sessions
+- [ ] Create completion badges and milestones
+- [ ] Add "Continue Journey" button on landing page
+- [ ] Store user progress in database
+
+### Phase 8: Testing
+- [ ] Test complete 4-session flow
+- [ ] Verify sequential unlocking works
+- [ ] Test all AI dialogues and breathing exercises
+- [ ] Verify journal prompts save correctly
+- [ ] Test mobile responsiveness
+- [ ] Save checkpoint
+
+
+## Home Page Redesign - Path of Transformation
+- [x] Redesign Home landing page with new hero: "THE ULTIMATE AI LIFE COACH"
+- [x] Add subtitle: "The Path of Transformation"
+- [x] Create 4-stage transformation quadrant layout (Clarity, Remembrance, Alignment, Integration)
+- [x] Design Stage 1: Clarity - See What Is (🔮 icon)
+- [x] Design Stage 2: Remembrance - Know Who You Are (✨ icon)
+- [x] Design Stage 3: Alignment - Live in Truth (⚖️ icon)
+- [x] Design Stage 4: Integration - Become the Embodied Self (🌅 icon)
+- [x] Add CTA buttons for each stage to ask Athena questions
+- [x] Implement clean, professional, balanced quadrant design
+- [x] Add subtle animations and progress flow
+- [x] Test redesigned page for visual balance and user experience

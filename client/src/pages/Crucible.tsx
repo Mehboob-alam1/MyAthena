@@ -1,403 +1,260 @@
 import { useAuth } from "@/_core/hooks/useAuth";
-import { APP_LOGO, getLoginUrl } from "@/const";
 import { Button } from "@/components/ui/button";
+import { APP_LOGO, getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
-import { Flame, Clock, CheckCircle2, Loader2, BookOpen, GraduationCap, Sparkles } from "lucide-react";
-import { Link } from "wouter";
+import { Flame, Lock, Sparkles, Waves, Zap, Loader2 } from "lucide-react";
+import { Link, useLocation } from "wouter";
+
+const sessionIcons = {
+  1: Flame,
+  2: Waves,
+  3: Zap,
+  4: Sparkles,
+};
+
+const sessionColors = {
+  1: "from-orange-500 to-red-600",
+  2: "from-blue-400 to-cyan-500",
+  3: "from-purple-500 to-pink-600",
+  4: "from-yellow-400 to-orange-500",
+};
 
 export default function Crucible() {
-  const { user, loading: authLoading, isAuthenticated } = useAuth();
+  const { user, loading } = useAuth();
+  const [, setLocation] = useLocation();
+  
   const { data: sessions, isLoading } = trpc.forge.list.useQuery();
   const { data: completions } = trpc.forge.completions.useQuery(undefined, {
-    enabled: isAuthenticated,
+    enabled: !!user,
   });
 
-  const completedSessionIds = new Set(completions?.map(c => c.sessionId) || []);
+  const completedSessionIds = new Set(completions?.map((c) => c.sessionId) || []);
+  const completedCount = completedSessionIds.size;
 
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case "stoic":
-        return "from-indigo-500 to-purple-600";
-      case "neuroscience":
-        return "from-blue-500 to-cyan-600";
-      case "psychology":
-        return "from-purple-500 to-pink-600";
-      case "quantum_physics":
-        return "from-violet-500 to-fuchsia-600";
-      case "epigenetics":
-        return "from-green-500 to-emerald-600";
-      case "personal_development":
-        return "from-orange-500 to-red-600";
-      default:
-        return "from-gray-500 to-gray-600";
-    }
-  };
-
-  const getCategoryLabel = (category: string) => {
-    const labels: Record<string, string> = {
-      stoic: "Stoicism",
-      neuroscience: "Neuroscience",
-      psychology: "Psychology",
-      quantum_physics: "Quantum Physics",
-      epigenetics: "Epigenetics",
-      personal_development: "Personal Development"
-    };
-    return labels[category] || category;
-  };
-
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case "stoic":
-        return "🏛️";
-      case "neuroscience":
-        return "🧠";
-      case "psychology":
-        return "🔮";
-      case "quantum_physics":
-        return "⚛️";
-      case "epigenetics":
-        return "🧬";
-      case "personal_development":
-        return "🚀";
-      default:
-        return "📚";
-    }
-  };
-
-  if (authLoading) {
+  if (loading || isLoading) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0a0e27', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Loader2 size={40} color="#fbbf24" style={{ animation: 'spin 1s linear infinite' }} />
+      <div className="min-h-screen bg-[#0a0e27] flex items-center justify-center">
+        <Loader2 className="w-10 h-10 text-amber-400 animate-spin" />
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0a0e27', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '48px' }}>
-        <div style={{ textAlign: 'center', maxWidth: '600px' }}>
-          <Flame size={80} color="#f59e0b" style={{ margin: '0 auto 24px' }} />
-          <h1 style={{ fontSize: '48px', fontWeight: '700', color: '#ffffff', marginBottom: '16px' }}>
-            The Crucible
-          </h1>
-          <p style={{ fontSize: '20px', color: '#9ca3af', marginBottom: '32px' }}>
-            Access world-class masterclasses from legendary teachers. Please sign in to continue.
-          </p>
-          <Button
-            onClick={() => window.location.href = getLoginUrl()}
-            style={{
-              background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-              color: '#ffffff',
-              padding: '16px 32px',
-              fontSize: '18px',
-              fontWeight: '600',
-              border: 'none',
-              borderRadius: '12px',
-              cursor: 'pointer'
-            }}
-          >
-            Sign In to Access
-          </Button>
+      <div className="min-h-screen bg-[#0a0e27] flex flex-col">
+        <nav className="border-b border-white/10 bg-[#0a0e27]/80 backdrop-blur-sm">
+          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+            <Link href="/">
+              <a className="flex items-center gap-2">
+                <img src={APP_LOGO} alt="MyAthena" className="h-8" />
+                <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
+                  MyAthena.life
+                </span>
+              </a>
+            </Link>
+            <div className="flex items-center gap-6">
+              <Link href="/">
+                <a className="text-gray-300 hover:text-white transition-colors">Home</a>
+              </Link>
+              <Link href="/pillars">
+                <a className="text-gray-300 hover:text-white transition-colors">Four Pillars</a>
+              </Link>
+              <Link href="/oracle">
+                <a className="text-gray-300 hover:text-white transition-colors">Oracle</a>
+              </Link>
+              <Button
+                onClick={() => (window.location.href = getLoginUrl())}
+                className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700"
+              >
+                Sign In
+              </Button>
+            </div>
+          </div>
+        </nav>
+
+        <div className="flex-1 flex items-center justify-center px-4">
+          <div className="text-center max-w-md">
+            <Flame className="w-16 h-16 mx-auto mb-4 text-orange-500" />
+            <h2 className="text-2xl font-bold text-white mb-4">Sign In Required</h2>
+            <p className="text-gray-400 mb-6">
+              The Crucible is a transformative journey. Please sign in to begin.
+            </p>
+            <Button
+              onClick={() => (window.location.href = getLoginUrl())}
+              className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700"
+            >
+              Sign In to Continue
+            </Button>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0e27' }}>
+    <div className="min-h-screen bg-[#0a0e27]">
       {/* Navigation */}
-      <nav style={{
-        background: 'rgba(10, 14, 39, 0.95)',
-        borderBottom: '1px solid rgba(251, 191, 36, 0.1)',
-        padding: '16px 32px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        position: 'sticky',
-        top: 0,
-        zIndex: 50,
-        backdropFilter: 'blur(12px)'
-      }}>
-        <Link href="/">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
-            <img src={APP_LOGO} alt="MyAthena.life" style={{ height: '32px' }} />
-            <span style={{ fontSize: '24px', fontWeight: '700', background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              MyAthena.life
-            </span>
+      <nav className="border-b border-white/10 bg-[#0a0e27]/80 backdrop-blur-sm">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <Link href="/">
+            <a className="flex items-center gap-2">
+              <img src={APP_LOGO} alt="MyAthena" className="h-8" />
+              <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
+                MyAthena.life
+              </span>
+            </a>
+          </Link>
+          <div className="flex items-center gap-6">
+            <Link href="/">
+              <a className="text-gray-300 hover:text-white transition-colors">Home</a>
+            </Link>
+            <Link href="/pillars">
+              <a className="text-gray-300 hover:text-white transition-colors">Four Pillars</a>
+            </Link>
+            <Link href="/oracle">
+              <a className="text-gray-300 hover:text-white transition-colors">Oracle</a>
+            </Link>
+            <span className="text-gray-400">Welcome, {user.name}</span>
           </div>
-        </Link>
-        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
-          <Link href="/"><span style={{ color: '#9ca3af', cursor: 'pointer', fontSize: '16px' }}>Home</span></Link>
-          <Link href="/pillars"><span style={{ color: '#9ca3af', cursor: 'pointer', fontSize: '16px' }}>Four Pillars</span></Link>
-          <Link href="/oracle"><span style={{ color: '#9ca3af', cursor: 'pointer', fontSize: '16px' }}>Oracle</span></Link>
-          <span style={{ color: '#ffffff', fontSize: '16px' }}>Welcome, {user.name}</span>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <div style={{ padding: '80px 32px 40px', textAlign: 'center', maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{
-          width: '120px',
-          height: '120px',
-          borderRadius: '50%',
-          background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          margin: '0 auto 32px',
-          boxShadow: '0 20px 60px rgba(245, 158, 11, 0.4)'
-        }}>
-          <GraduationCap size={60} color="#ffffff" />
-        </div>
-        
-        <h1 style={{
-          fontSize: '56px',
-          fontWeight: '700',
-          background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          marginBottom: '24px',
-          letterSpacing: '-0.02em'
-        }}>
-          The Crucible
-        </h1>
-        
-        <p style={{
-          fontSize: '24px',
-          color: '#d1d5db',
-          marginBottom: '16px',
-          fontWeight: '300',
-          lineHeight: '1.6'
-        }}>
-          Premium Masterclass Library
-        </p>
-
-        <p style={{
-          fontSize: '18px',
-          color: '#9ca3af',
-          marginBottom: '32px',
-          maxWidth: '800px',
-          margin: '0 auto 32px',
-          lineHeight: '1.8'
-        }}>
-          Access transformational teachings from the world's greatest minds—from ancient Stoics to quantum physicists. 
-          <span style={{ color: '#fbbf24', fontWeight: '600' }}> Worth $10,000+ in seminars</span>, now available as part of your MyAthena.life membership.
-        </p>
-
-        <div style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '12px',
-          background: 'rgba(251, 191, 36, 0.1)',
-          padding: '16px 32px',
-          borderRadius: '12px',
-          border: '1px solid rgba(251, 191, 36, 0.2)'
-        }}>
-          <Sparkles size={24} color="#fbbf24" />
-          <span style={{ color: '#fbbf24', fontSize: '18px', fontWeight: '600' }}>
-            6 Foundational Masterclasses
-          </span>
-        </div>
-      </div>
-
-      {/* Masterclasses Grid */}
-      <div style={{ padding: '40px 32px 80px', maxWidth: '1400px', margin: '0 auto' }}>
-        {isLoading ? (
-          <div style={{ display: 'flex', justifyContent: 'center', padding: '80px 0' }}>
-            <Loader2 size={40} color="#fbbf24" style={{ animation: 'spin 1s linear infinite' }} />
+      <div className="container mx-auto px-4 py-16">
+        <div className="text-center max-w-4xl mx-auto mb-16">
+          <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-orange-500 to-red-600 mb-6 shadow-lg shadow-orange-500/50">
+            <Flame className="w-12 h-12 text-white" />
           </div>
-        ) : (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))',
-            gap: '32px'
-          }}>
-            {sessions?.map((session) => {
-              const isCompleted = completedSessionIds.has(session.id);
-              const categoryGradient = getCategoryColor(session.category);
-              const categoryIcon = getCategoryIcon(session.category);
+          
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-red-600">
+              The Crucible
+            </span>
+          </h1>
+          
+          <p className="text-2xl text-amber-400 mb-6 font-light">
+            The fire that forges your highest self.
+          </p>
+          
+          <p className="text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto">
+            The Crucible is your inner training ground — where truth meets transformation. 
+            Through guided self-inquiry, energy alignment, and deep awareness practices, you will 
+            dissolve old patterns and awaken your true power. Each session invites you to face 
+            yourself with courage, compassion, and clarity.
+          </p>
 
-              return (
-                <Link key={session.id} href={`/crucible/${session.id}`}>
-                  <div style={{
-                    background: 'rgba(15, 23, 42, 0.6)',
-                    border: '1px solid rgba(251, 191, 36, 0.1)',
-                    borderRadius: '16px',
-                    padding: '32px',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.3)';
-                    e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.1)';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                  >
-                    {/* Category Badge */}
-                    <div style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '8px 16px',
-                      borderRadius: '8px',
-                      background: `linear-gradient(135deg, ${categoryGradient})`,
-                      fontSize: '14px',
-                      fontWeight: '600',
-                      color: '#ffffff',
-                      marginBottom: '20px',
-                      alignSelf: 'flex-start'
-                    }}>
-                      <span>{categoryIcon}</span>
-                      <span>{getCategoryLabel(session.category)}</span>
-                    </div>
+          {/* Progress Indicator */}
+          <div className="mt-8 inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10">
+            <Sparkles className="w-5 h-5 text-amber-400" />
+            <span className="text-white font-medium">
+              {completedCount}/4 Sessions Complete
+            </span>
+          </div>
+        </div>
 
-                    {/* Title */}
-                    <h3 style={{
-                      fontSize: '24px',
-                      fontWeight: '700',
-                      color: '#ffffff',
-                      marginBottom: '12px',
-                      lineHeight: '1.3'
-                    }}>
-                      {session.title}
-                    </h3>
+        {/* Session Cards */}
+        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-12">
+          {sessions?.map((session, index) => {
+            const sessionNumber = index + 1;
+            const Icon = sessionIcons[sessionNumber as keyof typeof sessionIcons];
+            const gradientColor = sessionColors[sessionNumber as keyof typeof sessionColors];
+            const isCompleted = completedSessionIds.has(session.id);
+            const isLocked = sessionNumber > 1 && !completedSessionIds.has(sessions[index - 1].id);
 
-                    {/* Instructor */}
-                    {session.instructor && (
-                      <p style={{
-                        fontSize: '16px',
-                        color: '#fbbf24',
-                        marginBottom: '16px',
-                        fontWeight: '500'
-                      }}>
-                        with {session.instructor}
-                      </p>
-                    )}
-
-                    {/* Description */}
-                    <p style={{
-                      fontSize: '16px',
-                      color: '#9ca3af',
-                      marginBottom: '24px',
-                      lineHeight: '1.6',
-                      flex: 1
-                    }}>
-                      {session.description}
-                    </p>
-
-                    {/* Footer */}
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      paddingTop: '20px',
-                      borderTop: '1px solid rgba(251, 191, 36, 0.1)'
-                    }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <Clock size={18} color="#9ca3af" />
-                        <span style={{ color: '#9ca3af', fontSize: '14px' }}>
-                          {session.durationMinutes} minutes
-                        </span>
+            return (
+              <div
+                key={session.id}
+                className={`relative group rounded-2xl overflow-hidden transition-all duration-300 ${
+                  isLocked
+                    ? "opacity-60 cursor-not-allowed"
+                    : "hover:scale-105 hover:shadow-2xl cursor-pointer"
+                }`}
+              >
+                {/* Gradient Border */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${gradientColor} opacity-20 group-hover:opacity-30 transition-opacity`} />
+                
+                {/* Card Content */}
+                <div className="relative bg-[#0f1535] border border-white/10 rounded-2xl p-6 h-full">
+                  {/* Lock Overlay */}
+                  {isLocked && (
+                    <div className="absolute inset-0 bg-black/40 backdrop-blur-sm rounded-2xl flex items-center justify-center z-10">
+                      <div className="text-center">
+                        <Lock className="w-12 h-12 text-white/60 mx-auto mb-2" />
+                        <p className="text-white/80 font-medium">
+                          Complete Session {sessionNumber - 1} First
+                        </p>
                       </div>
-
-                      {isCompleted ? (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <CheckCircle2 size={20} color="#10b981" />
-                          <span style={{ color: '#10b981', fontSize: '14px', fontWeight: '600' }}>
-                            Completed
-                          </span>
-                        </div>
-                      ) : (
-                        <Button style={{
-                          background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
-                          color: '#ffffff',
-                          padding: '8px 20px',
-                          fontSize: '14px',
-                          fontWeight: '600',
-                          border: 'none',
-                          borderRadius: '8px',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '8px'
-                        }}>
-                          <BookOpen size={16} />
-                          Start Masterclass
-                        </Button>
-                      )}
                     </div>
+                  )}
+
+                  {/* Session Icon */}
+                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br ${gradientColor} mb-4`}>
+                    <Icon className="w-8 h-8 text-white" />
                   </div>
-                </Link>
-              );
-            })}
-          </div>
-        )}
 
-        {/* Empty State */}
-        {!isLoading && (!sessions || sessions.length === 0) && (
-          <div style={{ textAlign: 'center', padding: '80px 32px' }}>
-            <Flame size={60} color="#6b7280" style={{ margin: '0 auto 24px', opacity: 0.5 }} />
-            <p style={{ color: '#6b7280', fontSize: '18px' }}>
-              No masterclasses available yet. Check back soon!
-            </p>
-          </div>
-        )}
-      </div>
+                  {/* Session Number & Completion Badge */}
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-sm font-medium text-gray-400">
+                      Session {sessionNumber}
+                    </span>
+                    {isCompleted && (
+                      <span className="px-2 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-medium">
+                        ✓ Completed
+                      </span>
+                    )}
+                  </div>
 
-      {/* Value Proposition */}
-      <div style={{
-        background: 'rgba(251, 191, 36, 0.05)',
-        border: '1px solid rgba(251, 191, 36, 0.1)',
-        borderRadius: '16px',
-        padding: '48px',
-        margin: '0 32px 80px',
-        maxWidth: '1200px',
-        marginLeft: 'auto',
-        marginRight: 'auto'
-      }}>
-        <h2 style={{
-          fontSize: '32px',
-          fontWeight: '700',
-          color: '#ffffff',
-          marginBottom: '24px',
-          textAlign: 'center'
-        }}>
-          What You'll Gain
-        </h2>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '32px',
-          marginTop: '32px'
-        }}>
-          {[
-            { icon: "🏛️", title: "Ancient Wisdom", desc: "Timeless teachings from Stoics and philosophers" },
-            { icon: "🧠", title: "Modern Science", desc: "Latest discoveries in neuroscience and epigenetics" },
-            { icon: "⚛️", title: "Quantum Physics", desc: "How consciousness creates your reality" },
-            { icon: "🚀", title: "Peak Performance", desc: "Master your state with Tony Robbins' methods" },
-            { icon: "🔮", title: "Shadow Work", desc: "Integrate disowned parts with Jungian psychology" },
-            { icon: "💎", title: "Transformation", desc: "Real, lasting change in 20-30 minute sessions" }
-          ].map((item, index) => (
-            <div key={index} style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '48px', marginBottom: '12px' }}>{item.icon}</div>
-              <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#ffffff', marginBottom: '8px' }}>
-                {item.title}
-              </h3>
-              <p style={{ fontSize: '14px', color: '#9ca3af', lineHeight: '1.6' }}>
-                {item.desc}
-              </p>
-            </div>
-          ))}
+                  {/* Title */}
+                  <h3 className="text-2xl font-bold text-white mb-3">
+                    {session.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-400 mb-4 leading-relaxed">
+                    {session.description}
+                  </p>
+
+                  {/* Duration */}
+                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>{session.durationMinutes} minutes</span>
+                  </div>
+
+                  {/* CTA Button */}
+                  {!isLocked && (
+                    <Button
+                      onClick={() => setLocation(`/crucible/${session.id}`)}
+                      className={`w-full bg-gradient-to-r ${gradientColor} hover:opacity-90 transition-opacity`}
+                    >
+                      {isCompleted ? "Review Session" : "Begin Session"}
+                    </Button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Upgrade Prompt */}
+        <div className="max-w-3xl mx-auto text-center p-8 rounded-2xl bg-gradient-to-br from-purple-900/20 to-pink-900/20 border border-purple-500/20">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 mb-4">
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 className="text-2xl font-bold text-white mb-3">
+            Want Audio & Video Guidance?
+          </h3>
+          <p className="text-gray-300 mb-6">
+            Upgrade to <span className="text-purple-400 font-semibold">Premium</span> or{" "}
+            <span className="text-pink-400 font-semibold">Enlightened</span> to unlock immersive 
+            audio and video experiences with Athena's voice guidance.
+          </p>
+          <Button className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700">
+            View Plans
+          </Button>
         </div>
       </div>
     </div>

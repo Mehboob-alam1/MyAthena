@@ -1,7 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { APP_LOGO } from "@/const";
-import { Brain, Flame, Heart, TrendingUp, Check, Star, ArrowRight } from "lucide-react";
+import { Brain, Flame, Heart, TrendingUp, Check, Star, ArrowRight, Eye, Sparkles, Scale, Sunrise } from "lucide-react";
 import { Link } from "wouter";
 
 export default function Home() {
@@ -144,57 +144,199 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Value Proposition */}
+      {/* Path of Transformation */}
       <section style={{ padding: '96px 48px', background: '#0f1229' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <h2 style={{
-            fontSize: '48px',
+            fontSize: '56px',
             fontWeight: 700,
             textAlign: 'center',
-            marginBottom: '64px',
+            marginBottom: '24px',
             background: 'linear-gradient(135deg, #fbbf24 0%, #d4af37 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text'
           }}>
-            The Ultimate AI Life Coach
+            THE ULTIMATE AI LIFE COACH
           </h2>
+
+          <h3 style={{
+            fontSize: '32px',
+            fontWeight: 600,
+            textAlign: 'center',
+            marginBottom: '24px',
+            color: '#ffffff'
+          }}>
+            The Path of Transformation
+          </h3>
+
+          <p style={{
+            fontSize: '20px',
+            textAlign: 'center',
+            color: '#a0aec0',
+            maxWidth: '900px',
+            margin: '0 auto 64px',
+            lineHeight: 1.6
+          }}>
+            Every journey begins within. Athena guides you through four phases of awakening — from confusion to clarity, from memory to embodiment.
+          </p>
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '32px'
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '32px',
+            maxWidth: '1200px',
+            margin: '0 auto'
           }}>
             {[
-              { icon: Brain, title: 'Ancient Wisdom', desc: 'Synthesized insights from Stoics, Jung, and modern experts' },
-              { icon: Heart, title: 'Empathetic Understanding', desc: 'See yourself clearly, understand deeply, transform completely' },
-              { icon: TrendingUp, title: 'The Ascent', desc: 'Your personalized climb to greatness with AI-powered guidance' }
-            ].map((item, idx) => (
+              {
+                icon: Eye,
+                emoji: '🔮',
+                title: 'CLARITY',
+                subtitle: 'See What Is',
+                desc: 'The first step is awareness — to see without distortion. Athena helps you clear the fog of confusion and self-doubt, revealing what\'s truly happening in your inner world. Clarity opens the doorway to wisdom.',
+                question: 'What am I not seeing clearly?',
+                gradient: 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)',
+                bgGradient: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%)'
+              },
+              {
+                icon: Sparkles,
+                emoji: '✨',
+                title: 'REMEMBRANCE',
+                subtitle: 'Know Who You Are',
+                desc: 'Beneath the noise of life, you are not lost — you are infinite. This stage is the sacred remembering: that you are consciousness itself, a fractal of the divine observing its own creation. Through remembrance, your true power reawakens.',
+                question: 'Who am I beyond my story?',
+                gradient: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+                bgGradient: 'linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%)'
+              },
+              {
+                icon: Scale,
+                emoji: '⚖️',
+                title: 'ALIGNMENT',
+                subtitle: 'Live in Truth',
+                desc: 'Once you remember, the next step is to live accordingly. Alignment means your thoughts, emotions, and actions vibrate as one. You stop chasing — you start harmonizing with what already is.',
+                question: 'What\'s out of alignment in my life?',
+                gradient: 'linear-gradient(135deg, #f59e0b 0%, #f97316 100%)',
+                bgGradient: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%)'
+              },
+              {
+                icon: Sunrise,
+                emoji: '🌅',
+                title: 'INTEGRATION',
+                subtitle: 'Become the Embodied Self',
+                desc: 'This is the embodiment — the point where knowing becomes being. You now live as the version of yourself that already exists in the quantum field. Athena helps you bridge insight into daily action until the extraordinary becomes your new normal.',
+                question: 'What would my higher self do right now?',
+                gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                bgGradient: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%)'
+              }
+            ].map((stage, idx) => (
               <div key={idx} style={{
-                background: '#1a1f3a',
-                borderRadius: '16px',
-                padding: '32px',
-                textAlign: 'center',
-                transition: 'transform 0.3s, box-shadow 0.3s'
+                background: stage.bgGradient,
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '24px',
+                padding: '40px',
+                position: 'relative',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.02)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
               }}>
+                {/* Stage Number Badge */}
                 <div style={{
-                  width: '64px',
-                  height: '64px',
+                  position: 'absolute',
+                  top: '20px',
+                  right: '20px',
+                  width: '40px',
+                  height: '40px',
                   borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                  background: 'rgba(255, 255, 255, 0.1)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  margin: '0 auto 24px'
+                  color: '#ffffff',
+                  fontWeight: 700,
+                  fontSize: '18px'
                 }}>
-                  <item.icon size={32} color="#ffffff" />
+                  {idx + 1}
                 </div>
-                <h3 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '16px', color: '#ffffff' }}>
-                  {item.title}
+
+                {/* Icon */}
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '50%',
+                  background: stage.gradient,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '24px',
+                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+                  transition: 'transform 0.3s ease'
+                }}>
+                  <stage.icon size={40} color="#ffffff" />
+                </div>
+
+                {/* Title */}
+                <h3 style={{
+                  fontSize: '32px',
+                  fontWeight: 700,
+                  marginBottom: '8px',
+                  background: stage.gradient,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}>
+                  {stage.title}
                 </h3>
-                <p style={{ fontSize: '16px', lineHeight: 1.6, color: '#a0aec0' }}>
-                  {item.desc}
+
+                {/* Subtitle */}
+                <p style={{
+                  fontSize: '20px',
+                  fontWeight: 600,
+                  color: '#ffffff',
+                  marginBottom: '16px'
+                }}>
+                  {stage.subtitle}
                 </p>
+
+                {/* Description */}
+                <p style={{
+                  fontSize: '16px',
+                  lineHeight: 1.6,
+                  color: '#cbd5e1',
+                  marginBottom: '24px'
+                }}>
+                  {stage.desc}
+                </p>
+
+                {/* CTA Button */}
+                <Link href="/oracle">
+                  <Button style={{
+                    width: '100%',
+                    background: stage.gradient,
+                    color: '#ffffff',
+                    padding: '16px 24px',
+                    borderRadius: '12px',
+                    fontSize: '16px',
+                    fontWeight: 600,
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    transition: 'opacity 0.3s'
+                  }}>
+                    Ask Athena: "{stage.question}"
+                    <ArrowRight size={18} />
+                  </Button>
+                </Link>
               </div>
             ))}
           </div>

@@ -11,7 +11,7 @@ import Crucible from "./pages/Crucible";
 import Mirror from "./pages/Mirror";
 import Ascent from "./pages/Ascent";
 import Onboarding from "./pages/Onboarding";
-import SessionDetail from "./pages/SessionDetail";
+import CrucibleSession from "./pages/CrucibleSession";
 import { Redirect } from "wouter";
 
 function Router() {
@@ -28,7 +28,7 @@ function Router() {
       <Route path="/actionable-steps">{() => <Redirect to="/ascent" />}</Route>
       <Route path="/oracle" component={Oracle} />
       <Route path={"/crucible"} component={Crucible} />
-      <Route path={"/crucible/:id"} component={SessionDetail} />
+      <Route path={"/crucible/:id"} component={CrucibleSession} />
       <Route path="/mirror" component={Mirror} />
       <Route path="/ascent" component={Ascent} />
       <Route path={"/404"} component={NotFound} />
