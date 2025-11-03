@@ -44,23 +44,21 @@ export default function Crucible() {
       <div className="min-h-screen bg-[#0a0e27] flex flex-col">
         <nav className="border-b border-white/10 bg-[#0a0e27]/80 backdrop-blur-sm">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-            <Link href="/">
-              <a className="flex items-center gap-2">
-                <img src={APP_LOGO} alt="MyAthena" className="h-8" />
-                <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
-                  MyAthena.life
-                </span>
-              </a>
+            <Link href="/" className="flex items-center gap-2">
+              <img src={APP_LOGO} alt="MyAthena" className="h-8" />
+              <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
+                MyAthena.life
+              </span>
             </Link>
             <div className="flex items-center gap-6">
-              <Link href="/">
-                <a className="text-gray-300 hover:text-white transition-colors">Home</a>
+              <Link href="/" className="text-gray-300 hover:text-white transition-colors">
+                Home
               </Link>
-              <Link href="/pillars">
-                <a className="text-gray-300 hover:text-white transition-colors">Four Pillars</a>
+              <Link href="/pillars" className="text-gray-300 hover:text-white transition-colors">
+                Four Pillars
               </Link>
-              <Link href="/oracle">
-                <a className="text-gray-300 hover:text-white transition-colors">Oracle</a>
+              <Link href="/oracle" className="text-gray-300 hover:text-white transition-colors">
+                Oracle
               </Link>
               <Button
                 onClick={() => (window.location.href = getLoginUrl())}
@@ -96,23 +94,21 @@ export default function Crucible() {
       {/* Navigation */}
       <nav className="border-b border-white/10 bg-[#0a0e27]/80 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/">
-            <a className="flex items-center gap-2">
-              <img src={APP_LOGO} alt="MyAthena" className="h-8" />
-              <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
-                MyAthena.life
-              </span>
-            </a>
+          <Link href="/" className="flex items-center gap-2">
+            <img src={APP_LOGO} alt="MyAthena" className="h-8" />
+            <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
+              MyAthena.life
+            </span>
           </Link>
           <div className="flex items-center gap-6">
-            <Link href="/">
-              <a className="text-gray-300 hover:text-white transition-colors">Home</a>
+            <Link href="/" className="text-gray-300 hover:text-white transition-colors">
+              Home
             </Link>
-            <Link href="/pillars">
-              <a className="text-gray-300 hover:text-white transition-colors">Four Pillars</a>
+            <Link href="/pillars" className="text-gray-300 hover:text-white transition-colors">
+              Four Pillars
             </Link>
-            <Link href="/oracle">
-              <a className="text-gray-300 hover:text-white transition-colors">Oracle</a>
+            <Link href="/oracle" className="text-gray-300 hover:text-white transition-colors">
+              Oracle
             </Link>
             <span className="text-gray-400">Welcome, {user.name}</span>
           </div>
