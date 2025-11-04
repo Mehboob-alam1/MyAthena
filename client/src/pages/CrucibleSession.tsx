@@ -21,6 +21,13 @@ const sessionColors = {
   4: "from-yellow-400 to-orange-500",
 };
 
+const sessionImages = {
+  1: "/images/sessions/session1-awareness.jpg",
+  2: "/images/sessions/session2-release.jpeg",
+  3: "/images/sessions/session3-recode.jpeg",
+  4: "/images/sessions/session4-integration.jpg",
+};
+
 export default function CrucibleSession() {
   const { id } = useParams();
   const { user, loading: authLoading } = useAuth();
@@ -201,6 +208,17 @@ export default function CrucibleSession() {
             <span>{session.durationMinutes} minutes</span>
           </div>
         </div>
+
+        {/* Hero Image */}
+        {sessionNumber >= 1 && sessionNumber <= 4 && (
+          <div className="mb-12 rounded-2xl overflow-hidden shadow-2xl">
+            <img
+              src={sessionImages[sessionNumber as keyof typeof sessionImages]}
+              alt={session.title}
+              className="w-full h-[400px] object-cover"
+            />
+          </div>
+        )}
 
         {/* Script Content */}
         <div className="bg-[#0f1535] border border-white/10 rounded-2xl p-8 md:p-12 mb-8">

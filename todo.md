@@ -560,3 +560,23 @@
 - [x] Test Crucible page to verify no console errors
 
 - [x] Fix nested <a> tags in CrucibleSession page navigation
+
+
+## Fix Session 1 Visibility & Add Thematic Images
+- [ ] Investigate why Session 1 "The Fire of Awareness" is not showing on Crucible landing page
+- [ ] Fix Session 1 visibility issue
+- [ ] Search and download modern thematic image for Session 1 (Fire of Awareness - meditation, awareness)
+- [ ] Search and download modern thematic image for Session 2 (Releasing the Weight - emotional release)
+- [ ] Search and download modern thematic image for Session 3 (The Recode - transformation, rebirth)
+- [ ] Search and download modern thematic image for Session 4 (The Integration - embodiment, wholeness)
+- [ ] Add images to all 4 session detail pages
+- [ ] Test all 4 sessions to ensure images display correctly
+
+
+## Session Hero Images - Completed ✅
+- [x] Session 1 - The Fire of Awareness: Woman meditating with hand on heart in nature
+- [x] Session 2 - Releasing the Weight: Hands breaking free from ropes against blue sky
+- [x] Session 3 - The Recode: Butterfly metamorphosis stages
+- [x] Session 4 - The Integration: Mind-Body-Spirit Venn diagram
+- [x] All images display correctly on session detail pages
+- [x] All images are thematically appropriate and professional
