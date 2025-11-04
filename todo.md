@@ -558,3 +558,5 @@
 ## Bug Fix - Nested Anchor Tags in Crucible
 - [x] Fix nested <a> tags in Crucible page navigation (Link wrapping <a>)
 - [x] Test Crucible page to verify no console errors
+
+- [x] Fix nested <a> tags in CrucibleSession page navigation

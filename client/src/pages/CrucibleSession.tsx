@@ -150,13 +150,11 @@ export default function CrucibleSession() {
       {/* Navigation */}
       <nav className="border-b border-white/10 bg-[#0a0e27]/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/">
-            <a className="flex items-center gap-2">
-              <img src={APP_LOGO} alt="MyAthena" className="h-8" />
-              <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
-                MyAthena.life
-              </span>
-            </a>
+          <Link href="/" className="flex items-center gap-2">
+            <img src={APP_LOGO} alt="MyAthena" className="h-8" />
+            <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
+              MyAthena.life
+            </span>
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/crucible">
