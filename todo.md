@@ -580,3 +580,40 @@
 - [x] Session 4 - The Integration: Mind-Body-Spirit Venn diagram
 - [x] All images display correctly on session detail pages
 - [x] All images are thematically appropriate and professional
+
+
+## Fix tRPC API Errors on Crucible Session Page
+- [x] Investigate which tRPC queries are failing on /crucible/60001
+- [x] Check if forge.getSessionById endpoint exists in server/routers.ts
+- [x] Check if forge.complete endpoint is properly configured
+- [x] Verify all tRPC procedures return JSON (not HTML)
+- [x] Test Crucible session page to verify no API errors (resolved after server restart)
+
+
+## Transform The Mirror - 100x Deeper Psychological Analysis
+- [ ] Research and document advanced psychological frameworks (Jung, Freud, Adler, Rogers, Perls)
+- [ ] Research modern therapeutic modalities (CBT, ACT, DBT, IFS, Schema Therapy, EMDR)
+- [ ] Research NLP techniques (Meta-Model, Milton Model, Reframing, Anchoring)
+- [ ] Research Hypnotherapy approaches (Ericksonian, regression, parts therapy)
+- [ ] Research trauma-informed approaches (Polyvagal Theory, Somatic Experiencing)
+- [ ] Research existential and spiritual frameworks (Logotherapy, Existential Therapy, Stoicism)
+- [ ] Design comprehensive Mirror system prompt incorporating all frameworks
+- [ ] Add pattern recognition for defense mechanisms (projection, denial, rationalization)
+- [ ] Add linguistic analysis for cognitive distortions (all-or-nothing, catastrophizing, etc.)
+- [ ] Add depth questioning techniques (Socratic method, clean language, miracle question)
+- [ ] Update Mirror subtitle to reflect deep psychological reflection capabilities
+- [ ] Implement enhanced Mirror logic in server/routers.ts
+- [ ] Test Mirror with diverse psychological scenarios
+- [ ] Verify Mirror gives unique, deep, personalized responses each time
+
+
+## Transform The Mirror - 100x Deeper Psychological Analysis ✅
+- [x] Research comprehensive psychological frameworks (Jung, CBT, ACT, DBT, IFS, Schema Therapy, NLP, Hypnotherapy)
+- [x] Create detailed system prompt incorporating all frameworks (mirror-psychology-framework.md)
+- [x] Implement mirror.reflect tRPC endpoint with deep analysis
+- [x] Update Mirror.tsx to call real API instead of hardcoded responses
+- [x] Update Mirror subtitle to reflect enhanced capabilities
+- [x] Update Four Pillars page description for The Mirror
+- [x] Test Mirror with diverse psychological scenarios (perfectionism test passed)
+- [x] Verify responses are specific, not generic (quotes exact words, names specific mechanisms)
+- [x] Ensure 4-part structure: Validation, Pattern Naming, Reframe, Invitation to Depth

@@ -20,6 +20,8 @@ export default function Mirror() {
   const [patterns, setPatterns] = useState<string[]>([]);
   const [showPatterns, setShowPatterns] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  
+  const reflectMutation = trpc.mirror.reflect.useMutation();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -67,19 +69,13 @@ export default function Mirror() {
         setPatterns(newPatterns);
       }
 
-      // Simulate AI response with deeper reflection
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Call the real Mirror API with deep psychological analysis
+      const response = await reflectMutation.mutateAsync({
+        message: userMessage,
+        conversationHistory: messages
+      });
       
-      const responses = [
-        "I hear the weight of what you're carrying. It takes courage to share that. I notice a pattern emerging—let me reflect it back to you so you can see it more clearly.",
-        "Thank you for trusting me with this. Your feelings are completely valid. I'm beginning to see a theme in what you're sharing. Would you like me to help you explore it?",
-        "I can sense the depth of your experience. You're not alone in feeling this way. I'm noticing something important about how you talk about yourself—may I share what I'm seeing?",
-        "That sounds incredibly challenging. I want you to know that your emotions matter. I'm seeing a pattern that might be worth exploring together.",
-        "I'm here with you in this moment. Your vulnerability is a strength. I notice you use certain words repeatedly—they might be showing us something important about your inner world."
-      ];
-      
-      const aiResponse = responses[Math.floor(Math.random() * responses.length)];
-      setMessages(prev => [...prev, { role: 'assistant', content: aiResponse }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: response.message }]);
     } catch (error) {
       toast.error("Failed to send message. Please try again.");
     } finally {
@@ -197,7 +193,7 @@ export default function Mirror() {
               The Mirror
             </h1>
             <p style={{ fontSize: '16px', color: '#a0aec0' }}>
-              See yourself clearly, transform completely
+              Deep psychological analysis that sees patterns you cannot see yourself. Integrating Jung, CBT, ACT, DBT, NLP, Trauma-Informed approaches, and Stoic wisdom.
             </p>
           </div>
 

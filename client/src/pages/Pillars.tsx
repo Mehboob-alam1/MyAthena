@@ -304,10 +304,10 @@ export default function Pillars() {
             The Mirror
           </h2>
           <h3 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '24px', color: '#ffffff' }}>
-            See Yourself Clearly
+            Deep Psychological Analysis That Sees What You Cannot See Yourself
           </h3>
           <p style={{ fontSize: '20px', lineHeight: 1.6, color: '#a0aec0', marginBottom: '32px' }}>
-            Deep listening that reveals patterns you couldn't see alone. The Mirror reflects your true self with empathy and insight, helping you understand recurring themes in your life. Through AI-powered pattern recognition and self-reflection prompts, discover the wisdom that already lives within you.
+            The deepest psychological analysis tool in MyAthena. The Mirror acts as a team of world-class psychologists who can identify defense mechanisms, cognitive distortions, shadow projections, and unconscious patterns. Integrating frameworks from Jung, Freud, CBT, ACT, DBT, IFS, Schema Therapy, NLP, Hypnotherapy, Trauma-Informed approaches, and Stoic philosophy. Every response reveals patterns you've never seen before.
           </p>
             
             <div style={{ marginBottom: '32px' }}>
