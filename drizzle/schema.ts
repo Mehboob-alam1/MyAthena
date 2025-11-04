@@ -94,7 +94,7 @@ export const userGoals = mysqlTable("userGoals", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull().unique(),
   primaryGoal: text("primaryGoal"),
-  primaryStruggle: mysqlEnum("primaryStruggle", ["self_worth", "anxiety", "career", "relationships", "purpose", "trauma", "other"]),
+  primaryStruggle: mysqlEnum("primaryStruggle", ["money", "self_worth", "anxiety", "career", "relationships", "purpose", "trauma", "other"]),
   subscriptionTier: mysqlEnum("subscriptionTier", ["free", "standard", "premium"]).default("free").notNull(),
   dailyMessageCount: int("dailyMessageCount").default(0).notNull(),
   lastMessageDate: timestamp("lastMessageDate"),

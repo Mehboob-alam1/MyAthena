@@ -1,0 +1,1 @@
+ALTER TABLE `userGoals` MODIFY COLUMN `primaryStruggle` enum('money','self_worth','anxiety','career','relationships','purpose','trauma','other');
