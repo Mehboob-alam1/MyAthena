@@ -343,93 +343,410 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Four Pillars Preview */}
-      <section style={{ padding: '96px 48px' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-            <h2 style={{
-              fontSize: '48px',
-              fontWeight: 700,
-              marginBottom: '24px',
-              color: '#ffffff'
-            }}>
-              Four Pillars of Transformation
-            </h2>
-            <p style={{ fontSize: '20px', color: '#a0aec0', maxWidth: '768px', margin: '0 auto' }}>
-              Your companion, your coach—the place where you find the best answers
-            </p>
-          </div>
+      {/* Four Pillars of Transformation - 2x2 Quadrant Layout */}
+      <section style={{ 
+        padding: '120px 48px',
+        background: 'linear-gradient(180deg, #0a0e27 0%, #1a1042 50%, #0a0e27 100%)',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        {/* Animated Light Particles Background */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'radial-gradient(circle at 50% 50%, rgba(251, 191, 36, 0.05) 0%, transparent 50%)',
+          animation: 'pulse 8s ease-in-out infinite',
+          pointerEvents: 'none'
+        }} />
 
+        <div style={{ maxWidth: '1400px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+          {/* Subtitle */}
+          <p style={{
+            fontSize: '28px',
+            textAlign: 'center',
+            color: '#d4af37',
+            marginBottom: '80px',
+            fontStyle: 'italic',
+            fontWeight: 300,
+            letterSpacing: '1.5px'
+          }}>
+            Your path to awakening begins here. Four gateways, one destination — your highest self.
+          </p>
+
+          {/* Four Pillars - 2x2 Quadrant Grid */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '32px',
-            marginBottom: '48px'
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '40px',
+            marginBottom: '0'
           }}>
-            {[
-              { icon: Brain, title: 'The Oracle', desc: 'Conversational AI wisdom from history\'s greatest minds', color: '#8b5cf6' },
-              { icon: Flame, title: 'The Crucible', desc: 'Guided sessions to forge your highest self', color: '#f59e0b' },
-              { icon: Heart, title: 'The Mirror', desc: 'Feel understood at the core of your challenge', color: '#ec4899' },
-              { icon: TrendingUp, title: 'The Ascent', desc: 'Small, manageable steps for real change', color: '#10b981' }
-            ].map((pillar, idx) => (
-              <div key={idx} style={{
-                background: '#1a1f3a',
-                borderRadius: '16px',
-                padding: '32px',
-                textAlign: 'center',
-                transition: 'transform 0.3s, box-shadow 0.3s',
-                cursor: 'pointer'
+            {/* THE ORACLE - Top Left */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.08) 0%, rgba(212, 175, 55, 0.05) 100%)',
+              border: '2px solid rgba(251, 191, 36, 0.3)',
+              borderRadius: '32px',
+              padding: '80px 60px',
+              textAlign: 'center',
+              position: 'relative',
+              transition: 'all 0.5s ease',
+              cursor: 'pointer',
+              boxShadow: '0 12px 48px rgba(0, 0, 0, 0.4)',
+              minHeight: '600px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-8px)';
+              e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.7)';
+              e.currentTarget.style.boxShadow = '0 20px 60px rgba(251, 191, 36, 0.3), 0 0 100px rgba(251, 191, 36, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.3)';
+              e.currentTarget.style.boxShadow = '0 12px 48px rgba(0, 0, 0, 0.4)';
+            }}>
+              <div style={{
+                width: '240px',
+                height: '240px',
+                margin: '0 auto 40px',
+                animation: 'float 6s ease-in-out infinite'
               }}>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  background: pillar.color,
+                <img 
+                  src="/images/pillars/oracle-symbol.png" 
+                  alt="THE ORACLE"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    filter: 'drop-shadow(0 0 30px rgba(251, 191, 36, 0.5))'
+                  }}
+                />
+              </div>
+              <h3 style={{
+                fontSize: '56px',
+                fontWeight: 800,
+                marginBottom: '32px',
+                background: 'linear-gradient(135deg, #fbbf24 0%, #d4af37 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                letterSpacing: '3px'
+              }}>
+                THE ORACLE
+              </h3>
+              <p style={{
+                fontSize: '20px',
+                lineHeight: 1.8,
+                color: '#cbd5e1',
+                marginBottom: '40px',
+                fontWeight: 300
+              }}>
+                Step into The Oracle — a sacred dialogue with timeless wisdom. Ask any question and receive guidance drawn from the minds of sages, mystics, and modern masters.
+              </p>
+              <Link href="/oracle">
+                <Button style={{
+                  width: '100%',
+                  background: 'linear-gradient(135deg, #fbbf24 0%, #d4af37 100%)',
+                  color: '#000000',
+                  padding: '24px 40px',
+                  borderRadius: '16px',
+                  fontSize: '22px',
+                  fontWeight: 700,
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 8px 32px rgba(251, 191, 36, 0.4)',
+                  transition: 'all 0.3s',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  margin: '0 auto 24px'
+                  gap: '12px'
                 }}>
-                  <pillar.icon size={40} color="#ffffff" />
-                </div>
-                <h3 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '16px', color: '#ffffff' }}>
-                  {pillar.title}
-                </h3>
-                <p style={{ fontSize: '16px', lineHeight: 1.6, color: '#a0aec0', marginBottom: '24px' }}>
-                  {pillar.desc}
-                </p>
-                <Link href="/pillars" style={{ 
-                  color: pillar.color, 
-                  fontSize: '16px', 
-                  fontWeight: 600, 
-                  textDecoration: 'none',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px'
-                }}>
-                  Explore <ArrowRight size={16} />
-                </Link>
-              </div>
-            ))}
-          </div>
+                  Enter the Oracle
+                  <ArrowRight size={24} />
+                </Button>
+              </Link>
+            </div>
 
-          <div style={{ textAlign: 'center' }}>
-            <Link href="/pillars">
-              <Button style={{
-                background: 'transparent',
-                border: '2px solid #fbbf24',
-                color: '#fbbf24',
-                padding: '16px 32px',
-                borderRadius: '12px',
-                fontSize: '18px',
-                fontWeight: 600,
-                cursor: 'pointer'
+            {/* THE CRUCIBLE - Top Right */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(217, 119, 6, 0.05) 100%)',
+              border: '2px solid rgba(245, 158, 11, 0.3)',
+              borderRadius: '32px',
+              padding: '80px 60px',
+              textAlign: 'center',
+              position: 'relative',
+              transition: 'all 0.5s ease',
+              cursor: 'pointer',
+              boxShadow: '0 12px 48px rgba(0, 0, 0, 0.4)',
+              minHeight: '600px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-8px)';
+              e.currentTarget.style.borderColor = 'rgba(245, 158, 11, 0.7)';
+              e.currentTarget.style.boxShadow = '0 20px 60px rgba(245, 158, 11, 0.3), 0 0 100px rgba(245, 158, 11, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'rgba(245, 158, 11, 0.3)';
+              e.currentTarget.style.boxShadow = '0 12px 48px rgba(0, 0, 0, 0.4)';
+            }}>
+              <div style={{
+                width: '240px',
+                height: '240px',
+                margin: '0 auto 40px',
+                animation: 'float 6s ease-in-out infinite 1s'
               }}>
-                Learn More About Four Pillars
-              </Button>
-            </Link>
+                <img 
+                  src="/images/pillars/crucible-symbol.png" 
+                  alt="THE CRUCIBLE"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    filter: 'drop-shadow(0 0 30px rgba(245, 158, 11, 0.5))'
+                  }}
+                />
+              </div>
+              <h3 style={{
+                fontSize: '56px',
+                fontWeight: 800,
+                marginBottom: '32px',
+                background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                letterSpacing: '3px'
+              }}>
+                THE CRUCIBLE
+              </h3>
+              <p style={{
+                fontSize: '20px',
+                lineHeight: 1.8,
+                color: '#cbd5e1',
+                marginBottom: '40px',
+                fontWeight: 300
+              }}>
+                Enter The Crucible — where transformation is forged. Through guided practices and meditations, Athena helps you dissolve old patterns and awaken the limitless self within.
+              </p>
+              <Link href="/crucible">
+                <Button style={{
+                  width: '100%',
+                  background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                  color: '#ffffff',
+                  padding: '24px 40px',
+                  borderRadius: '16px',
+                  fontSize: '22px',
+                  fontWeight: 700,
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 8px 32px rgba(245, 158, 11, 0.4)',
+                  transition: 'all 0.3s',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '12px'
+                }}>
+                  Begin the Crucible
+                  <ArrowRight size={24} />
+                </Button>
+              </Link>
+            </div>
+
+            {/* THE MIRROR - Bottom Left */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, rgba(236, 72, 153, 0.05) 100%)',
+              border: '2px solid rgba(168, 85, 247, 0.3)',
+              borderRadius: '32px',
+              padding: '80px 60px',
+              textAlign: 'center',
+              position: 'relative',
+              transition: 'all 0.5s ease',
+              cursor: 'pointer',
+              boxShadow: '0 12px 48px rgba(0, 0, 0, 0.4)',
+              minHeight: '600px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-8px)';
+              e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.7)';
+              e.currentTarget.style.boxShadow = '0 20px 60px rgba(168, 85, 247, 0.3), 0 0 100px rgba(168, 85, 247, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.3)';
+              e.currentTarget.style.boxShadow = '0 12px 48px rgba(0, 0, 0, 0.4)';
+            }}>
+              <div style={{
+                width: '240px',
+                height: '240px',
+                margin: '0 auto 40px',
+                animation: 'float 6s ease-in-out infinite 2s'
+              }}>
+                <img 
+                  src="/images/pillars/mirror-symbol.png" 
+                  alt="THE MIRROR"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    filter: 'drop-shadow(0 0 30px rgba(168, 85, 247, 0.5))'
+                  }}
+                />
+              </div>
+              <h3 style={{
+                fontSize: '56px',
+                fontWeight: 800,
+                marginBottom: '32px',
+                background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                letterSpacing: '3px'
+              }}>
+                THE MIRROR
+              </h3>
+              <p style={{
+                fontSize: '20px',
+                lineHeight: 1.8,
+                color: '#cbd5e1',
+                marginBottom: '40px',
+                fontWeight: 300
+              }}>
+                In The Mirror, you meet yourself — all of you. Explore your shadows, heal your inner child, and rewrite the stories that once held you back. What you see here will set you free.
+              </p>
+              <Link href="/mirror">
+                <Button style={{
+                  width: '100%',
+                  background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+                  color: '#ffffff',
+                  padding: '24px 40px',
+                  borderRadius: '16px',
+                  fontSize: '22px',
+                  fontWeight: 700,
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 8px 32px rgba(168, 85, 247, 0.4)',
+                  transition: 'all 0.3s',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '12px'
+                }}>
+                  Look into the Mirror
+                  <ArrowRight size={24} />
+                </Button>
+              </Link>
+            </div>
+
+            {/* THE ASCENT - Bottom Right */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.05) 100%)',
+              border: '2px solid rgba(16, 185, 129, 0.3)',
+              borderRadius: '32px',
+              padding: '80px 60px',
+              textAlign: 'center',
+              position: 'relative',
+              transition: 'all 0.5s ease',
+              cursor: 'pointer',
+              boxShadow: '0 12px 48px rgba(0, 0, 0, 0.4)',
+              minHeight: '600px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-8px)';
+              e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.7)';
+              e.currentTarget.style.boxShadow = '0 20px 60px rgba(16, 185, 129, 0.3), 0 0 100px rgba(16, 185, 129, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+              e.currentTarget.style.boxShadow = '0 12px 48px rgba(0, 0, 0, 0.4)';
+            }}>
+              <div style={{
+                width: '240px',
+                height: '240px',
+                margin: '0 auto 40px',
+                animation: 'float 6s ease-in-out infinite 3s'
+              }}>
+                <img 
+                  src="/images/pillars/ascent-symbol.png" 
+                  alt="THE ASCENT"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    filter: 'drop-shadow(0 0 30px rgba(16, 185, 129, 0.5))'
+                  }}
+                />
+              </div>
+              <h3 style={{
+                fontSize: '56px',
+                fontWeight: 800,
+                marginBottom: '32px',
+                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                letterSpacing: '3px'
+              }}>
+                THE ASCENT
+              </h3>
+              <p style={{
+                fontSize: '20px',
+                lineHeight: 1.8,
+                color: '#cbd5e1',
+                marginBottom: '40px',
+                fontWeight: 300
+              }}>
+                The Ascent is your climb to greatness — guided by Athena's personalized path. Align your mind, body, and spirit as you embody your highest potential and rise into enlightenment.
+              </p>
+              <Link href="/pillars">
+                <Button style={{
+                  width: '100%',
+                  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                  color: '#ffffff',
+                  padding: '24px 40px',
+                  borderRadius: '16px',
+                  fontSize: '22px',
+                  fontWeight: 700,
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 8px 32px rgba(16, 185, 129, 0.4)',
+                  transition: 'all 0.3s',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '12px'
+                }}>
+                  Start Your Ascent
+                  <ArrowRight size={24} />
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
+
+        <style>{`
+          @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+          }
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+          }
+        `}</style>
       </section>
 
       {/* Testimonials */}
