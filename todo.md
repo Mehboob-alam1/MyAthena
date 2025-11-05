@@ -666,3 +666,18 @@
 - [x] Move "Path of Transformation" section below Four Pillars
 - [x] Expand testimonials section from 3 to 8 testimonials
 - [x] Ensure all sections flow professionally and cleanly
+
+## URGENT: Complete Crucible Redesign - CRITICAL PRIORITY ✅
+
+- [x] REMOVE ALL placeholder images from Crucible page (clock icons, video icons, etc.)
+- [x] Design professional custom symbol for The Crucible (sacred flame in chalice)
+- [x] Design custom symbols for each of the 4 sessions (using CSS gradients)
+- [x] Write 10-15 minute transformative text script for Session 1: "The Fire of Awareness"
+- [x] Write 10-15 minute transformative text script for Session 2: "Releasing the Weight"
+- [x] Write 10-15 minute transformative text script for Session 3: "The Recode" (Rewiring beliefs)
+- [x] Write 10-15 minute transformative text script for Session 4: "The Integration" (Anchoring higher consciousness)
+- [x] Design beautiful gradient backgrounds for each session (cool → warm → golden hues)
+- [x] Add "Audio/Video sessions available upon request for premium members" notice
+- [x] Add "Next Step" button to guide to The Mirror
+- [x] Ensure professional, warm, transformative reading experience
+- [x] Test complete Crucible experience
