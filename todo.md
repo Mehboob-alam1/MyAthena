@@ -681,3 +681,11 @@
 - [x] Add "Next Step" button to guide to The Mirror
 - [x] Ensure professional, warm, transformative reading experience
 - [x] Test complete Crucible experience
+
+## Fix Onboarding Form Validation Error - URGENT ✅
+
+- [x] Add "money" to primaryStruggle enum in drizzle/schema.ts (already existed)
+- [x] Add "money" to validation schema in server/routers.ts
+- [x] Add "money" to upsertUserGoal function signature in server/db.ts
+- [x] Test onboarding form submission with "money" option
+- [x] Verify no validation errors occur

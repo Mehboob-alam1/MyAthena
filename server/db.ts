@@ -169,7 +169,7 @@ export async function getUserGoal(userId: number) {
   return result.length > 0 ? result[0] : null;
 }
 
-export async function upsertUserGoal(userId: number, data: { primaryGoal?: string; primaryStruggle?: "self_worth" | "anxiety" | "career" | "relationships" | "purpose" | "trauma" | "other"; subscriptionTier?: "free" | "standard" | "premium" }) {
+export async function upsertUserGoal(userId: number, data: { primaryGoal?: string; primaryStruggle?: "money" | "self_worth" | "anxiety" | "career" | "relationships" | "purpose" | "trauma" | "other"; subscriptionTier?: "free" | "standard" | "premium" }) {
   const db = await getDb();
   if (!db) return null;
   const { userGoals } = await import("../drizzle/schema");

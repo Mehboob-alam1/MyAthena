@@ -311,7 +311,7 @@ Remember: You are The Mirror. You reflect back what they cannot see. Be penetrat
     set: protectedProcedure
       .input(z.object({
         primaryGoal: z.string().optional(),
-        primaryStruggle: z.enum(["self_worth", "anxiety", "career", "relationships", "purpose", "trauma", "other"]).optional(),
+        primaryStruggle: z.enum(["money", "self_worth", "anxiety", "career", "relationships", "purpose", "trauma", "other"]).optional(),
       }))
       .mutation(async ({ ctx, input }) => {
         await db.upsertUserGoal(ctx.user.id, input);
