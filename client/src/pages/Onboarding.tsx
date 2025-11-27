@@ -2,11 +2,9 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Textarea } from "@/components/ui/textarea";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
-import { Sparkles, Loader2, Heart, Rocket } from "lucide-react";
+import { Sparkles, Loader2, Send } from "lucide-react";
 import { useState } from "react";
 import { useLocation } from "wouter";
 
@@ -33,24 +31,24 @@ export default function Onboarding() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-        <Loader2 className="h-12 w-12 animate-spin text-white" />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
+        <Loader2 className="h-12 w-12 animate-spin text-purple-600" />
       </div>
     );
   }
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-        <Card className="max-w-md p-8 bg-white/95 backdrop-blur">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
+        <Card className="max-w-md p-8 bg-white shadow-lg">
           <div className="text-center space-y-4">
             <Sparkles className="h-12 w-12 mx-auto text-purple-600" />
-            <h2 className="text-2xl font-bold">Sign In Required</h2>
+            <h2 className="text-2xl font-bold text-gray-900">Sign In Required</h2>
             <p className="text-gray-600">
               Please sign in to begin your transformational journey with Athena.
             </p>
             <a href={getLoginUrl()}>
-              <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+              <Button className="w-full bg-purple-600 hover:bg-purple-700">
                 Sign In to Continue
               </Button>
             </a>
@@ -60,153 +58,198 @@ export default function Onboarding() {
     );
   }
 
-  return (
-    <div 
-      className="min-h-screen flex items-center justify-center p-4"
-      style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
-        animation: 'gradient 15s ease infinite',
-      }}
-    >
-      <style>{`
-        @keyframes gradient {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-        @keyframes pulse-glow {
-          0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.5); }
-          50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.8); }
-        }
-      `}</style>
+  const categories = [
+    { 
+      value: "self_worth", 
+      label: "Self-Worth & Self-Esteem", 
+      icon: "✨",
+      description: "Building confidence and self-acceptance"
+    },
+    { 
+      value: "anxiety", 
+      label: "Depression & Anxiety", 
+      icon: "🧠",
+      description: "Managing stress, worry, and emotional challenges"
+    },
+    { 
+      value: "money", 
+      label: "Money & Financial Freedom", 
+      icon: "💰",
+      description: "Creating abundance and financial security"
+    },
+    { 
+      value: "relationships", 
+      label: "Relationships & Connection", 
+      icon: "❤️",
+      description: "Deepening bonds and healing relationships"
+    },
+    { 
+      value: "career", 
+      label: "Career & Professional Growth", 
+      icon: "🚀",
+      description: "Advancing your career and finding fulfillment"
+    },
+    { 
+      value: "purpose", 
+      label: "Purpose & Meaning", 
+      icon: "🎯",
+      description: "Discovering your life's direction and calling"
+    },
+    { 
+      value: "trauma", 
+      label: "Past Trauma & Healing", 
+      icon: "🩹",
+      description: "Processing and releasing emotional wounds"
+    },
+    { 
+      value: "other", 
+      label: "Health & Wellness", 
+      icon: "🌿",
+      description: "Physical health, energy, and vitality"
+    },
+  ];
 
-      <Card className="max-w-3xl w-full bg-white/95 backdrop-blur-lg shadow-2xl border-0" style={{ animation: 'pulse-glow 3s ease-in-out infinite' }}>
-        {/* Hero Section */}
-        <div className="text-center p-8 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white rounded-t-lg">
-          <div className="flex justify-center mb-4" style={{ animation: 'float 3s ease-in-out infinite' }}>
-            <div className="relative">
-              <Sparkles className="h-16 w-16" />
-              <div className="absolute -top-2 -right-2">
-                <Heart className="h-8 w-8 text-pink-300 animate-pulse" />
-              </div>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/30 to-slate-50">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-5xl mx-auto px-6 py-6">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+              <Sparkles className="h-6 w-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Welcome to MyAthena</h1>
+              <p className="text-lg text-gray-600">Let's begin your transformation journey</p>
             </div>
           </div>
-          <h1 className="text-4xl font-bold mb-3" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}>
-            🎉 Welcome to Your Transformation Journey!
-          </h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto">
-            Congratulations on taking this powerful step! Athena is here to guide you toward clarity, purpose, and profound personal growth.
-          </p>
         </div>
+      </div>
 
-        {/* Form Content */}
-        <div className="p-8">
-          <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Question 1: What's on your mind? */}
-            <div className="space-y-4">
+      {/* Main Content */}
+      <div className="max-w-5xl mx-auto px-6 py-12">
+        <form onSubmit={handleSubmit} className="space-y-12">
+          {/* Step 1: Categories */}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+            <div className="mb-8">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-lg">
+                <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-xl">
                   1
                 </div>
-                <Label htmlFor="primaryGoal" className="text-2xl font-semibold text-gray-800">
-                  What's on your mind right now?
+                <Label className="text-3xl font-bold text-gray-900">
+                  What area would you like to focus on?
                 </Label>
               </div>
-              
-              <Textarea
-                id="primaryGoal"
-                value={primaryGoal}
-                onChange={(e) => setPrimaryGoal(e.target.value)}
-                placeholder="Share what's bothering you, what you're struggling with, or what you'd like to transform in your life... The more you share, the better Athena can guide you."
-                rows={6}
-                required
-                className="text-lg p-4 border-2 border-purple-200 focus:border-purple-500 rounded-xl resize-none transition-all duration-300"
-                style={{ 
-                  boxShadow: '0 4px 6px rgba(139, 92, 246, 0.1)',
-                }}
-              />
-              <p className="text-sm text-gray-600 flex items-center gap-2">
-                <Rocket className="h-4 w-4 text-purple-600" />
-                <span>Be open and honest. This is a safe space for you to express yourself.</span>
+              <p className="text-lg text-gray-600 ml-13">
+                Choose the primary area you'd like to work on. You can explore other areas later.
               </p>
             </div>
 
-            {/* Question 2: Primary Struggle */}
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {categories.map((category) => (
+                <button
+                  key={category.value}
+                  type="button"
+                  onClick={() => setPrimaryStruggle(category.value as any)}
+                  className={`text-left p-6 rounded-xl border-2 transition-all duration-200 ${
+                    primaryStruggle === category.value
+                      ? 'border-purple-600 bg-purple-50 shadow-lg ring-2 ring-purple-600 ring-opacity-50'
+                      : 'border-gray-200 bg-white hover:border-purple-300 hover:shadow-md'
+                  }`}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="text-4xl flex-shrink-0">{category.icon}</div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className={`text-xl font-bold mb-1 ${
+                        primaryStruggle === category.value ? 'text-purple-900' : 'text-gray-900'
+                      }`}>
+                        {category.label}
+                      </h3>
+                      <p className={`text-base ${
+                        primaryStruggle === category.value ? 'text-purple-700' : 'text-gray-600'
+                      }`}>
+                        {category.description}
+                      </p>
+                    </div>
+                    {primaryStruggle === category.value && (
+                      <div className="flex-shrink-0">
+                        <div className="w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center">
+                          <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Step 2: Chat Input at Bottom */}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+            <div className="mb-6">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 flex items-center justify-center text-white font-bold text-lg">
+                <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-xl">
                   2
                 </div>
-                <Label className="text-2xl font-semibold text-gray-800">
-                  What is your primary struggle or challenge?
+                <Label htmlFor="primaryGoal" className="text-3xl font-bold text-gray-900">
+                  Tell me what's on your mind
                 </Label>
               </div>
-
-              <RadioGroup value={primaryStruggle} onValueChange={(value: any) => setPrimaryStruggle(value)}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {[
-                    { value: "money", label: "💰 Money / Financial Freedom", gradient: "from-green-400 to-emerald-600" },
-                    { value: "self_worth", label: "✨ Self-Worth / Self-Esteem", gradient: "from-purple-400 to-pink-600" },
-                    { value: "anxiety", label: "😰 Anxiety / Worry / Stress", gradient: "from-blue-400 to-cyan-600" },
-                    { value: "career", label: "🚀 Career / Professional Growth", gradient: "from-orange-400 to-red-600" },
-                    { value: "relationships", label: "❤️ Relationships / Connection", gradient: "from-pink-400 to-rose-600" },
-                    { value: "purpose", label: "🎯 Purpose / Meaning / Direction", gradient: "from-indigo-400 to-purple-600" },
-                    { value: "trauma", label: "🩹 Past Trauma / Emotional Healing", gradient: "from-teal-400 to-cyan-600" },
-                    { value: "other", label: "🔮 Other", gradient: "from-gray-400 to-slate-600" },
-                  ].map((option) => (
-                    <label
-                      key={option.value}
-                      htmlFor={option.value}
-                      className={`flex items-center space-x-3 p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
-                        primaryStruggle === option.value
-                          ? `bg-gradient-to-r ${option.gradient} text-white border-transparent shadow-lg scale-105`
-                          : 'bg-white border-gray-200 hover:border-purple-300 hover:shadow-md'
-                      }`}
-                    >
-                      <RadioGroupItem value={option.value} id={option.value} className="sr-only" />
-                      <span className={`text-lg font-medium ${primaryStruggle === option.value ? 'text-white' : 'text-gray-700'}`}>
-                        {option.label}
-                      </span>
-                    </label>
-                  ))}
-                </div>
-              </RadioGroup>
+              <p className="text-lg text-gray-600 ml-13">
+                Share your thoughts, feelings, or what you'd like to work on. This is a safe, judgment-free space.
+              </p>
             </div>
 
-            {/* Submit Button */}
-            <div className="pt-4">
-              <Button 
-                type="submit" 
-                className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 text-white shadow-xl transition-all duration-300 transform hover:scale-105"
-                disabled={setGoalMutation.isPending}
-              >
-                {setGoalMutation.isPending ? (
-                  <>
-                    <Loader2 className="h-5 w-5 animate-spin mr-2" />
-                    Preparing Your Journey...
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="h-5 w-5 mr-2" />
-                    Begin My Transformation Journey
-                  </>
-                )}
-              </Button>
+            {/* Chat-style input */}
+            <div className="relative">
+              <textarea
+                id="primaryGoal"
+                value={primaryGoal}
+                onChange={(e) => setPrimaryGoal(e.target.value)}
+                placeholder="I'm here to listen. What would you like to share today?"
+                rows={6}
+                required
+                className="w-full text-xl p-6 pr-16 border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-20 rounded-2xl resize-none transition-all duration-200 placeholder:text-gray-400"
+                style={{ 
+                  fontFamily: 'inherit',
+                  lineHeight: '1.6'
+                }}
+              />
+              <div className="absolute bottom-6 right-6">
+                <Button
+                  type="submit"
+                  disabled={setGoalMutation.isPending || !primaryGoal.trim()}
+                  className="h-12 px-8 bg-purple-600 hover:bg-purple-700 text-white text-lg font-semibold rounded-xl shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {setGoalMutation.isPending ? (
+                    <>
+                      <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                      Starting...
+                    </>
+                  ) : (
+                    <>
+                      Begin Journey
+                      <Send className="h-5 w-5 ml-2" />
+                    </>
+                  )}
+                </Button>
+              </div>
             </div>
-          </form>
-        </div>
 
-        {/* Footer Message */}
-        <div className="px-8 pb-8 text-center">
-          <p className="text-gray-600 text-sm">
-            🌟 Your journey to transformation starts now. Athena is ready to guide you every step of the way.
-          </p>
-        </div>
-      </Card>
+            <div className="mt-4 flex items-center gap-2 text-sm text-gray-500 ml-1">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+              </svg>
+              <span>Your conversation is private and secure</span>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      {/* Footer spacing */}
+      <div className="h-20"></div>
     </div>
   );
 }

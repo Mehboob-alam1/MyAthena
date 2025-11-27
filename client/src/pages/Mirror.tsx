@@ -1,7 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { APP_LOGO, getLoginUrl } from "@/const";
 import { Button } from "@/components/ui/button";
-import { Heart, Send, Loader2, Sparkles, Eye, TrendingUp, Lightbulb } from "lucide-react";
+import { Heart, Send, Loader2, Sparkles, Eye, TrendingUp, Lightbulb, X } from "lucide-react";
 import { Link } from "wouter";
 import { useState, useRef, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
@@ -92,158 +92,94 @@ export default function Mirror() {
 
   if (authLoading) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0a0e27', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Loader2 size={40} color="#fbbf24" style={{ animation: 'spin 1s linear infinite' }} />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
+        <Loader2 className="h-12 w-12 animate-spin text-purple-600" />
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0a0e27', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '48px' }}>
-        <div style={{ textAlign: 'center', maxWidth: '600px' }}>
-          <Heart size={80} color="#ec4899" style={{ margin: '0 auto 24px' }} />
-          <h1 style={{ fontSize: '48px', fontWeight: 700, marginBottom: '24px', color: '#ffffff' }}>
-            The Mirror
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
+        <div className="max-w-md p-8 bg-white rounded-2xl shadow-lg text-center">
+          <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center">
+            <Eye className="h-10 w-10 text-white" />
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            Welcome to The Mirror
           </h1>
-          <p style={{ fontSize: '20px', color: '#a0aec0', marginBottom: '32px' }}>
-            Please sign in to discover deep insights and patterns in your life.
+          <p className="text-lg text-gray-600 mb-6">
+            Please sign in to begin your journey of self-discovery and pattern recognition.
           </p>
-          <Button
-            onClick={() => window.location.href = getLoginUrl()}
-            style={{
-              background: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)',
-              color: '#ffffff',
-              padding: '16px 32px',
-              borderRadius: '12px',
-              fontSize: '18px',
-              fontWeight: 600,
-              border: 'none',
-              cursor: 'pointer'
-            }}
-          >
-            Sign In to Continue
-          </Button>
+          <a href={getLoginUrl()}>
+            <Button className="w-full bg-purple-600 hover:bg-purple-700 text-lg py-6">
+              Sign In
+            </Button>
+          </a>
         </div>
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0e27', color: '#ffffff', display: 'flex' }}>
-      {/* Main Chat Area */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        {/* Navigation */}
-        <nav style={{
-          height: '80px',
-          background: 'rgba(10, 14, 39, 0.9)',
-          backdropFilter: 'blur(10px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 48px',
-          flexShrink: 0
-        }}>
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
-            {APP_LOGO && <img src={APP_LOGO} alt="MyAthena" style={{ height: '32px' }} />}
-            <span style={{ fontSize: '24px', fontWeight: 700, color: '#fbbf24' }}>MyAthena.life</span>
-          </Link>
-          
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <Link href="/" style={{ fontSize: '16px', fontWeight: 500, color: '#ffffff', textDecoration: 'none' }}>
-              Home
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-pink-50/30 to-slate-50 flex flex-col">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-3 no-underline">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center">
+                <Eye className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <div className="text-xl font-bold text-gray-900">The Mirror</div>
+                <div className="text-sm text-gray-600">Deep listening & pattern recognition</div>
+              </div>
             </Link>
-            <Link href="/pillars" style={{ fontSize: '16px', fontWeight: 500, color: '#ffffff', textDecoration: 'none' }}>
-              Four Pillars
-            </Link>
-            <Link href="/oracle" style={{ fontSize: '16px', fontWeight: 500, color: '#ffffff', textDecoration: 'none' }}>
-              Oracle
-            </Link>
-            <span style={{ fontSize: '16px', color: '#a0aec0' }}>Welcome, {user.name}</span>
-          </div>
-        </nav>
-
-        {/* Chat Container */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', maxWidth: '1000px', width: '100%', margin: '0 auto', padding: '0 24px' }}>
-          {/* Header */}
-          <div style={{ padding: '32px 0 24px', textAlign: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
-            <div style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 16px',
-              boxShadow: '0 10px 30px rgba(236, 72, 153, 0.4)'
-            }}>
-              <Eye size={40} color="#ffffff" />
+            
+            <div className="flex items-center gap-6">
+              <Link href="/pillars" className="text-base font-medium text-gray-700 hover:text-purple-600 transition-colors no-underline">
+                Four Pillars
+              </Link>
+              <Link href="/" className="text-base font-medium text-gray-700 hover:text-purple-600 transition-colors no-underline">
+                Home
+              </Link>
+              <div className="text-sm text-gray-600">
+                {user.name}
+              </div>
             </div>
-            <h1 style={{
-              fontSize: '32px',
-              fontWeight: 700,
-              marginBottom: '8px',
-              background: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
-              The Mirror
-            </h1>
-            <p style={{ fontSize: '16px', color: '#a0aec0' }}>
-              Deep psychological analysis that sees patterns you cannot see yourself. Integrating Jung, CBT, ACT, DBT, NLP, Trauma-Informed approaches, and Stoic wisdom.
-            </p>
           </div>
+        </div>
+      </div>
 
-          {/* Messages */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '32px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            {messages.map((message, idx) => (
-              <div key={idx} style={{
-                display: 'flex',
-                justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start',
-                animation: 'fadeIn 0.3s ease-in'
-              }}>
-                <div style={{
-                  maxWidth: '75%',
-                  padding: '16px 20px',
-                  borderRadius: '16px',
-                  background: message.role === 'user' 
-                    ? 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)'
-                    : 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)',
-                  color: '#ffffff',
-                  fontSize: '16px',
-                  lineHeight: 1.6,
-                  boxShadow: message.role === 'user'
-                    ? '0 4px 12px rgba(99, 102, 241, 0.3)'
-                    : '0 4px 12px rgba(236, 72, 153, 0.3)'
-                }}>
-                  {message.role === 'assistant' && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', opacity: 0.9 }}>
-                      <Eye size={16} />
-                      <span style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                        The Mirror
-                      </span>
-                    </div>
-                  )}
-                  {message.content}
+      {/* Main Content Area */}
+      <div className="flex-1 flex">
+        {/* Chat Area */}
+        <div className="flex-1 flex flex-col max-w-4xl w-full mx-auto px-6 py-8">
+          {/* Messages Container */}
+          <div className="flex-1 overflow-y-auto mb-6 space-y-4">
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div className={`max-w-[75%] px-6 py-4 rounded-2xl ${
+                  msg.role === 'user'
+                    ? 'bg-gradient-to-br from-pink-600 to-purple-600 text-white'
+                    : 'bg-white border border-gray-200 text-gray-900 shadow-sm'
+                }`}>
+                  <div className="text-base leading-relaxed whitespace-pre-wrap">{msg.content}</div>
                 </div>
               </div>
             ))}
             
             {isLoading && (
-              <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-                <div style={{
-                  padding: '16px 20px',
-                  borderRadius: '16px',
-                  background: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px'
-                }}>
-                  <Sparkles size={16} color="#ffffff" style={{ animation: 'pulse 1.5s ease-in-out infinite' }} />
-                  <span style={{ color: '#ffffff', fontSize: '16px' }}>Reflecting deeply...</span>
+              <div className="flex justify-start">
+                <div className="px-6 py-4 rounded-2xl bg-white border border-gray-200 shadow-sm">
+                  <div className="flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin text-purple-600" />
+                    <span className="text-gray-600">Reflecting...</span>
+                  </div>
                 </div>
               </div>
             )}
@@ -252,243 +188,84 @@ export default function Mirror() {
           </div>
 
           {/* Input Area */}
-          <div style={{
-            padding: '24px 0',
-            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-            flexShrink: 0
-          }}>
-            <div style={{
-              display: 'flex',
-              gap: '12px',
-              background: '#1a1f3a',
-              borderRadius: '16px',
-              padding: '12px',
-              border: '1px solid rgba(255, 255, 255, 0.1)'
-            }}>
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+            <div className="flex items-end gap-3">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Share what's on your heart..."
+                onKeyDown={handleKeyPress}
+                placeholder="Share what's on your mind..."
+                rows={3}
                 disabled={isLoading}
-                style={{
-                  flex: 1,
-                  background: 'transparent',
-                  border: 'none',
-                  outline: 'none',
-                  color: '#ffffff',
-                  fontSize: '16px',
-                  resize: 'none',
-                  minHeight: '60px',
-                  maxHeight: '200px',
-                  padding: '8px',
-                  fontFamily: 'inherit'
-                }}
+                className="flex-1 text-lg p-3 border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-20 rounded-xl resize-none transition-all duration-200 placeholder:text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <Button
                 onClick={handleSend}
                 disabled={!input.trim() || isLoading}
-                style={{
-                  background: input.trim() && !isLoading 
-                    ? 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)'
-                    : '#4b5563',
-                  color: '#ffffff',
-                  padding: '12px 24px',
-                  borderRadius: '12px',
-                  border: 'none',
-                  cursor: input.trim() && !isLoading ? 'pointer' : 'not-allowed',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  alignSelf: 'flex-end',
-                  transition: 'all 0.3s'
-                }}
+                className="h-12 px-6 bg-gradient-to-br from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
-                  <Loader2 size={20} style={{ animation: 'spin 1s linear infinite' }} />
+                  <Loader2 className="h-5 w-5 animate-spin" />
                 ) : (
-                  <Send size={20} />
+                  <Send className="h-5 w-5" />
                 )}
               </Button>
             </div>
-            
-            <p style={{
-              fontSize: '12px',
-              color: '#6b7280',
-              textAlign: 'center',
-              marginTop: '12px'
-            }}>
-              Press Enter to send, Shift+Enter for new line
-            </p>
+            <div className="mt-2 flex items-center justify-between">
+              <div className="flex items-center gap-2 text-xs text-gray-500">
+                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                </svg>
+                <span>Press Enter to send, Shift+Enter for new line</span>
+              </div>
+              {patterns.length > 0 && (
+                <button
+                  onClick={() => setShowPatterns(!showPatterns)}
+                  className="flex items-center gap-2 px-3 py-1 bg-purple-100 text-purple-700 rounded-lg text-sm font-medium hover:bg-purple-200 transition-colors"
+                >
+                  <TrendingUp className="h-4 w-4" />
+                  <span>View Patterns ({patterns.length})</span>
+                </button>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Patterns Sidebar */}
-      <div style={{
-        width: showPatterns ? '400px' : '60px',
-        background: '#0f1229',
-        borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
-        transition: 'width 0.3s ease',
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden'
-      }}>
-        {/* Toggle Button */}
-        <div style={{
-          height: '80px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-          flexShrink: 0
-        }}>
-          <Button
-            onClick={() => setShowPatterns(!showPatterns)}
-            style={{
-              background: patterns.length > 0 ? 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)' : '#1a1f3a',
-              color: '#ffffff',
-              padding: '12px',
-              borderRadius: '12px',
-              border: 'none',
-              cursor: 'pointer',
-              position: 'relative'
-            }}
-          >
-            <TrendingUp size={24} />
-            {patterns.length > 0 && (
-              <div style={{
-                position: 'absolute',
-                top: '-4px',
-                right: '-4px',
-                width: '20px',
-                height: '20px',
-                borderRadius: '50%',
-                background: '#10b981',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '12px',
-                fontWeight: 700
-              }}>
-                {patterns.length}
+        {/* Patterns Sidebar */}
+        {showPatterns && patterns.length > 0 && (
+          <div className="w-96 bg-white border-l border-gray-200 shadow-lg p-6 overflow-y-auto">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="h-5 w-5 text-purple-600" />
+                <h3 className="text-xl font-bold text-gray-900">Patterns Detected</h3>
               </div>
-            )}
-          </Button>
-        </div>
-
-        {/* Patterns Content */}
-        {showPatterns && (
-          <div style={{ flex: 1, padding: '24px', overflowY: 'auto' }}>
-            <h3 style={{
-              fontSize: '20px',
-              fontWeight: 700,
-              marginBottom: '8px',
-              color: '#ffffff',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}>
-              <Lightbulb size={20} color="#fbbf24" />
-              Your Patterns
-            </h3>
-            <p style={{ fontSize: '14px', color: '#a0aec0', marginBottom: '24px' }}>
-              Insights discovered from our conversation
-            </p>
-
-            {patterns.length === 0 ? (
-              <div style={{
-                padding: '24px',
-                background: '#1a1f3a',
-                borderRadius: '12px',
-                textAlign: 'center'
-              }}>
-                <TrendingUp size={32} color="#6b7280" style={{ margin: '0 auto 12px' }} />
-                <p style={{ fontSize: '14px', color: '#6b7280' }}>
-                  Keep sharing, and I'll help you see patterns you might not notice on your own.
-                </p>
-              </div>
-            ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {patterns.map((pattern, idx) => (
-                  <div key={idx} style={{
-                    padding: '16px',
-                    background: '#1a1f3a',
-                    borderRadius: '12px',
-                    borderLeft: '4px solid #ec4899'
-                  }}>
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'start',
-                      gap: '8px',
-                      marginBottom: '8px'
-                    }}>
-                      <Sparkles size={16} color="#ec4899" style={{ flexShrink: 0, marginTop: '2px' }} />
-                      <p style={{ fontSize: '14px', color: '#ffffff', lineHeight: 1.5 }}>
-                        {pattern}
-                      </p>
-                    </div>
+              <button
+                onClick={() => setShowPatterns(false)}
+                className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <X className="h-5 w-5 text-gray-500" />
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              {patterns.map((pattern, idx) => (
+                <div key={idx} className="p-4 bg-purple-50 border border-purple-200 rounded-xl">
+                  <div className="flex items-start gap-3">
+                    <Lightbulb className="h-5 w-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-gray-800 leading-relaxed">{pattern}</p>
                   </div>
-                ))}
-              </div>
-            )}
-
-            {/* Reflection Prompts */}
-            {patterns.length > 0 && (
-              <div style={{ marginTop: '32px' }}>
-                <h4 style={{
-                  fontSize: '16px',
-                  fontWeight: 600,
-                  marginBottom: '16px',
-                  color: '#ffffff'
-                }}>
-                  Reflection Prompts
-                </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {[
-                    "What would it feel like to let go of this pattern?",
-                    "When did you first notice this in your life?",
-                    "What would change if you saw yourself differently?"
-                  ].map((prompt, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setInput(prompt)}
-                      style={{
-                        padding: '12px',
-                        background: '#1a1f3a',
-                        border: '1px solid rgba(236, 72, 153, 0.3)',
-                        borderRadius: '8px',
-                        color: '#ec4899',
-                        fontSize: '13px',
-                        textAlign: 'left',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s'
-                      }}
-                    >
-                      {prompt}
-                    </button>
-                  ))}
                 </div>
-              </div>
-            )}
+              ))}
+            </div>
+
+            <div className="mt-6 p-4 bg-gray-50 rounded-xl">
+              <p className="text-sm text-gray-600 leading-relaxed">
+                These patterns are identified based on your conversation. They can help you gain deeper self-awareness and understand recurring themes in your thinking.
+              </p>
+            </div>
           </div>
         )}
       </div>
-
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </div>
   );
 }

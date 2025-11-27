@@ -2,7 +2,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { getLoginUrl, APP_LOGO } from "@/const";
 import { trpc } from "@/lib/trpc";
-import { Send, Loader2, Brain, Home } from "lucide-react";
+import { Send, Loader2, Brain, Home, Sparkles } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
 import { Streamdown } from "streamdown";
@@ -59,36 +59,31 @@ export default function Oracle() {
 
   if (authLoading) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0a0e27', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Loader2 className="animate-spin" size={48} color="#8b5cf6" />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
+        <Loader2 className="h-12 w-12 animate-spin text-purple-600" />
       </div>
     );
   }
 
   if (!isAuthenticated) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0a0e27', color: '#ffffff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '48px' }}>
-        <Brain size={80} color="#8b5cf6" style={{ marginBottom: '32px' }} />
-        <h1 style={{ fontSize: '48px', fontWeight: 700, marginBottom: '16px', textAlign: 'center' }}>
-          Welcome to The Oracle
-        </h1>
-        <p style={{ fontSize: '20px', color: '#a0aec0', marginBottom: '32px', textAlign: 'center', maxWidth: '600px' }}>
-          Please sign in to access conversational AI wisdom from history's greatest minds.
-        </p>
-        <a href={getLoginUrl()} style={{ textDecoration: 'none' }}>
-          <Button style={{
-            background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)',
-            color: '#ffffff',
-            padding: '16px 32px',
-            borderRadius: '12px',
-            fontSize: '18px',
-            fontWeight: 600,
-            border: 'none',
-            cursor: 'pointer'
-          }}>
-            Sign In
-          </Button>
-        </a>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
+        <div className="max-w-md p-8 bg-white rounded-2xl shadow-lg text-center">
+          <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+            <Brain className="h-10 w-10 text-white" />
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            Welcome to The Oracle
+          </h1>
+          <p className="text-lg text-gray-600 mb-6">
+            Please sign in to access conversational AI wisdom from history's greatest minds.
+          </p>
+          <a href={getLoginUrl()}>
+            <Button className="w-full bg-purple-600 hover:bg-purple-700 text-lg py-6">
+              Sign In
+            </Button>
+          </a>
+        </div>
       </div>
     );
   }
@@ -96,163 +91,122 @@ export default function Oracle() {
   // Check if user needs onboarding
   if (!userGoal?.primaryGoal) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0a0e27', color: '#ffffff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '48px' }}>
-        <Brain size={80} color="#8b5cf6" style={{ marginBottom: '32px' }} />
-        <h1 style={{ fontSize: '48px', fontWeight: 700, marginBottom: '16px', textAlign: 'center' }}>
-          Welcome to MyAthena.life!
-        </h1>
-        <p style={{ fontSize: '20px', color: '#a0aec0', marginBottom: '32px', textAlign: 'center', maxWidth: '600px' }}>
-          Before we begin, let's set your primary goal so Athena can provide personalized guidance.
-        </p>
-        <Link href="/onboarding">
-          <Button style={{
-            background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)',
-            color: '#ffffff',
-            padding: '16px 32px',
-            borderRadius: '12px',
-            fontSize: '18px',
-            fontWeight: 600,
-            border: 'none',
-            cursor: 'pointer'
-          }}>
-            Complete Onboarding
-          </Button>
-        </Link>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
+        <div className="max-w-md p-8 bg-white rounded-2xl shadow-lg text-center">
+          <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+            <Sparkles className="h-10 w-10 text-white" />
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            Welcome to MyAthena.life!
+          </h1>
+          <p className="text-lg text-gray-600 mb-6">
+            Before we begin, let's set your primary goal so Athena can provide personalized guidance.
+          </p>
+          <Link href="/onboarding">
+            <Button className="w-full bg-purple-600 hover:bg-purple-700 text-lg py-6">
+              Complete Onboarding
+            </Button>
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0e27', color: '#ffffff', display: 'flex', flexDirection: 'column' }}>
-      {/* Navigation */}
-      <nav style={{
-        height: '80px',
-        background: 'rgba(10, 14, 39, 0.9)',
-        backdropFilter: 'blur(10px)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 48px',
-        flexShrink: 0
-      }}>
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
-          {APP_LOGO && <img src={APP_LOGO} alt="MyAthena" style={{ height: '32px' }} />}
-          <span style={{ fontSize: '24px', fontWeight: 700, color: '#fbbf24' }}>MyAthena.life</span>
-        </Link>
-        
-        <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-          <Link href="/pillars" style={{ fontSize: '16px', fontWeight: 500, color: '#ffffff', textDecoration: 'none' }}>
-            Four Pillars
-          </Link>
-          <Link href="/forge" style={{ fontSize: '16px', fontWeight: 500, color: '#ffffff', textDecoration: 'none' }}>
-            Crucible
-          </Link>
-          <Link href="/journal" style={{ fontSize: '16px', fontWeight: 500, color: '#ffffff', textDecoration: 'none' }}>
-            Journal
-          </Link>
-          <span style={{ fontSize: '16px', color: '#a0aec0' }}>Welcome, {user?.name}</span>
-          <Link href="/">
-            <Button variant="outline" size="sm">
-              <Home size={16} />
-            </Button>
-          </Link>
-        </div>
-      </nav>
-
-      {/* Chat Container */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', maxWidth: '900px', width: '100%', margin: '0 auto', padding: '32px 24px' }}>
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <div style={{
-            width: '80px',
-            height: '80px',
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 16px',
-            boxShadow: '0 10px 40px rgba(139, 92, 246, 0.4)'
-          }}>
-            <Brain size={40} color="#ffffff" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/30 to-slate-50 flex flex-col">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-3 no-underline">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                <Brain className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <div className="text-xl font-bold text-gray-900">The Oracle</div>
+                <div className="text-sm text-gray-600">Wisdom from the ages</div>
+              </div>
+            </Link>
+            
+            <div className="flex items-center gap-6">
+              <Link href="/pillars" className="text-base font-medium text-gray-700 hover:text-purple-600 transition-colors no-underline">
+                Four Pillars
+              </Link>
+              <Link href="/" className="text-base font-medium text-gray-700 hover:text-purple-600 transition-colors no-underline">
+                Home
+              </Link>
+              <div className="text-sm text-gray-600">
+                {user?.name}
+              </div>
+            </div>
           </div>
-          <h1 style={{ fontSize: '36px', fontWeight: 700, marginBottom: '8px', color: '#ffffff' }}>
-            The Oracle
-          </h1>
-          <p style={{ fontSize: '16px', color: '#a0aec0' }}>
-            Synthesized wisdom from history's greatest minds
-          </p>
-          {userGoal?.primaryGoal && (
-            <p style={{ fontSize: '14px', color: '#8b5cf6', marginTop: '8px' }}>
-              Your goal: {userGoal.primaryGoal}
-            </p>
-          )}
         </div>
+      </div>
 
-        {/* Messages */}
-        <div style={{ flex: 1, overflowY: 'auto', marginBottom: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      {/* Main Chat Area */}
+      <div className="flex-1 flex flex-col max-w-4xl w-full mx-auto px-6 py-8">
+        {/* Goal Display */}
+        {userGoal?.primaryGoal && (
+          <div className="mb-6 p-4 bg-purple-50 border border-purple-200 rounded-xl">
+            <div className="flex items-center gap-2 text-sm text-purple-900">
+              <Sparkles className="h-4 w-4" />
+              <span className="font-medium">Your focus:</span>
+              <span>{userGoal.primaryGoal}</span>
+            </div>
+          </div>
+        )}
+
+        {/* Messages Container */}
+        <div className="flex-1 overflow-y-auto mb-6 space-y-4">
           {historyLoading ? (
-            <div style={{ display: 'flex', justifyContent: 'center', padding: '48px' }}>
-              <Loader2 className="animate-spin" size={32} color="#8b5cf6" />
+            <div className="flex justify-center items-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-purple-600" />
             </div>
           ) : history && history.length > 0 ? (
             history.map((msg: any, idx: number) => (
               <div
                 key={idx}
-                style={{
-                  display: 'flex',
-                  justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start'
-                }}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
-                <div style={{
-                  maxWidth: '70%',
-                  padding: '16px 20px',
-                  borderRadius: '16px',
-                  background: msg.role === 'user' 
-                    ? 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)'
-                    : '#1a1f3a',
-                  color: '#ffffff',
-                  fontSize: '16px',
-                  lineHeight: 1.6,
-                  boxShadow: msg.role === 'user'
-                    ? '0 4px 16px rgba(99, 102, 241, 0.3)'
-                    : '0 4px 16px rgba(0, 0, 0, 0.2)'
-                }}>
+                <div className={`max-w-[75%] px-6 py-4 rounded-2xl ${
+                  msg.role === 'user'
+                    ? 'bg-purple-600 text-white'
+                    : 'bg-white border border-gray-200 text-gray-900 shadow-sm'
+                }`}>
                   {msg.role === 'assistant' ? (
-                    <Streamdown>{msg.content}</Streamdown>
+                    <div className="prose prose-sm max-w-none">
+                      <Streamdown>{msg.content}</Streamdown>
+                    </div>
                   ) : (
-                    msg.content
+                    <div className="text-base leading-relaxed">{msg.content}</div>
                   )}
                 </div>
               </div>
             ))
           ) : (
-            <div style={{ textAlign: 'center', padding: '48px', color: '#a0aec0' }}>
-              <p style={{ fontSize: '18px', marginBottom: '16px' }}>
+            <div className="text-center py-12 px-6">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                <Brain className="h-8 w-8 text-white" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Welcome! I am Athena, your AI life coach.
-              </p>
-              <p style={{ fontSize: '16px', marginBottom: '24px' }}>
+              </h2>
+              <p className="text-lg text-gray-600 mb-4">
                 I synthesize wisdom from Stoicism, Jungian Psychology, NLP, and modern neuroscience.
               </p>
-              <p style={{ fontSize: '14px' }}>
+              <p className="text-base text-gray-500">
                 Ask me anything about personal growth, overcoming challenges, or achieving your goals.
               </p>
             </div>
           )}
           
           {isTyping && (
-            <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-              <div style={{
-                padding: '16px 20px',
-                borderRadius: '16px',
-                background: '#1a1f3a',
-                display: 'flex',
-                gap: '8px',
-                alignItems: 'center'
-              }}>
-                <Loader2 className="animate-spin" size={20} color="#8b5cf6" />
-                <span style={{ color: '#a0aec0' }}>Athena is thinking...</span>
+            <div className="flex justify-start">
+              <div className="px-6 py-4 rounded-2xl bg-white border border-gray-200 shadow-sm">
+                <div className="flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin text-purple-600" />
+                  <span className="text-gray-600">Athena is thinking...</span>
+                </div>
               </div>
             </div>
           )}
@@ -260,60 +214,37 @@ export default function Oracle() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input */}
-        <div style={{
-          background: '#1a1f3a',
-          borderRadius: '16px',
-          padding: '16px',
-          display: 'flex',
-          gap: '12px',
-          alignItems: 'center',
-          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)'
-        }}>
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Ask Athena for guidance..."
-            disabled={isTyping}
-            style={{
-              flex: 1,
-              background: 'transparent',
-              border: 'none',
-              outline: 'none',
-              color: '#ffffff',
-              fontSize: '16px',
-              padding: '8px'
-            }}
-          />
-          <Button
-            onClick={handleSend}
-            disabled={!message.trim() || isTyping}
-            style={{
-              background: message.trim() && !isTyping ? 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)' : '#2d3348',
-              color: '#ffffff',
-              padding: '12px 24px',
-              borderRadius: '12px',
-              border: 'none',
-              cursor: message.trim() && !isTyping ? 'pointer' : 'not-allowed',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              fontSize: '16px',
-              fontWeight: 600
-            }}
-          >
-            <Send size={20} />
-            Send
-          </Button>
+        {/* Input Area */}
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+          <div className="flex items-end gap-3">
+            <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={handleKeyPress}
+              placeholder="Ask me anything..."
+              rows={3}
+              disabled={isTyping}
+              className="flex-1 text-lg p-3 border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-20 rounded-xl resize-none transition-all duration-200 placeholder:text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
+            />
+            <Button
+              onClick={handleSend}
+              disabled={!message.trim() || isTyping}
+              className="h-12 px-6 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isTyping ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <Send className="h-5 w-5" />
+              )}
+            </Button>
+          </div>
+          <div className="mt-2 flex items-center gap-2 text-xs text-gray-500">
+            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+            </svg>
+            <span>Press Enter to send, Shift+Enter for new line</span>
+          </div>
         </div>
-        
-        {userGoal?.subscriptionTier === "free" && (
-          <p style={{ fontSize: '12px', color: '#a0aec0', marginTop: '8px', textAlign: 'center' }}>
-            Free tier: {userGoal.dailyMessageCount || 0}/5 messages today
-          </p>
-        )}
       </div>
     </div>
   );
