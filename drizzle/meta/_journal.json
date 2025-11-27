@@ -29,6 +29,20 @@
       "when": 1762290782449,
       "tag": "0003_soft_raider",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1764237231386,
+      "tag": "0004_calm_lethal_legion",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1764237269163,
+      "tag": "0005_aberrant_caretaker",
+      "breakpoints": true
     }
   ]
 }
