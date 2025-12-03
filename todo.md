@@ -338,6 +338,18 @@
 - [ ] Test deleting insights
 - [ ] Verify all data persists correctly
 
+## Mobile Responsiveness & WebView Compatibility
+
+- [x] Fix HTTP protocol errors for WebView compatibility
+- [x] Implement mobile-first responsive design
+- [x] Optimize layouts for small screens (320px-480px)
+- [x] Fix touch interactions and button sizes
+- [x] Ensure proper viewport configuration
+- [ ] Test on mobile devices and WebView
+- [x] Fix mixed content (HTTP/HTTPS) issues
+- [x] Optimize images for mobile
+- [x] Implement mobile navigation patterns
+
 ## Prepare Project for GitHub Export
 
 ### Phase 1: Create README.md

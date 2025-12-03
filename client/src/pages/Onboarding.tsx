@@ -113,59 +113,59 @@ export default function Onboarding() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/30 to-slate-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-5xl mx-auto px-6 py-6">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-              <Sparkles className="h-6 w-6 text-white" />
+        <div className="max-w-5xl mx-auto px-4 md:px-6 py-4 md:py-6">
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className="w-10 md:w-12 h-10 md:h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center flex-shrink-0">
+              <Sparkles className="h-5 md:h-6 w-5 md:w-6 text-white" />
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Welcome to MyAthena</h1>
-              <p className="text-lg text-gray-600">Let's begin your transformation journey</p>
+            <div className="min-w-0">
+              <h1 className="text-xl md:text-3xl font-bold text-gray-900 truncate">Welcome to MyAthena</h1>
+              <p className="text-sm md:text-lg text-gray-600 truncate">Let's begin your transformation journey</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-5xl mx-auto px-6 py-12">
-        <form onSubmit={handleSubmit} className="space-y-12">
+      <div className="max-w-5xl mx-auto px-4 md:px-6 py-6 md:py-12">
+        <form onSubmit={handleSubmit} className="space-y-6 md:space-y-12">
           {/* Step 1: Categories */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
-            <div className="mb-8">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-xl">
+          <div className="bg-white rounded-xl md:rounded-2xl shadow-sm border border-gray-200 p-4 md:p-8">
+            <div className="mb-6 md:mb-8">
+              <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
+                <div className="w-8 md:w-10 h-8 md:h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-lg md:text-xl flex-shrink-0">
                   1
                 </div>
-                <Label className="text-3xl font-bold text-gray-900">
+                <Label className="text-lg md:text-3xl font-bold text-gray-900">
                   What area would you like to focus on?
                 </Label>
               </div>
-              <p className="text-lg text-gray-600 ml-13">
+              <p className="text-sm md:text-lg text-gray-600 ml-10 md:ml-13">
                 Choose the primary area you'd like to work on. You can explore other areas later.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
               {categories.map((category) => (
                 <button
                   key={category.value}
                   type="button"
                   onClick={() => setPrimaryStruggle(category.value as any)}
-                  className={`text-left p-6 rounded-xl border-2 transition-all duration-200 ${
+                  className={`text-left p-3 md:p-6 rounded-lg md:rounded-xl border-2 transition-all duration-200 ${
                     primaryStruggle === category.value
                       ? 'border-purple-600 bg-purple-50 shadow-lg ring-2 ring-purple-600 ring-opacity-50'
                       : 'border-gray-200 bg-white hover:border-purple-300 hover:shadow-md'
                   }`}
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="text-4xl flex-shrink-0">{category.icon}</div>
+                  <div className="flex items-start gap-2 md:gap-4">
+                    <div className="text-2xl md:text-4xl flex-shrink-0">{category.icon}</div>
                     <div className="flex-1 min-w-0">
-                      <h3 className={`text-xl font-bold mb-1 ${
+                      <h3 className={`text-sm md:text-xl font-bold mb-1 ${
                         primaryStruggle === category.value ? 'text-purple-900' : 'text-gray-900'
                       }`}>
                         {category.label}
                       </h3>
-                      <p className={`text-base ${
+                      <p className={`text-xs md:text-base ${
                         primaryStruggle === category.value ? 'text-purple-700' : 'text-gray-600'
                       }`}>
                         {category.description}
@@ -187,17 +187,17 @@ export default function Onboarding() {
           </div>
 
           {/* Step 2: Chat Input at Bottom */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
-            <div className="mb-6">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-xl">
+          <div className="bg-white rounded-xl md:rounded-2xl shadow-sm border border-gray-200 p-4 md:p-8">
+            <div className="mb-4 md:mb-6">
+              <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
+                <div className="w-8 md:w-10 h-8 md:h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-lg md:text-xl flex-shrink-0">
                   2
                 </div>
-                <Label htmlFor="primaryGoal" className="text-3xl font-bold text-gray-900">
+                <Label htmlFor="primaryGoal" className="text-lg md:text-3xl font-bold text-gray-900">
                   Tell me what's on your mind
                 </Label>
               </div>
-              <p className="text-lg text-gray-600 ml-13">
+              <p className="text-sm md:text-lg text-gray-600 ml-10 md:ml-13">
                 Share your thoughts, feelings, or what you'd like to work on. This is a safe, judgment-free space.
               </p>
             </div>
@@ -209,29 +209,29 @@ export default function Onboarding() {
                 value={primaryGoal}
                 onChange={(e) => setPrimaryGoal(e.target.value)}
                 placeholder="I'm here to listen. What would you like to share today?"
-                rows={6}
+                rows={4}
                 required
-                className="w-full text-xl p-6 pr-16 border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-20 rounded-2xl resize-none transition-all duration-200 placeholder:text-gray-400"
+                className="w-full text-sm md:text-xl p-4 md:p-6 pr-12 md:pr-16 border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-20 rounded-lg md:rounded-2xl resize-none transition-all duration-200 placeholder:text-gray-400"
                 style={{ 
                   fontFamily: 'inherit',
                   lineHeight: '1.6'
                 }}
               />
-              <div className="absolute bottom-6 right-6">
+              <div className="absolute bottom-4 md:bottom-6 right-4 md:right-6">
                 <Button
                   type="submit"
                   disabled={setGoalMutation.isPending || !primaryGoal.trim()}
-                  className="h-12 px-8 bg-purple-600 hover:bg-purple-700 text-white text-lg font-semibold rounded-xl shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="h-10 md:h-12 px-4 md:px-8 bg-purple-600 hover:bg-purple-700 text-white text-sm md:text-lg font-semibold rounded-lg md:rounded-xl shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {setGoalMutation.isPending ? (
                     <>
-                      <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                      <Loader2 className="h-4 md:h-5 w-4 md:w-5 animate-spin mr-2" />
                       Starting...
                     </>
                   ) : (
                     <>
                       Begin Journey
-                      <Send className="h-5 w-5 ml-2" />
+                      <Send className="h-4 md:h-5 w-4 md:w-5 ml-2" />
                     </>
                   )}
                 </Button>
@@ -249,7 +249,7 @@ export default function Onboarding() {
       </div>
 
       {/* Footer spacing */}
-      <div className="h-20"></div>
+      <div className="h-12 md:h-20"></div>
     </div>
   );
 }
