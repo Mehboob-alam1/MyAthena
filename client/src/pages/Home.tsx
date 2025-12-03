@@ -1,371 +1,226 @@
 import { Button } from "@/components/ui/button";
-import { APP_LOGO } from "@/const";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { Brain, Flame, Heart, TrendingUp, Check, Star, ArrowRight, Eye, Sparkles, Scale, Sunrise } from "lucide-react";
-import { Link } from "wouter";
-import { useState } from "react";
-import type React from "react";
+import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
+import { useLocation } from "wouter";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 export default function Home() {
-  const { user, loading } = useAuth();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
+  const [, setLocation] = useLocation();
 
-  // Responsive styles
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-
-  const styles = {
-    container: {
-      minHeight: '100vh',
-      background: '#0a0e27',
-      color: '#ffffff',
-      overflow: 'hidden'
-    },
-    nav: {
-      position: 'fixed' as const,
-      top: 0,
-      left: 0,
-      right: 0,
-      height: isMobile ? '64px' : '80px',
-      background: 'rgba(10, 14, 39, 0.95)',
-      backdropFilter: 'blur(10px)',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-      zIndex: 50,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: isMobile ? '0 16px' : '0 48px',
-      transition: 'all 0.3s ease'
-    },
-    navBrand: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px'
-    },
-    navLogo: {
-      height: isMobile ? '24px' : '32px'
-    },
-    navTitle: {
-      fontSize: isMobile ? '18px' : '24px',
-      fontWeight: 700,
-      color: '#fbbf24'
-    },
-    navLinks: {
-      display: isMobile ? 'none' : 'flex',
-      alignItems: 'center',
-      gap: '32px'
-    },
-    navLink: {
-      fontSize: '16px',
-      fontWeight: 500,
-      color: '#ffffff',
-      textDecoration: 'none',
-      transition: 'color 0.3s',
-      cursor: 'pointer'
-    },
-    mobileMenu: {
-      display: 'flex',
-      flexDirection: 'column' as const,
-      gap: '12px',
-      padding: '16px'
-    },
-    hero: {
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column' as const,
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: isMobile ? '80px 16px 48px' : '120px 48px 96px',
-      textAlign: 'center' as const,
-      position: 'relative' as const
-    },
-    heroContent: {
-      maxWidth: isMobile ? '100%' : '900px',
-      margin: '0 auto'
-    },
-    heroTitle: {
-      fontSize: isMobile ? '32px' : '72px',
-      fontWeight: 700,
-      lineHeight: 1.1,
-      marginBottom: isMobile ? '16px' : '32px',
-      background: 'linear-gradient(135deg, #ffffff 0%, #8b5cf6 50%, #6366f1 100%)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      backgroundClip: 'text',
-      wordBreak: 'break-word' as const
-    },
-    heroSubtitle: {
-      fontSize: isMobile ? '16px' : '24px',
-      lineHeight: 1.6,
-      color: '#a0aec0',
-      marginBottom: isMobile ? '24px' : '48px',
-      maxWidth: '768px',
-      margin: '0 auto'
-    },
-    buttonContainer: {
-      display: 'flex' as const,
-      flexDirection: isMobile ? 'column' : 'row',
-      gap: isMobile ? '12px' : '24px',
-      justifyContent: 'center',
-      marginBottom: isMobile ? '32px' : '64px',
-      width: isMobile ? '100%' : 'auto'
-    } as React.CSSProperties,
-    button: {
-      padding: isMobile ? '12px 24px' : '16px 32px',
-      fontSize: isMobile ? '14px' : '16px',
-      fontWeight: 600,
-      border: 'none',
-      borderRadius: '12px',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease',
-      width: isMobile ? '100%' : 'auto',
-      minHeight: '44px'
-    },
-    primaryButton: {
-      background: 'linear-gradient(135deg, #fbbf24 0%, #d4af37 100%)',
-      color: '#0a0e27'
-    },
-    secondaryButton: {
-      background: 'rgba(255, 255, 255, 0.1)',
-      color: '#ffffff',
-      border: '1px solid rgba(255, 255, 255, 0.2)'
-    },
-    pillarGrid: {
-      display: 'grid' as const,
-      gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-      gap: isMobile ? '16px' : '32px',
-      padding: isMobile ? '16px' : '48px',
-      maxWidth: '1200px',
-      margin: '0 auto'
-    },
-    pillarCard: {
-      background: 'rgba(255, 255, 255, 0.05)',
-      border: '1px solid rgba(255, 255, 255, 0.1)',
-      borderRadius: '16px',
-      padding: isMobile ? '20px' : '32px',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease',
-      minHeight: '200px',
-      display: 'flex' as const,
-      flexDirection: 'column' as const,
-      justifyContent: 'space-between'
-    },
-    pillarTitle: {
-      fontSize: isMobile ? '18px' : '24px',
-      fontWeight: 700,
-      color: '#fbbf24',
-      marginBottom: '12px'
-    },
-    pillarDescription: {
-      fontSize: isMobile ? '13px' : '16px',
-      color: '#a0aec0',
-      lineHeight: 1.6,
-      marginBottom: '16px'
-    },
-    section: {
-      padding: isMobile ? '32px 16px' : '64px 48px',
-      maxWidth: '1200px',
-      margin: '0 auto'
-    },
-    sectionTitle: {
-      fontSize: isMobile ? '28px' : '48px',
-      fontWeight: 700,
-      marginBottom: isMobile ? '16px' : '32px',
-      textAlign: 'center' as const
-    }
-  };
+  if (isAuthenticated) {
+    setLocation("/onboarding");
+    return null;
+  }
 
   return (
-    <div style={styles.container}>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-x-hidden">
       {/* Navigation */}
-      <nav style={styles.nav}>
-        <div style={styles.navBrand}>
-          {APP_LOGO && <img src={APP_LOGO} alt="MyAthena" style={styles.navLogo} />}
-          <span style={styles.navTitle}>MyAthena.life</span>
+      <nav className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50">
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+          <div className="flex items-center justify-between max-w-7xl mx-auto">
+            <div className="flex items-center gap-2 sm:gap-3">
+              {APP_LOGO && <img src={APP_LOGO} alt="Logo" className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg" />}
+              <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                {APP_TITLE}
+              </h1>
+            </div>
+            <a href={getLoginUrl()}>
+              <Button className="text-xs sm:text-sm px-3 sm:px-6 py-2 h-auto bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0">
+                Start Free
+              </Button>
+            </a>
+          </div>
         </div>
-        
-        <div style={styles.navLinks}>
-          <Link href="/pillars" style={styles.navLink}>
-            Four Pillars
-          </Link>
-          <Link href="/oracle" style={styles.navLink}>
-            Oracle
-          </Link>
-          {user ? (
-            <span style={{ fontSize: '14px', color: '#a0aec0' }}>Welcome, {user.name}</span>
-          ) : (
-            <Button style={{
-              background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-              color: '#ffffff',
-              padding: '10px 20px',
-              borderRadius: '8px',
-              fontSize: '14px',
-              fontWeight: 600,
-              border: 'none',
-              cursor: 'pointer',
-              minHeight: '40px'
-            }}>
-              Start for Free
-            </Button>
-          )}
-        </div>
-
-        {/* Mobile Menu Button */}
-        {isMobile && (
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: '#ffffff',
-              fontSize: '24px',
-              cursor: 'pointer',
-              padding: '8px'
-            }}
-          >
-            ☰
-          </button>
-        )}
       </nav>
 
       {/* Hero Section */}
-      <section style={styles.hero}>
-        <div style={styles.heroContent}>
-          <h1 style={styles.heroTitle}>
-            Unlock Your Potential.<br />
-            Find Your Inner Wisdom.
-          </h1>
-          
-          <p style={styles.heroSubtitle}>
+      <section className="w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-24 lg:py-32">
+        <div className="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8">
+          {/* Headline */}
+          <div className="space-y-3 sm:space-y-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <span className="bg-gradient-to-r from-purple-300 via-pink-300 to-purple-300 bg-clip-text text-transparent">
+                Unlock Your Potential.
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 bg-clip-text text-transparent">
+                Find Your Inner Wisdom.
+              </span>
+            </h2>
+          </div>
+
+          {/* Subheading */}
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
             MyAthena is your personal life coach, blending ancient wisdom from Stoicism, Jungian Psychology, NLP, and Hypnotherapy with modern neuroscience and quantum consciousness.
           </p>
 
-          <div style={styles.buttonContainer}>
-            <Link href="/oracle">
-              <button style={{ ...styles.button, ...styles.primaryButton }}>
+          {/* Trust Badges */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-xs sm:text-sm text-slate-400 pt-2 sm:pt-4">
+            <div className="flex items-center gap-2">
+              <span className="text-green-400">✓</span>
+              <span>Free to start</span>
+            </div>
+            <div className="hidden sm:flex">•</div>
+            <div className="flex items-center gap-2">
+              <span className="text-green-400">✓</span>
+              <span>No credit card</span>
+            </div>
+            <div className="hidden sm:flex">•</div>
+            <div className="flex items-center gap-2">
+              <span className="text-green-400">✓</span>
+              <span>Cancel anytime</span>
+            </div>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-4 sm:pt-8">
+            <a href={getLoginUrl()} className="w-full sm:w-auto">
+              <Button className="w-full sm:w-auto text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4 h-auto bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0 font-semibold flex items-center justify-center gap-2 rounded-lg">
                 Begin Your Journey
-              </button>
-            </Link>
-            <Link href="/pillars">
-              <button style={{ ...styles.button, ...styles.secondaryButton }}>
-                Explore Your Pillars
-              </button>
-            </Link>
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </a>
+            <a href={getLoginUrl()} className="w-full sm:w-auto">
+              <Button variant="outline" className="w-full sm:w-auto text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4 h-auto border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white font-semibold rounded-lg">
+                Explore Four Pillars
+              </Button>
+            </a>
           </div>
         </div>
       </section>
 
       {/* Four Pillars Preview */}
-      <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>The Four Pillars of Transformation</h2>
-        <div style={{...styles.pillarGrid, display: 'grid' as const}}>
-          {[
-            {
-              icon: Brain,
-              title: 'The Oracle',
-              description: 'Strategic wisdom guidance drawing from Stoicism, Jung, NLP, and neuroscience. Your personal AI coach for life\'s biggest questions.'
-            },
-            {
-              icon: Flame,
-              title: 'The Crucible',
-              description: 'Transformative guided sessions and meditations. Forge your inner strength through proven practices and ancient wisdom.'
-            },
-            {
-              icon: Eye,
-              title: 'The Mirror',
-              description: 'Deep listening and pattern recognition. See yourself clearly through empathetic AI coaching and self-reflection.'
-            },
-            {
-              icon: TrendingUp,
-              title: 'The Ascent',
-              description: 'Goal tracking and actionable steps. Climb toward your highest potential with personalized guidance and daily practices.'
-            }
-          ].map((pillar, idx) => {
-            const Icon = pillar.icon;
-            return (
-              <div
-                key={idx}
-                style={styles.pillarCard}
-                onMouseEnter={(e) => {
-                  if (!isMobile) {
-                    e.currentTarget.style.background = 'rgba(251, 191, 36, 0.1)';
-                    e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.3)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isMobile) {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                  }
-                }}
-              >
-                <div>
-                  <Icon size={isMobile ? 32 : 40} color="#fbbf24" style={{ marginBottom: '12px' }} />
-                  <h3 style={styles.pillarTitle}>{pillar.title}</h3>
-                  <p style={styles.pillarDescription}>{pillar.description}</p>
+      <section className="w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-24 bg-slate-800/50 border-t border-slate-700/50">
+        <div className="max-w-6xl mx-auto">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 md:mb-16">
+            <span className="bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
+              Four Gateways to Transformation
+            </span>
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {/* Pillar 1 */}
+            <div className="group p-5 sm:p-6 rounded-xl bg-gradient-to-br from-slate-700/50 to-slate-800/50 border border-slate-600/50 hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🔮</div>
+              <h4 className="text-lg sm:text-xl font-bold mb-2 text-purple-300">The Oracle</h4>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Step into sacred dialogue with timeless wisdom. Ask any question and receive guidance from sages and masters.
+              </p>
+            </div>
+
+            {/* Pillar 2 */}
+            <div className="group p-5 sm:p-6 rounded-xl bg-gradient-to-br from-slate-700/50 to-slate-800/50 border border-slate-600/50 hover:border-pink-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/20">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🔥</div>
+              <h4 className="text-lg sm:text-xl font-bold mb-2 text-pink-300">The Crucible</h4>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Where transformation is forged. Dissolve old patterns and awaken the limitless self within through guided practices.
+              </p>
+            </div>
+
+            {/* Pillar 3 */}
+            <div className="group p-5 sm:p-6 rounded-xl bg-gradient-to-br from-slate-700/50 to-slate-800/50 border border-slate-600/50 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🪞</div>
+              <h4 className="text-lg sm:text-xl font-bold mb-2 text-blue-300">The Mirror</h4>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Meet yourself fully. Explore your shadows, heal your inner child, and rewrite the stories that held you back.
+              </p>
+            </div>
+
+            {/* Pillar 4 */}
+            <div className="group p-5 sm:p-6 rounded-xl bg-gradient-to-br from-slate-700/50 to-slate-800/50 border border-slate-600/50 hover:border-green-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">⛰️</div>
+              <h4 className="text-lg sm:text-xl font-bold mb-2 text-green-300">The Ascent</h4>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Your climb to greatness. Align mind, body, and spirit as you embody your highest potential and rise into enlightenment.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Transformation Path */}
+      <section className="w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-24">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 md:mb-16">
+            <span className="bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
+              The Path of Transformation
+            </span>
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {[
+              { num: 1, title: "CLARITY", subtitle: "See What Is", desc: "Awareness reveals what's truly happening in your inner world." },
+              { num: 2, title: "REMEMBRANCE", subtitle: "Know Who You Are", desc: "Discover that you are infinite consciousness, a fractal of the divine." },
+              { num: 3, title: "ALIGNMENT", subtitle: "Live in Truth", desc: "Your thoughts, emotions, and actions vibrate as one harmonious whole." },
+              { num: 4, title: "INTEGRATION", subtitle: "Become Embodied", desc: "Bridge insight into daily action until the extraordinary becomes normal." },
+            ].map((phase) => (
+              <div key={phase.num} className="p-4 sm:p-6 rounded-lg bg-slate-800/30 border border-slate-700/50">
+                <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-2">{phase.num}</div>
+                <h4 className="text-base sm:text-lg font-bold mb-1 text-white">{phase.title}</h4>
+                <p className="text-xs sm:text-sm text-purple-300 mb-2 font-semibold">{phase.subtitle}</p>
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">{phase.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof */}
+      <section className="w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-24 bg-slate-800/50 border-t border-slate-700/50">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 md:mb-16">
+            <span className="bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
+              Trusted by Thousands
+            </span>
+          </h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            {[
+              { quote: "MyAthena actually understands me and gives practical advice I can use.", author: "Jennifer K.", role: "Teacher" },
+              { quote: "The Oracle helped me work through deep-seated limiting beliefs in just 3 months.", author: "Michael R.", role: "Entrepreneur" },
+              { quote: "The Crucible sessions are truly transformative. I'm becoming who I want to be.", author: "Sarah L.", role: "Healthcare Worker" },
+              { quote: "The Mirror helped me confront patterns I'd been avoiding for years.", author: "David Chen", role: "Software Engineer" },
+            ].map((testimonial, idx) => (
+              <div key={idx} className="p-4 sm:p-6 rounded-lg bg-slate-700/30 border border-slate-600/50">
+                <p className="text-xs sm:text-sm text-slate-300 mb-3 sm:mb-4 italic leading-relaxed">"{testimonial.quote}"</p>
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-400" />
+                  <div>
+                    <p className="text-xs sm:text-sm font-semibold text-white">{testimonial.author}</p>
+                    <p className="text-xs text-slate-400">{testimonial.role}</p>
+                  </div>
                 </div>
-                <ArrowRight size={isMobile ? 20 : 24} color="#fbbf24" />
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section style={{ ...styles.section, background: 'rgba(251, 191, 36, 0.05)' }}>
-        <h2 style={styles.sectionTitle}>Why MyAthena.life?</h2>
-          <div style={{
-            display: 'grid' as const,
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-            gap: isMobile ? '16px' : '32px'
-          }}>
-          {[
-            { icon: Star, title: 'AI-Powered Coaching', description: 'Advanced AI trained in multiple wisdom traditions' },
-            { icon: Sparkles, title: 'Personalized Path', description: 'Customized guidance based on your unique journey' },
-            { icon: Scale, title: 'Balanced Approach', description: 'Ancient wisdom meets modern neuroscience' }
-          ].map((feature, idx) => {
-            const Icon = feature.icon;
-            return (
-              <div key={idx} style={{ textAlign: 'center' }}>
-                <Icon size={isMobile ? 32 : 48} color="#fbbf24" style={{ marginBottom: '12px', margin: '0 auto 12px' }} />
-                <h3 style={{ fontSize: isMobile ? '16px' : '20px', fontWeight: 600, marginBottom: '8px' }}>
-                  {feature.title}
-                </h3>
-                <p style={{ fontSize: isMobile ? '13px' : '16px', color: '#a0aec0' }}>
-                  {feature.description}
-                </p>
-              </div>
-            );
-          })}
+      {/* Final CTA */}
+      <section className="w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-24">
+        <div className="max-w-2xl mx-auto text-center space-y-6 sm:space-y-8">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+            <span className="bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
+              Ready to Transform Your Life?
+            </span>
+          </h3>
+          <p className="text-sm sm:text-base text-slate-400">
+            Join thousands who have found clarity, purpose, and fulfillment with MyAthena.
+          </p>
+          <a href={getLoginUrl()}>
+            <Button className="text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4 h-auto bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0 font-semibold rounded-lg flex items-center justify-center gap-2 mx-auto">
+              Begin Your Journey
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </a>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section style={{
-        ...styles.section,
-        textAlign: 'center',
-        paddingBottom: isMobile ? '48px' : '96px'
-      }}>
-        <h2 style={styles.sectionTitle}>Ready to Transform Your Life?</h2>
-        <p style={{
-          fontSize: isMobile ? '16px' : '20px',
-          color: '#a0aec0',
-          marginBottom: isMobile ? '24px' : '32px',
-          maxWidth: '600px',
-          margin: '0 auto'
-        }}>
-          Join thousands discovering their inner wisdom and unlocking their potential.
-        </p>
-        <Link href="/oracle">
-          <button style={{
-            ...styles.button,
-            ...styles.primaryButton,
-            width: isMobile ? '100%' : 'auto',
-            maxWidth: '300px'
-          }}>
-            Begin Your Journey Today
-          </button>
-        </Link>
-      </section>
+      {/* Footer */}
+      <footer className="w-full px-4 sm:px-6 lg:px-8 py-6 sm:py-8 border-t border-slate-700/50 bg-slate-900/50 text-center text-xs sm:text-sm text-slate-500">
+        <p>© 2025 {APP_TITLE}. All rights reserved. Your journey to awakening begins here.</p>
+      </footer>
     </div>
   );
 }
