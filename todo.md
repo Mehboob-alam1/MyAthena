@@ -777,3 +777,15 @@
 - [x] Redesign Oracle page with clean professional styling
 - [x] Redesign Mirror page with clean professional styling
 - [x] Redesign Ascent page with clean professional styling
+
+
+## URGENT: Fix Horizontal Scrolling Issues
+
+- [ ] Remove all fixed widths that cause overflow
+- [ ] Fix max-width constraints on containers
+- [ ] Ensure all text wraps properly on mobile
+- [ ] Remove horizontal padding that causes overflow
+- [ ] Fix button widths to be responsive
+- [ ] Test on 320px, 375px, 414px, 768px viewports
+- [ ] Verify no horizontal scrolling on any device
+- [ ] Deploy fixed version to Vercel
