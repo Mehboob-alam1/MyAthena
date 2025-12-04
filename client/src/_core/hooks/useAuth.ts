@@ -14,7 +14,8 @@ export function useAuth(options?: UseAuthOptions) {
   const utils = trpc.useUtils();
 
   const meQuery = trpc.auth.me.useQuery(undefined, {
-    retry: false,
+    retry: 1,
+    retryDelay: 1000,
     refetchOnWindowFocus: false,
   });
 
@@ -67,7 +68,19 @@ export function useAuth(options?: UseAuthOptions) {
     if (typeof window === "undefined") return;
     if (window.location.pathname === redirectPath) return;
 
-    window.location.href = redirectPath
+    try {
+      window.location.href = redirectPath;
+    } catch (error) {
+      console.error('[Auth] Failed to redirect to login:', error);
+      // Fallback: try again after a delay
+      setTimeout(() => {
+        try {
+          window.location.href = redirectPath;
+        } catch (retryError) {
+          console.error('[Auth] Retry redirect failed:', retryError);
+        }
+      }, 1000);
+    }
   }, [
     redirectOnUnauthenticated,
     redirectPath,
