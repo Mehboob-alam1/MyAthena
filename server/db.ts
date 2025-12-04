@@ -4,12 +4,38 @@ import { InsertUser, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 1000; // ms
+
+// Retry logic for database operations
+async function withRetry<T>(
+  fn: () => Promise<T>,
+  operation: string
+): Promise<T | null> {
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (attempt === MAX_RETRIES) {
+        console.error(`[Database] ${operation} failed after ${MAX_RETRIES} attempts:`, error);
+        return null;
+      }
+      const delay = RETRY_DELAY * attempt;
+      console.warn(`[Database] ${operation} attempt ${attempt} failed, retrying in ${delay}ms...`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+  return null;
+}
 
 // Lazily create the drizzle instance so local tooling can run without a DB.
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
-      _db = drizzle(process.env.DATABASE_URL);
+      _db = drizzle(process.env.DATABASE_URL, {
+        mode: 'default',
+      });
+      console.log("[Database] Connected successfully");
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
       _db = null;
@@ -29,7 +55,7 @@ export async function upsertUser(user: InsertUser): Promise<void> {
     return;
   }
 
-  try {
+  await withRetry(async () => {
     const values: InsertUser = {
       openId: user.openId,
     };
@@ -71,10 +97,7 @@ export async function upsertUser(user: InsertUser): Promise<void> {
     await db.insert(users).values(values).onDuplicateKeyUpdate({
       set: updateSet,
     });
-  } catch (error) {
-    console.error("[Database] Failed to upsert user:", error);
-    throw error;
-  }
+  }, "upsertUser");
 }
 
 export async function getUserByOpenId(openId: string) {
@@ -84,126 +107,162 @@ export async function getUserByOpenId(openId: string) {
     return undefined;
   }
 
-  const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
-
-  return result.length > 0 ? result[0] : undefined;
+  return await withRetry(async () => {
+    const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
+    return result.length > 0 ? result[0] : undefined;
+  }, `getUserByOpenId(${openId})`);
 }
 
 // Chat Messages
 export async function getChatHistory(userId: number, limit: number = 10) {
   const db = await getDb();
   if (!db) return [];
-  const { chatMessages } = await import("../drizzle/schema");
-  const { desc } = await import("drizzle-orm");
-  const messages = await db.select().from(chatMessages).where(eq(chatMessages.userId, userId)).orderBy(desc(chatMessages.createdAt)).limit(limit);
-  return messages.reverse();
+  
+  return await withRetry(async () => {
+    const { chatMessages } = await import("../drizzle/schema");
+    const { desc } = await import("drizzle-orm");
+    const messages = await db.select().from(chatMessages).where(eq(chatMessages.userId, userId)).orderBy(desc(chatMessages.createdAt)).limit(limit);
+    return messages.reverse();
+  }, `getChatHistory(${userId})`) || [];
 }
 
 export async function saveChatMessage(userId: number, role: "system" | "user" | "assistant", content: string) {
   const db = await getDb();
   if (!db) return null;
-  const { chatMessages } = await import("../drizzle/schema");
-  const result = await db.insert(chatMessages).values({ userId, role, content });
-  return result;
+  
+  return await withRetry(async () => {
+    const { chatMessages } = await import("../drizzle/schema");
+    return await db.insert(chatMessages).values({ userId, role, content });
+  }, `saveChatMessage(${userId})`);
 }
 
 // Guided Sessions
 export async function getAllGuidedSessions() {
   const db = await getDb();
   if (!db) return [];
-  const { guidedSessions } = await import("../drizzle/schema");
-  return await db.select().from(guidedSessions);
+  
+  return await withRetry(async () => {
+    const { guidedSessions } = await import("../drizzle/schema");
+    return await db.select().from(guidedSessions);
+  }, "getAllGuidedSessions") || [];
 }
 
 export async function getGuidedSessionById(sessionId: number) {
   const db = await getDb();
   if (!db) return null;
-  const { guidedSessions } = await import("../drizzle/schema");
-  const result = await db.select().from(guidedSessions).where(eq(guidedSessions.id, sessionId)).limit(1);
-  return result.length > 0 ? result[0] : null;
+  
+  return await withRetry(async () => {
+    const { guidedSessions } = await import("../drizzle/schema");
+    const result = await db.select().from(guidedSessions).where(eq(guidedSessions.id, sessionId)).limit(1);
+    return result.length > 0 ? result[0] : null;
+  }, `getGuidedSessionById(${sessionId})`);
 }
 
 export async function getUserSessionCompletions(userId: number) {
   const db = await getDb();
   if (!db) return [];
-  const { sessionCompletions } = await import("../drizzle/schema");
-  return await db.select().from(sessionCompletions).where(eq(sessionCompletions.userId, userId));
+  
+  return await withRetry(async () => {
+    const { sessionCompletions } = await import("../drizzle/schema");
+    return await db.select().from(sessionCompletions).where(eq(sessionCompletions.userId, userId));
+  }, `getUserSessionCompletions(${userId})`) || [];
 }
 
 export async function markSessionComplete(userId: number, sessionId: number) {
   const db = await getDb();
   if (!db) return null;
-  const { sessionCompletions } = await import("../drizzle/schema");
-  return await db.insert(sessionCompletions).values({ userId, sessionId });
+  
+  return await withRetry(async () => {
+    const { sessionCompletions } = await import("../drizzle/schema");
+    return await db.insert(sessionCompletions).values({ userId, sessionId });
+  }, `markSessionComplete(${userId}, ${sessionId})`);
 }
 
 // Journal Entries
 export async function getUserJournalEntries(userId: number) {
   const db = await getDb();
   if (!db) return [];
-  const { journalEntries } = await import("../drizzle/schema");
-  const { desc } = await import("drizzle-orm");
-  return await db.select().from(journalEntries).where(eq(journalEntries.userId, userId)).orderBy(desc(journalEntries.createdAt));
+  
+  return await withRetry(async () => {
+    const { journalEntries } = await import("../drizzle/schema");
+    const { desc } = await import("drizzle-orm");
+    return await db.select().from(journalEntries).where(eq(journalEntries.userId, userId)).orderBy(desc(journalEntries.createdAt));
+  }, `getUserJournalEntries(${userId})`) || [];
 }
 
 export async function createJournalEntry(userId: number, content: string, reflectionPrompt?: string) {
   const db = await getDb();
   if (!db) return null;
-  const { journalEntries } = await import("../drizzle/schema");
-  return await db.insert(journalEntries).values({ userId, content, reflectionPrompt });
+  
+  return await withRetry(async () => {
+    const { journalEntries } = await import("../drizzle/schema");
+    return await db.insert(journalEntries).values({ userId, content, reflectionPrompt });
+  }, `createJournalEntry(${userId})`);
 }
 
 export async function updateJournalEntry(entryId: number, content: string) {
   const db = await getDb();
   if (!db) return null;
-  const { journalEntries } = await import("../drizzle/schema");
-  return await db.update(journalEntries).set({ content, updatedAt: new Date() }).where(eq(journalEntries.id, entryId));
+  
+  return await withRetry(async () => {
+    const { journalEntries } = await import("../drizzle/schema");
+    return await db.update(journalEntries).set({ content, updatedAt: new Date() }).where(eq(journalEntries.id, entryId));
+  }, `updateJournalEntry(${entryId})`);
 }
 
 // User Goals
 export async function getUserGoal(userId: number) {
   const db = await getDb();
   if (!db) return null;
-  const { userGoals } = await import("../drizzle/schema");
-  const result = await db.select().from(userGoals).where(eq(userGoals.userId, userId)).limit(1);
-  return result.length > 0 ? result[0] : null;
+  
+  return await withRetry(async () => {
+    const { userGoals } = await import("../drizzle/schema");
+    const result = await db.select().from(userGoals).where(eq(userGoals.userId, userId)).limit(1);
+    return result.length > 0 ? result[0] : null;
+  }, `getUserGoal(${userId})`);
 }
 
 export async function upsertUserGoal(userId: number, data: { primaryGoal?: string; primaryStruggle?: "money" | "self_worth" | "anxiety" | "career" | "relationships" | "purpose" | "trauma" | "other"; subscriptionTier?: "free" | "standard" | "premium" }) {
   const db = await getDb();
   if (!db) return null;
-  const { userGoals } = await import("../drizzle/schema");
-  const existing = await getUserGoal(userId);
-  if (existing) {
-    return await db.update(userGoals).set({ ...data, updatedAt: new Date() }).where(eq(userGoals.userId, userId));
-  } else {
-    const insertData: any = { userId };
-    if (data.primaryGoal !== undefined) insertData.primaryGoal = data.primaryGoal;
-    if (data.primaryStruggle !== undefined) insertData.primaryStruggle = data.primaryStruggle;
-    if (data.subscriptionTier !== undefined) insertData.subscriptionTier = data.subscriptionTier;
-    return await db.insert(userGoals).values(insertData);
-  }
+  
+  return await withRetry(async () => {
+    const { userGoals } = await import("../drizzle/schema");
+    const existing = await getUserGoal(userId);
+    if (existing) {
+      return await db.update(userGoals).set({ ...data, updatedAt: new Date() }).where(eq(userGoals.userId, userId));
+    } else {
+      const insertData: any = { userId };
+      if (data.primaryGoal !== undefined) insertData.primaryGoal = data.primaryGoal;
+      if (data.primaryStruggle !== undefined) insertData.primaryStruggle = data.primaryStruggle;
+      if (data.subscriptionTier !== undefined) insertData.subscriptionTier = data.subscriptionTier;
+      return await db.insert(userGoals).values(insertData);
+    }
+  }, `upsertUserGoal(${userId})`);
 }
 
 export async function incrementDailyMessageCount(userId: number) {
   const db = await getDb();
   if (!db) return null;
-  const { userGoals } = await import("../drizzle/schema");
-  const { sql } = await import("drizzle-orm");
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
   
-  const goal = await getUserGoal(userId);
-  if (!goal) {
-    await upsertUserGoal(userId, {});
-  }
-  
-  const lastMessageDate = goal?.lastMessageDate ? new Date(goal.lastMessageDate) : null;
-  const isToday = lastMessageDate && lastMessageDate >= today;
-  
-  if (isToday) {
-    return await db.update(userGoals).set({ dailyMessageCount: sql`${userGoals.dailyMessageCount} + 1`, lastMessageDate: new Date() }).where(eq(userGoals.userId, userId));
-  } else {
-    return await db.update(userGoals).set({ dailyMessageCount: 1, lastMessageDate: new Date() }).where(eq(userGoals.userId, userId));
-  }
+  return await withRetry(async () => {
+    const { userGoals } = await import("../drizzle/schema");
+    const { sql } = await import("drizzle-orm");
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const goal = await getUserGoal(userId);
+    if (!goal) {
+      await upsertUserGoal(userId, {});
+    }
+    
+    const lastMessageDate = goal?.lastMessageDate ? new Date(goal.lastMessageDate) : null;
+    const isToday = lastMessageDate && lastMessageDate >= today;
+    
+    if (isToday) {
+      return await db.update(userGoals).set({ dailyMessageCount: sql`${userGoals.dailyMessageCount} + 1`, lastMessageDate: new Date() }).where(eq(userGoals.userId, userId));
+    } else {
+      return await db.update(userGoals).set({ dailyMessageCount: 1, lastMessageDate: new Date() }).where(eq(userGoals.userId, userId));
+    }
+  }, `incrementDailyMessageCount(${userId})`);
 }

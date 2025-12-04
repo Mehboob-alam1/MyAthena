@@ -1,24 +1,34 @@
-import { Button } from "@/components/ui/button";
 import { APP_LOGO } from "@/const";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { Brain, Flame, Heart, TrendingUp, Check, Star, ArrowRight, Eye, Sparkles, Scale, Sunrise } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
-import { useState } from "react";
 import type React from "react";
 
 export default function Home() {
   const { user, loading } = useAuth();
+  const [isMobile, setIsMobile] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Responsive styles
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  // Detect mobile on mount and window resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
+  // Responsive styles
   const styles = {
     container: {
       minHeight: '100vh',
       background: '#0a0e27',
       color: '#ffffff',
-      overflow: 'hidden'
+      overflow: 'hidden' as const,
+      width: '100%',
+      boxSizing: 'border-box' as const
     },
     nav: {
       position: 'fixed' as const,
@@ -34,25 +44,32 @@ export default function Home() {
       alignItems: 'center',
       justifyContent: 'space-between',
       padding: isMobile ? '0 16px' : '0 48px',
-      transition: 'all 0.3s ease'
+      transition: 'all 0.3s ease',
+      width: '100%',
+      boxSizing: 'border-box' as const
     },
     navBrand: {
       display: 'flex',
       alignItems: 'center',
-      gap: '8px'
+      gap: '8px',
+      minWidth: 0
     },
     navLogo: {
-      height: isMobile ? '24px' : '32px'
+      height: isMobile ? '24px' : '32px',
+      width: 'auto'
     },
     navTitle: {
       fontSize: isMobile ? '18px' : '24px',
       fontWeight: 700,
-      color: '#fbbf24'
+      color: '#fbbf24',
+      whiteSpace: 'nowrap' as const
     },
     navLinks: {
       display: isMobile ? 'none' : 'flex',
       alignItems: 'center',
-      gap: '32px'
+      gap: '32px',
+      flex: 1,
+      justifyContent: 'flex-end'
     },
     navLink: {
       fontSize: '16px',
@@ -62,12 +79,6 @@ export default function Home() {
       transition: 'color 0.3s',
       cursor: 'pointer'
     },
-    mobileMenu: {
-      display: 'flex',
-      flexDirection: 'column' as const,
-      gap: '12px',
-      padding: '16px'
-    },
     hero: {
       minHeight: '100vh',
       display: 'flex',
@@ -76,11 +87,15 @@ export default function Home() {
       justifyContent: 'center',
       padding: isMobile ? '80px 16px 48px' : '120px 48px 96px',
       textAlign: 'center' as const,
-      position: 'relative' as const
+      position: 'relative' as const,
+      width: '100%',
+      boxSizing: 'border-box' as const
     },
     heroContent: {
       maxWidth: isMobile ? '100%' : '900px',
-      margin: '0 auto'
+      margin: '0 auto',
+      width: '100%',
+      boxSizing: 'border-box' as const
     },
     heroTitle: {
       fontSize: isMobile ? '32px' : '72px',
@@ -91,7 +106,8 @@ export default function Home() {
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
       backgroundClip: 'text',
-      wordBreak: 'break-word' as const
+      wordBreak: 'break-word' as const,
+      margin: isMobile ? '0 0 16px 0' : '0 0 32px 0'
     },
     heroSubtitle: {
       fontSize: isMobile ? '16px' : '24px',
@@ -99,16 +115,19 @@ export default function Home() {
       color: '#a0aec0',
       marginBottom: isMobile ? '24px' : '48px',
       maxWidth: '768px',
-      margin: '0 auto'
+      margin: isMobile ? '0 auto 24px' : '0 auto 48px',
+      padding: isMobile ? '0 8px' : '0'
     },
     buttonContainer: {
       display: 'flex' as const,
-      flexDirection: isMobile ? 'column' : 'row',
+      flexDirection: isMobile ? ('column' as const) : ('row' as const),
       gap: isMobile ? '12px' : '24px',
       justifyContent: 'center',
       marginBottom: isMobile ? '32px' : '64px',
-      width: isMobile ? '100%' : 'auto'
-    } as React.CSSProperties,
+      width: isMobile ? '100%' : 'auto',
+      padding: isMobile ? '0 8px' : '0',
+      boxSizing: 'border-box' as const
+    },
     button: {
       padding: isMobile ? '12px 24px' : '16px 32px',
       fontSize: isMobile ? '14px' : '16px',
@@ -118,7 +137,8 @@ export default function Home() {
       cursor: 'pointer',
       transition: 'all 0.3s ease',
       width: isMobile ? '100%' : 'auto',
-      minHeight: '44px'
+      minHeight: '44px',
+      boxSizing: 'border-box' as const
     },
     primaryButton: {
       background: 'linear-gradient(135deg, #fbbf24 0%, #d4af37 100%)',
@@ -129,13 +149,29 @@ export default function Home() {
       color: '#ffffff',
       border: '1px solid rgba(255, 255, 255, 0.2)'
     },
+    section: {
+      padding: isMobile ? '32px 16px' : '64px 48px',
+      maxWidth: '1200px',
+      margin: '0 auto',
+      width: '100%',
+      boxSizing: 'border-box' as const
+    },
+    sectionTitle: {
+      fontSize: isMobile ? '28px' : '48px',
+      fontWeight: 700,
+      marginBottom: isMobile ? '24px' : '48px',
+      textAlign: 'center' as const,
+      color: '#fbbf24'
+    },
     pillarGrid: {
       display: 'grid' as const,
       gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
       gap: isMobile ? '16px' : '32px',
-      padding: isMobile ? '16px' : '48px',
+      padding: isMobile ? '0' : '0',
       maxWidth: '1200px',
-      margin: '0 auto'
+      margin: '0 auto',
+      width: '100%',
+      boxSizing: 'border-box' as const
     },
     pillarCard: {
       background: 'rgba(255, 255, 255, 0.05)',
@@ -147,7 +183,8 @@ export default function Home() {
       minHeight: '200px',
       display: 'flex' as const,
       flexDirection: 'column' as const,
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      boxSizing: 'border-box' as const
     },
     pillarTitle: {
       fontSize: isMobile ? '18px' : '24px',
@@ -160,17 +197,6 @@ export default function Home() {
       color: '#a0aec0',
       lineHeight: 1.6,
       marginBottom: '16px'
-    },
-    section: {
-      padding: isMobile ? '32px 16px' : '64px 48px',
-      maxWidth: '1200px',
-      margin: '0 auto'
-    },
-    sectionTitle: {
-      fontSize: isMobile ? '28px' : '48px',
-      fontWeight: 700,
-      marginBottom: isMobile ? '16px' : '32px',
-      textAlign: 'center' as const
     }
   };
 
@@ -193,19 +219,21 @@ export default function Home() {
           {user ? (
             <span style={{ fontSize: '14px', color: '#a0aec0' }}>Welcome, {user.name}</span>
           ) : (
-            <Button style={{
-              background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-              color: '#ffffff',
-              padding: '10px 20px',
-              borderRadius: '8px',
-              fontSize: '14px',
-              fontWeight: 600,
-              border: 'none',
-              cursor: 'pointer',
-              minHeight: '40px'
-            }}>
-              Start for Free
-            </Button>
+            <Link href="/onboarding">
+              <button style={{
+                background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                color: '#ffffff',
+                padding: '10px 20px',
+                borderRadius: '8px',
+                fontSize: '14px',
+                fontWeight: 600,
+                border: 'none',
+                cursor: 'pointer',
+                minHeight: '40px'
+              }}>
+                Start for Free
+              </button>
+            </Link>
           )}
         </div>
 
@@ -251,107 +279,158 @@ export default function Home() {
               </button>
             </Link>
           </div>
-        </div>
-      </section>
 
-      {/* Four Pillars Preview */}
-      <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>The Four Pillars of Transformation</h2>
-        <div style={{...styles.pillarGrid, display: 'grid' as const}}>
-          {[
-            {
-              icon: Brain,
-              title: 'The Oracle',
-              description: 'Strategic wisdom guidance drawing from Stoicism, Jung, NLP, and neuroscience. Your personal AI coach for life\'s biggest questions.'
-            },
-            {
-              icon: Flame,
-              title: 'The Crucible',
-              description: 'Transformative guided sessions and meditations. Forge your inner strength through proven practices and ancient wisdom.'
-            },
-            {
-              icon: Eye,
-              title: 'The Mirror',
-              description: 'Deep listening and pattern recognition. See yourself clearly through empathetic AI coaching and self-reflection.'
-            },
-            {
-              icon: TrendingUp,
-              title: 'The Ascent',
-              description: 'Goal tracking and actionable steps. Climb toward your highest potential with personalized guidance and daily practices.'
-            }
-          ].map((pillar, idx) => {
-            const Icon = pillar.icon;
-            return (
-              <div
-                key={idx}
-                style={styles.pillarCard}
-                onMouseEnter={(e) => {
-                  if (!isMobile) {
-                    e.currentTarget.style.background = 'rgba(251, 191, 36, 0.1)';
-                    e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.3)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isMobile) {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                  }
-                }}
-              >
-                <div>
-                  <Icon size={isMobile ? 32 : 40} color="#fbbf24" style={{ marginBottom: '12px' }} />
-                  <h3 style={styles.pillarTitle}>{pillar.title}</h3>
-                  <p style={styles.pillarDescription}>{pillar.description}</p>
-                </div>
-                <ArrowRight size={isMobile ? 20 : 24} color="#fbbf24" />
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section style={{ ...styles.section, background: 'rgba(251, 191, 36, 0.05)' }}>
-        <h2 style={styles.sectionTitle}>Why MyAthena.life?</h2>
           <div style={{
-            display: 'grid' as const,
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-            gap: isMobile ? '16px' : '32px'
+            display: 'flex' as const,
+            flexDirection: 'column' as const,
+            gap: isMobile ? '8px' : '12px',
+            alignItems: 'center',
+            fontSize: isMobile ? '12px' : '14px',
+            color: '#a0aec0'
           }}>
-          {[
-            { icon: Star, title: 'AI-Powered Coaching', description: 'Advanced AI trained in multiple wisdom traditions' },
-            { icon: Sparkles, title: 'Personalized Path', description: 'Customized guidance based on your unique journey' },
-            { icon: Scale, title: 'Balanced Approach', description: 'Ancient wisdom meets modern neuroscience' }
-          ].map((feature, idx) => {
-            const Icon = feature.icon;
-            return (
-              <div key={idx} style={{ textAlign: 'center' }}>
-                <Icon size={isMobile ? 32 : 48} color="#fbbf24" style={{ marginBottom: '12px', margin: '0 auto 12px' }} />
-                <h3 style={{ fontSize: isMobile ? '16px' : '20px', fontWeight: 600, marginBottom: '8px' }}>
-                  {feature.title}
-                </h3>
-                <p style={{ fontSize: isMobile ? '13px' : '16px', color: '#a0aec0' }}>
-                  {feature.description}
-                </p>
-              </div>
-            );
-          })}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>✓</span> Free to start
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>✓</span> No credit card
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>✓</span> Cancel anytime
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Four Pillars Section */}
+      <section style={{...styles.section, background: 'rgba(10, 14, 39, 0.5)'}}>
+        <h2 style={styles.sectionTitle}>The Four Pillars of Transformation</h2>
+        <div style={styles.pillarGrid}>
+          <div style={{...styles.pillarCard, borderColor: '#fbbf24'}}>
+            <h3 style={styles.pillarTitle}>The Oracle</h3>
+            <p style={styles.pillarDescription}>
+              Strategic wisdom guidance drawing from Stoicism, Jung, NLP, and neuroscience. Your personal AI coach for life's biggest questions.
+            </p>
+            <Link href="/oracle">
+              <button style={{...styles.button, ...styles.primaryButton, marginTop: '12px'}}>
+                Enter the Oracle →
+              </button>
+            </Link>
+          </div>
+
+          <div style={{...styles.pillarCard, borderColor: '#f59e0b'}}>
+            <h3 style={styles.pillarTitle}>The Crucible</h3>
+            <p style={styles.pillarDescription}>
+              Transformative guided sessions and meditations. Forge your inner strength through proven practices and ancient wisdom.
+            </p>
+            <Link href="/crucible">
+              <button style={{...styles.button, ...styles.primaryButton, marginTop: '12px'}}>
+                Begin the Crucible →
+              </button>
+            </Link>
+          </div>
+
+          <div style={{...styles.pillarCard, borderColor: '#ec4899'}}>
+            <h3 style={styles.pillarTitle}>The Mirror</h3>
+            <p style={styles.pillarDescription}>
+              Deep listening and pattern recognition. See yourself clearly through empathetic AI coaching and self-reflection.
+            </p>
+            <Link href="/mirror">
+              <button style={{...styles.button, ...styles.primaryButton, marginTop: '12px'}}>
+                Look into the Mirror →
+              </button>
+            </Link>
+          </div>
+
+          <div style={{...styles.pillarCard, borderColor: '#10b981'}}>
+            <h3 style={styles.pillarTitle}>The Ascent</h3>
+            <p style={styles.pillarDescription}>
+              Goal tracking and actionable steps. Climb toward your highest potential with personalized guidance and daily practices.
+            </p>
+            <Link href="/ascent">
+              <button style={{...styles.button, ...styles.primaryButton, marginTop: '12px'}}>
+                Start Your Ascent →
+              </button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Why MyAthena Section */}
+      <section style={styles.section}>
+        <h2 style={styles.sectionTitle}>Why MyAthena.life?</h2>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+          gap: isMobile ? '16px' : '32px',
+          maxWidth: '1000px',
+          margin: '0 auto'
+        }}>
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: '12px',
+            padding: isMobile ? '16px' : '24px',
+            textAlign: 'center' as const
+          }}>
+            <div style={{ fontSize: '32px', marginBottom: '12px' }}>🤖</div>
+            <h3 style={{ fontSize: isMobile ? '16px' : '18px', fontWeight: 700, marginBottom: '8px' }}>
+              AI-Powered Coaching
+            </h3>
+            <p style={{ fontSize: isMobile ? '13px' : '14px', color: '#a0aec0', lineHeight: 1.6 }}>
+              Advanced AI trained in multiple wisdom traditions
+            </p>
+          </div>
+
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: '12px',
+            padding: isMobile ? '16px' : '24px',
+            textAlign: 'center' as const
+          }}>
+            <div style={{ fontSize: '32px', marginBottom: '12px' }}>🎯</div>
+            <h3 style={{ fontSize: isMobile ? '16px' : '18px', fontWeight: 700, marginBottom: '8px' }}>
+              Personalized Path
+            </h3>
+            <p style={{ fontSize: isMobile ? '13px' : '14px', color: '#a0aec0', lineHeight: 1.6 }}>
+              Customized guidance based on your unique journey
+            </p>
+          </div>
+
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: '12px',
+            padding: isMobile ? '16px' : '24px',
+            textAlign: 'center' as const
+          }}>
+            <div style={{ fontSize: '32px', marginBottom: '12px' }}>⚖️</div>
+            <h3 style={{ fontSize: isMobile ? '16px' : '18px', fontWeight: 700, marginBottom: '8px' }}>
+              Balanced Approach
+            </h3>
+            <p style={{ fontSize: isMobile ? '13px' : '14px', color: '#a0aec0', lineHeight: 1.6 }}>
+              Ancient wisdom meets modern neuroscience
+            </p>
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section style={{
         ...styles.section,
-        textAlign: 'center',
-        paddingBottom: isMobile ? '48px' : '96px'
+        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%)',
+        textAlign: 'center' as const,
+        padding: isMobile ? '48px 16px' : '96px 48px'
       }}>
-        <h2 style={styles.sectionTitle}>Ready to Transform Your Life?</h2>
+        <h2 style={{...styles.sectionTitle, marginBottom: isMobile ? '16px' : '32px'}}>
+          Ready to Transform Your Life?
+        </h2>
         <p style={{
           fontSize: isMobile ? '16px' : '20px',
           color: '#a0aec0',
-          marginBottom: isMobile ? '24px' : '32px',
+          marginBottom: isMobile ? '24px' : '48px',
           maxWidth: '600px',
-          margin: '0 auto'
+          margin: isMobile ? '0 auto 24px' : '0 auto 48px'
         }}>
           Join thousands discovering their inner wisdom and unlocking their potential.
         </p>
@@ -359,8 +438,8 @@ export default function Home() {
           <button style={{
             ...styles.button,
             ...styles.primaryButton,
-            width: isMobile ? '100%' : 'auto',
-            maxWidth: '300px'
+            padding: isMobile ? '14px 32px' : '18px 48px',
+            fontSize: isMobile ? '16px' : '18px'
           }}>
             Begin Your Journey Today
           </button>
