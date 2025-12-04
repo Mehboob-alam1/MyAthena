@@ -2,6 +2,7 @@ import { APP_LOGO } from "@/const";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
+import { LazyImage } from "@/components/LazyImage";
 import type React from "react";
 
 export default function Home() {
@@ -19,6 +20,21 @@ export default function Home() {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (mobileMenuOpen && !target.closest('nav')) {
+        setMobileMenuOpen(false);
+      }
+    };
+    
+    if (mobileMenuOpen) {
+      document.addEventListener('click', handleClickOutside);
+      return () => document.removeEventListener('click', handleClickOutside);
+    }
+  }, [mobileMenuOpen]);
 
   // Responsive styles
   const styles = {
@@ -197,15 +213,77 @@ export default function Home() {
       color: '#a0aec0',
       lineHeight: 1.6,
       marginBottom: '16px'
+    },
+    mobileMenuOverlay: {
+      position: 'fixed' as const,
+      top: isMobile ? '64px' : '80px',
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: 'rgba(10, 14, 39, 0.98)',
+      backdropFilter: 'blur(10px)',
+      zIndex: 40,
+      display: mobileMenuOpen ? 'flex' : 'none',
+      flexDirection: 'column' as const,
+      padding: '16px',
+      gap: '12px',
+      animation: mobileMenuOpen ? 'slideIn 0.3s ease' : 'slideOut 0.3s ease'
+    },
+    mobileMenuLink: {
+      padding: '12px 16px',
+      fontSize: '16px',
+      fontWeight: 500,
+      color: '#ffffff',
+      textDecoration: 'none',
+      borderRadius: '8px',
+      transition: 'all 0.3s ease',
+      cursor: 'pointer',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+      display: 'block',
+      width: '100%',
+      boxSizing: 'border-box' as const
     }
   };
 
+  // Add animation styles
+  const animationStyles = `
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes slideOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+    }
+  `;
+
   return (
     <div style={styles.container}>
+      <style>{animationStyles}</style>
       {/* Navigation */}
       <nav style={styles.nav}>
         <div style={styles.navBrand}>
-          {APP_LOGO && <img src={APP_LOGO} alt="MyAthena" style={styles.navLogo} />}
+          {APP_LOGO && (
+            <LazyImage
+              src={APP_LOGO}
+              alt="MyAthena"
+              style={styles.navLogo}
+              height={32}
+              offset={0}
+            />
+          )}
           <span style={styles.navTitle}>MyAthena.life</span>
         </div>
         
@@ -244,16 +322,68 @@ export default function Home() {
             style={{
               background: 'none',
               border: 'none',
-              color: '#ffffff',
-              fontSize: '24px',
+              color: '#fbbf24',
+              fontSize: '28px',
               cursor: 'pointer',
-              padding: '8px'
+              padding: '8px',
+              transition: 'transform 0.3s ease',
+              transform: mobileMenuOpen ? 'rotate(90deg)' : 'rotate(0deg)'
             }}
+            aria-label="Toggle menu"
           >
             ☰
           </button>
         )}
       </nav>
+
+      {/* Mobile Menu */}
+      {isMobile && mobileMenuOpen && (
+        <div style={styles.mobileMenuOverlay}>
+          <Link href="/pillars">
+            <div style={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
+              Four Pillars
+            </div>
+          </Link>
+          <Link href="/oracle">
+            <div style={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
+              Oracle
+            </div>
+          </Link>
+          {user ? (
+            <>
+              <div style={{
+                padding: '12px 16px',
+                fontSize: '14px',
+                color: '#a0aec0',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+              }}>
+                Welcome, {user.name}
+              </div>
+              <Link href="/profile">
+                <div style={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
+                  Profile
+                </div>
+              </Link>
+            </>
+          ) : (
+            <Link href="/onboarding">
+              <button style={{
+                ...styles.mobileMenuLink,
+                background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                color: '#ffffff',
+                border: 'none',
+                padding: '12px 16px',
+                borderRadius: '8px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                marginTop: '8px'
+              } as React.CSSProperties} onClick={() => setMobileMenuOpen(false)}>
+                Start for Free
+              </button>
+            </Link>
+          )}
+        </div>
+      )}
 
       {/* Hero Section */}
       <section style={styles.hero}>
